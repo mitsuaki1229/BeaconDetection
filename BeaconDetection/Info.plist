@@ -36,5 +36,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>ビーコン測定用に常に許可</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>ビーコン測定用にアプリ起動中のみ許可</string>
 </dict>
 </plist>

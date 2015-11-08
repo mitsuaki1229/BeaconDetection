@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
+		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
+		2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */; };
 		6E7CADC21BEC95D70046E77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CADC11BEC95D70046E77B /* AppDelegate.swift */; };
 		6E7CADC71BEC95D70046E77B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7CADC51BEC95D70046E77B /* Main.storyboard */; };
 		6E7CADC91BEC95D70046E77B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E7CADC81BEC95D70046E77B /* Assets.xcassets */; };
 		6E7CADCC1BEC95D70046E77B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7CADCA1BEC95D70046E77B /* LaunchScreen.storyboard */; };
 		6E7CADD71BEC95D70046E77B /* BeaconDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CADD61BEC95D70046E77B /* BeaconDetectionTests.swift */; };
 		6E7CADE21BEC95D80046E77B /* BeaconDetectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CADE11BEC95D80046E77B /* BeaconDetectionUITests.swift */; };
-		6E7CADF01BEC99EB0046E77B /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CADEF1BEC99EB0046E77B /* DetectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2CB89EE51BEE4F7C002A4EC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2CB89EE81BEE567C002A4EC7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
 		6E7CADBE1BEC95D70046E77B /* BeaconDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7CADC11BEC95D70046E77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7CADC61BEC95D70046E77B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -46,7 +51,6 @@
 		6E7CADDD1BEC95D80046E77B /* BeaconDetectionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeaconDetectionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7CADE11BEC95D80046E77B /* BeaconDetectionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDetectionUITests.swift; sourceTree = "<group>"; };
 		6E7CADE31BEC95D80046E77B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E7CADEF1BEC99EB0046E77B /* DetectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +78,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CB89EE71BEE5116002A4EC7 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				2CB89EE81BEE567C002A4EC7 /* Const.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 		6E7CADB51BEC95D70046E77B = {
 			isa = PBXGroup;
 			children = (
+				2CB89EE51BEE4F7C002A4EC7 /* README.md */,
 				6E7CADC01BEC95D70046E77B /* BeaconDetection */,
 				6E7CADD51BEC95D70046E77B /* BeaconDetectionTests */,
 				6E7CADE01BEC95D80046E77B /* BeaconDetectionUITests */,
@@ -97,12 +110,13 @@
 		6E7CADC01BEC95D70046E77B /* BeaconDetection */ = {
 			isa = PBXGroup;
 			children = (
+				2CB89EE71BEE5116002A4EC7 /* common */,
 				6E7CADC11BEC95D70046E77B /* AppDelegate.swift */,
 				6E7CADC51BEC95D70046E77B /* Main.storyboard */,
 				6E7CADC81BEC95D70046E77B /* Assets.xcassets */,
 				6E7CADCA1BEC95D70046E77B /* LaunchScreen.storyboard */,
 				6E7CADCD1BEC95D70046E77B /* Info.plist */,
-				6E7CADEF1BEC99EB0046E77B /* DetectionViewController.swift */,
+				2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */,
 			);
 			path = BeaconDetection;
 			sourceTree = "<group>";
@@ -257,7 +271,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E7CADF01BEC99EB0046E77B /* DetectionViewController.swift in Sources */,
+				2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */,
+				2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */,
+				2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */,
 				6E7CADC21BEC95D70046E77B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
