@@ -22,6 +22,9 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var sendBtn: UIButton!
 
+    @IBOutlet weak var retryBtn: UIButton!
+    @IBOutlet weak var StopBtn: UIButton!
+
     var proximityUUID:NSUUID?
     var beaconRegion:CLBeaconRegion?
     var manager:CLLocationManager!
@@ -30,6 +33,9 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // レイアウト設定
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "monitoring_background")!)
 
         // 初期化
         setBeaconResult(nil)
@@ -70,7 +76,12 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        // 縦画面固定
+        return UIInterfaceOrientationMask.Portrait
+    }
+
     // MARK: - iBeacon
     
     // 領域モニタリング開始
@@ -175,7 +186,25 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
         print("サーバ送信")
         // TODO: 一旦検知を止める
         
-        
+        // 現在地の情報取得
+        // TODO: 同時にサーバに送信する？
+        let locMgr = INTULocationManager.sharedInstance()
+        locMgr.requestLocationWithDesiredAccuracy(INTULocationAccuracy.City,
+            timeout: 10.0,
+            block: { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
+                
+                switch (status) {
+                case .Success:
+                    print("success")
+                case .TimedOut:
+                    print("timeout")
+                default:
+                    print("default")
+                }
+                print("accuracy=" + String(achievedAccuracy.rawValue))
+                print("location=" + currentLocation.description)
+        })
+
         // 送信準備
         // データを設定する
         let postStr = "proximityUUID=" + self.proximityUUIDLabel.text! +
@@ -201,7 +230,21 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
         // TODO: 送信結果表示
         // TODO: 検知を再実行するか、再実行ボタンを実装する
     }
-    
+
+    // 再検知ボタン
+    @IBAction func retryBtnTouchUpInside(sender: UIButton) {
+        print("再検知")
+        // TODO: 今実行しているかの確認が必要?
+        self.manager.startMonitoringForRegion(self.beaconRegion!)
+    }
+
+    // 検知停止ボタン
+    @IBAction func stopBtnTouchUpInside(sender: UIButton) {
+        print("停止")
+        // TODO: 今実行していないかの確認が必要?
+        self.manager.stopMonitoringForRegion(self.beaconRegion!)
+    }
+
     // MARK: - Tools
     
     // 通知内容を設定する(nil == 初期化)
