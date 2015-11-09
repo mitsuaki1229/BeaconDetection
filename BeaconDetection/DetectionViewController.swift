@@ -31,6 +31,9 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // 初期化
+        setBeaconResult(nil)
+
         // ビーコン用UUID設定
         self.proximityUUID = NSUUID(UUIDString: Const.PROXIMITY_UUID)!
         self.beaconRegion = CLBeaconRegion(proximityUUID: self.proximityUUID!, identifier: "一意キー")
@@ -58,10 +61,10 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
             print("機能制限")
             self.statusLabel.text = "機能制限"
         }
-        
-//        self.manager.requestAlwaysAuthorization()
-        
-        
+
+        // 検知開始
+        // TODO: 2度目以降は手動で実施出来るようにしたい
+        self.manager.startMonitoringForRegion(self.beaconRegion!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,10 +104,10 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
         self.statusLabel.text = "測定失敗"
 
         if ((region?.isKindOfClass(CLBeaconRegion)) != nil) {
-            // TODO: リトライ処理が必要？
-            // TODO: 無限に起動しないように
-            // TODO: 少し待つ
-            // TODO: 延々と実行してもダメだったら諦めて画面に表示させる
+            print("リトライしたい")
+            // TODO: リトライ処理が必要
+            // TODO: 再実行までに数秒の待ちを実施させる
+            // TODO: 試行回数を画面に表示させる
         }
     }
     
@@ -130,6 +133,7 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         
         if beacons.count == 0 {
+            print("見つかりません:0")
             return
         }
         
@@ -162,7 +166,6 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
         print(beacon.rssi)     // 受信強度
         
         setBeaconResult(beacon)
-        
     }
     
     // MARK: - Action
@@ -170,7 +173,7 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     // 送信ボタン
     @IBAction func sendBtnTouchUpInside(sender: UIButton) {
         print("サーバ送信")
-        // TODO: 一旦検知を止める？
+        // TODO: 一旦検知を止める
         
         
         // 送信準備
@@ -180,11 +183,12 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
             "&minor=" + self.minorLabel.text! +
             "&accuracy=" + self.accuracyLabel.text! +
             "&rssi=" + self.rssiLabel.text!
-        
-        let url = NSURL(string: Const.DESTINATION_URL)
+
+        let postUrl = Const.DESTINATION_BASE_URL + Const.DESTINATION_API_URL
+        let url = NSURL(string: postUrl)
         let request = NSMutableURLRequest(URL: url!)
         request.HTTPMethod = "POST"
-        
+
         let postData = postStr.dataUsingEncoding(NSUTF8StringEncoding)
         request.HTTPBody = postData
         
@@ -194,11 +198,8 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
         // 送信
         sessionTask.resume()
         
-        
-        
-        // TODO: 通信失敗時、アラートか画面表示
-        
-        
+        // TODO: 送信結果表示
+        // TODO: 検知を再実行するか、再実行ボタンを実装する
     }
     
     // MARK: - Tools
