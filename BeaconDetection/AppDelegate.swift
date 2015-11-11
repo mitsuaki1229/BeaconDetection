@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // 通信ログ設定
+        AFNetworkActivityLogger.sharedLogger().level = .AFLoggerLevelDebug
+        AFNetworkActivityLogger.sharedLogger().startLogging()
+
         return true
     }
 

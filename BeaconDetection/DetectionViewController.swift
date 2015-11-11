@@ -28,7 +28,7 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     var proximityUUID:NSUUID?
     var beaconRegion:CLBeaconRegion?
     var manager:CLLocationManager!
-    
+
     // MARK: -
     
     override func viewDidLoad() {
@@ -39,13 +39,6 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
 
         // 初期化
         setBeaconResult(nil)
-
-        // ビーコン用UUID設定
-        self.proximityUUID = NSUUID(UUIDString: Const.PROXIMITY_UUID)!
-        self.beaconRegion = CLBeaconRegion(proximityUUID: self.proximityUUID!, identifier: "一意キー")
-
-        self.manager = CLLocationManager()
-        self.manager.delegate = self
 
         // 位置情報サービス認証状態
         switch CLLocationManager.authorizationStatus() {
@@ -68,8 +61,14 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
             self.statusLabel.text = "機能制限"
         }
 
+        // ビーコン用UUID設定
+        self.proximityUUID = NSUUID(UUIDString: Const.PROXIMITY_UUID)!
+        self.beaconRegion = CLBeaconRegion(proximityUUID: self.proximityUUID!, identifier: "一意キー")
+        
+        self.manager = CLLocationManager()
+        self.manager.delegate = self
+
         // 検知開始
-        // TODO: 2度目以降は手動で実施出来るようにしたい
         self.manager.startMonitoringForRegion(self.beaconRegion!)
     }
 
@@ -91,9 +90,15 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
         manager.requestStateForRegion(region)
     }
     
+    // 領域モニタリング停止
+    func locationManager(manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
+        print("モニタリング停止")
+        self.statusLabel.text = "測定停止中"
+    }
+    
     // モニタリング結果判定
     func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
-        
+
         // リージョン判定
         switch (state) {
         case .Inside:
@@ -112,16 +117,14 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     // リージョン監視失敗
     func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
         print("距離測定監視失敗")
-        self.statusLabel.text = "測定失敗"
+
 
         if ((region?.isKindOfClass(CLBeaconRegion)) != nil) {
-            print("リトライしたい")
-            // TODO: リトライ処理が必要
-            // TODO: 再実行までに数秒の待ちを実施させる
-            // TODO: 試行回数を画面に表示させる
+            print("iBeacon測定判定失敗")
+            self.statusLabel.text = "測定失敗"
         }
     }
-    
+
     // 通信失敗
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("エラーコード:" + String(error.code))
@@ -184,51 +187,72 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     // 送信ボタン
     @IBAction func sendBtnTouchUpInside(sender: UIButton) {
         print("サーバ送信")
-        // TODO: 一旦検知を止める
+
+        // ローディング
+        SVProgressHUD.showWithStatus("通信中", maskType: SVProgressHUDMaskType.Clear)
+
+        // 送信前に検知を停止
+        self.manager.stopMonitoringForRegion(self.beaconRegion!)
+
+        // 現在地の情報取得が取得できる場合、一緒に送信する
+        var currentAccuracyStr:String
+        currentAccuracyStr = ""
+        var currentLocationStr:String
+        currentLocationStr = ""
         
-        // 現在地の情報取得
-        // TODO: 同時にサーバに送信する？
-        let locMgr = INTULocationManager.sharedInstance()
-        locMgr.requestLocationWithDesiredAccuracy(INTULocationAccuracy.City,
-            timeout: 10.0,
-            block: { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
-                
-                switch (status) {
-                case .Success:
-                    print("success")
-                case .TimedOut:
-                    print("timeout")
-                default:
-                    print("default")
-                }
-                print("accuracy=" + String(achievedAccuracy.rawValue))
-                print("location=" + currentLocation.description)
-        })
+        if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
+            let locMgr = INTULocationManager.sharedInstance()
+            locMgr.requestLocationWithDesiredAccuracy(INTULocationAccuracy.City,
+                timeout: 10.0,
+                block: { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
+                    
+                    switch (status) {
+                    case .Success:
+                        print("success")
+                    case .TimedOut:
+                        print("timeout")
+                    default:
+                        print("default")
+                    }
 
-        // 送信準備
-        // データを設定する
-        let postStr = "proximityUUID=" + self.proximityUUIDLabel.text! +
-            "&major=" + self.majorLabel.text! +
-            "&minor=" + self.minorLabel.text! +
-            "&accuracy=" + self.accuracyLabel.text! +
-            "&rssi=" + self.rssiLabel.text!
+                    currentAccuracyStr = String(achievedAccuracy.rawValue)
+                    currentLocationStr = String(currentLocation.description)
+                    print("currentAccuracy=" + currentAccuracyStr)
+                    print("currentLocation=" + currentLocationStr)
+            })
+        } else {
+            print("現在地使用不可")
+        }
+        // ???: そもそも現在地不可ならば、iBeaconも検出出来ないから送信ボタン自体をdisableにしたほうがいいかな？
 
+        // 検出データ送信
         let postUrl = Const.DESTINATION_BASE_URL + Const.DESTINATION_API_URL
-        let url = NSURL(string: postUrl)
-        let request = NSMutableURLRequest(URL: url!)
-        request.HTTPMethod = "POST"
 
-        let postData = postStr.dataUsingEncoding(NSUTF8StringEncoding)
-        request.HTTPBody = postData
-        
-        let shareSession = NSURLSession.sharedSession()
-        let sessionTask = shareSession.dataTaskWithRequest(request)
-        
-        // 送信
-        sessionTask.resume()
-        
-        // TODO: 送信結果表示
-        // TODO: 検知を再実行するか、再実行ボタンを実装する
+        let manager = AFHTTPRequestOperationManager()
+
+        var param:Dictionary<String, String> = ["":""]
+        param["proximityUUID"] = self.proximityUUIDLabel.text!
+        param["major"] = self.majorLabel.text!
+        param["minor"] = self.minorLabel.text!
+        param["accuracy"] = self.accuracyLabel.text!
+        param["rssi"] = self.rssiLabel.text!
+
+        param["currentAccuracy"] = currentAccuracyStr
+        param["currentLocation"] = currentLocationStr
+
+        manager.POST(postUrl, parameters:param,
+            success:{(operation: AFHTTPRequestOperation!, responseObject:AnyObject) in
+                print("")
+                // TODO: 通信成功時処理
+                // ローディング
+                SVProgressHUD.dismiss()
+            },
+            failure:{(operation: AFHTTPRequestOperation?, error:NSError) in
+                print(error)
+                // TODO: 通信失敗時処理
+                // ローディング
+                SVProgressHUD.dismiss()
+        })
     }
 
     // 再検知ボタン
