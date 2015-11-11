@@ -11,7 +11,9 @@ import CoreLocation
 import Foundation
 
 class DetectionViewController: UIViewController, CLLocationManagerDelegate {
-    
+
+    @IBOutlet weak var helpBtn: UIButton!
+
     @IBOutlet weak var statusLabel: UILabel!
 
     @IBOutlet weak var proximityUUIDLabel: UILabel!
@@ -40,6 +42,13 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
         // 初期化
         setBeaconResult(nil)
 
+        // ビーコン用UUID設定
+        self.proximityUUID = NSUUID(UUIDString: Const.PROXIMITY_UUID)!
+        self.beaconRegion = CLBeaconRegion(proximityUUID: self.proximityUUID!, identifier: "一意キー")
+
+        self.manager = CLLocationManager()
+        self.manager.delegate = self
+        
         // 位置情報サービス認証状態
         switch CLLocationManager.authorizationStatus() {
         case .AuthorizedAlways:
@@ -60,13 +69,6 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
             print("機能制限")
             self.statusLabel.text = "機能制限"
         }
-
-        // ビーコン用UUID設定
-        self.proximityUUID = NSUUID(UUIDString: Const.PROXIMITY_UUID)!
-        self.beaconRegion = CLBeaconRegion(proximityUUID: self.proximityUUID!, identifier: "一意キー")
-        
-        self.manager = CLLocationManager()
-        self.manager.delegate = self
 
         // 検知開始
         self.manager.startMonitoringForRegion(self.beaconRegion!)
@@ -253,6 +255,14 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
                 // ローディング
                 SVProgressHUD.dismiss()
         })
+    }
+
+    // Helpボタン
+    @IBAction func helpBtnTouchUpInside(sender: UIButton) {
+        print("help")
+        let helpViewController = HelpViewController()
+        helpViewController.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        self.presentViewController(helpViewController, animated: true, completion: nil)
     }
 
     // 再検知ボタン

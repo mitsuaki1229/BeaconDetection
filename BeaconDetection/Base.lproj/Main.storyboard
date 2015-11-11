@@ -77,6 +77,13 @@
                                             <action selector="retryBtnTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fa4-fE-l96"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJx-eL-2s2" userLabel="help Btn">
+                                        <rect key="frame" x="235" y="0.0" width="30" height="30"/>
+                                        <state key="normal" title="?"/>
+                                        <connections>
+                                            <action selector="helpBtnTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GVw-Xt-Mtt"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -87,6 +94,7 @@
                     <connections>
                         <outlet property="StopBtn" destination="R2q-hY-nGl" id="10v-yn-GWP"/>
                         <outlet property="accuracyLabel" destination="PFP-kd-QYL" id="Ggb-O4-aRJ"/>
+                        <outlet property="helpBtn" destination="GJx-eL-2s2" id="Qr8-4A-HdL"/>
                         <outlet property="majorLabel" destination="WWd-xy-OfJ" id="b54-LJ-FtV"/>
                         <outlet property="minorLabel" destination="PEZ-cw-VSO" id="UhP-90-bVn"/>
                         <outlet property="proximityUUIDLabel" destination="i1F-uj-fJV" id="6RV-cl-Tbn"/>

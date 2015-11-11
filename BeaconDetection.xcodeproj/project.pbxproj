@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0C24C01BF3787500213E1E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C24BF1BF3787500213E1E /* HelpViewController.swift */; };
 		2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
 		2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C0C24BF1BF3787500213E1E /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		2CB89EE51BEE4F7C002A4EC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2CB89EE81BEE567C002A4EC7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				6E7CADCD1BEC95D70046E77B /* Info.plist */,
 				2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */,
 				6E4CE9391BF06E0400F55DC0 /* BeaconDetection-Bridging-Header.h */,
+				2C0C24BF1BF3787500213E1E /* HelpViewController.swift */,
 			);
 			path = BeaconDetection;
 			sourceTree = "<group>";
@@ -236,7 +239,7 @@
 				TargetAttributes = {
 					6E7CADBD1BEC95D70046E77B = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 7TSA76TV5J;
+						DevelopmentTeam = DQZ66G9DV5;
 					};
 					6E7CADD11BEC95D70046E77B = {
 						CreatedOnToolsVersion = 7.1;
@@ -352,6 +355,7 @@
 				2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */,
 				2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */,
 				6E7CADC21BEC95D70046E77B /* AppDelegate.swift in Sources */,
+				2C0C24C01BF3787500213E1E /* HelpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BeaconDetection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetection";
@@ -508,6 +513,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BeaconDetection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetection";
