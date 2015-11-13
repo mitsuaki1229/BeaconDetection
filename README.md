@@ -1,5 +1,6 @@
 #### 注意点など
 
 * 下書き用
+* ビーコンを検知し、どこかしかのサーバに送信します。
 
-* ビーコンも4.0以降のBluetoothトングルも持っていないため、実機での動作確認未実施。
+This software is released under the MIT License, see LICENSE.txt.
