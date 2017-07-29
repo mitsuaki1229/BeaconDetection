@@ -6,25 +6,31 @@
 //  Copyright © 2015年 Mitsuaki Ihara. All rights reserved.
 //
 
-class HelpViewController: UIViewController {
+import UIKit
 
+class HelpViewController: UIViewController {
+    
+    override func loadView() {
+        self.view = HelpView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.alpha = 0.5
-        self.view.backgroundColor = UIColor.whiteColor()
-        self.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        
+        self.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+        }
     }
-
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

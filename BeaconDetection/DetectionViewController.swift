@@ -8,146 +8,156 @@
 
 import UIKit
 import CoreLocation
-import Foundation
+import SVProgressHUD
+import AFNetworking
 
-class DetectionViewController: UIViewController, CLLocationManagerDelegate {
-
-    @IBOutlet weak var helpBtn: UIButton!
-
-    @IBOutlet weak var statusLabel: UILabel!
-
-    @IBOutlet weak var proximityUUIDLabel: UILabel!
-    @IBOutlet weak var majorLabel: UILabel!
-    @IBOutlet weak var minorLabel: UILabel!
-    @IBOutlet weak var accuracyLabel: UILabel!
-    @IBOutlet weak var rssiLabel: UILabel!
+class DetectionViewController: UIViewController {
     
-    @IBOutlet weak var sendBtn: UIButton!
-
-    @IBOutlet weak var retryBtn: UIButton!
-    @IBOutlet weak var StopBtn: UIButton!
-
-    var proximityUUID:NSUUID?
+    var proximityUUID:UUID?
     var beaconRegion:CLBeaconRegion?
     var manager:CLLocationManager!
     var beacons:[CLBeacon]?
+    let viewModel = DetectionViewModel()
 
     // MARK: -
     
+    override func loadView() {
+        self.view = DetectionView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // レイアウト設定
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "monitoring_background")!)
-
+        
         // 初期化
         setBeaconResult(nil)
 
         // ビーコン用UUID設定
-        self.proximityUUID = NSUUID(UUIDString: Const.PROXIMITY_UUID)!
+        self.proximityUUID = UUID(uuidString: Const.PROXIMITY_UUID)!
         self.beaconRegion = CLBeaconRegion(proximityUUID: self.proximityUUID!, identifier: "一意キー")
 
         self.manager = CLLocationManager()
         self.manager.delegate = self
         
+        let view = self.view as! DetectionView
+        
+        // ボタン設定
+        view.sendBtn.addTarget(self, action: #selector(self.sendBtnTouchUpInside(_:)), for: .touchUpInside)
+        view.retryBtn.addTarget(self, action: #selector(self.retryBtnTouchUpInside(_:)), for: .touchUpInside)
+        view.helpBtn.addTarget(self, action: #selector(self.helpBtnTouchUpInside(_:)), for: .touchUpInside)
+        view.stopBtn.addTarget(self, action: #selector(self.stopBtnTouchUpInside(_:)), for: .touchUpInside)
+        
+        view.statusLabel.text = self.getAuthorizationStatusString()
+
+        // 検知開始
+        self.manager.startMonitoring(for: self.beaconRegion!)
+    }
+    
+    private func getAuthorizationStatusString() -> (String) {
+        
         // 位置情報サービス認証状態
         switch CLLocationManager.authorizationStatus() {
-        case .AuthorizedAlways:
+        case .authorizedAlways:
             print("使用許可")
-            self.statusLabel.text = "使用許可"
-        case .AuthorizedWhenInUse:
+            return "使用許可"
+        case .authorizedWhenInUse:
             print("iBeacon距離観測可能")
-            self.statusLabel.text = "測定可能"
-        case .Denied:
+            return "測定可能"
+        case .denied:
             print("使用拒否")
-            self.statusLabel.text = "使用拒否"
-        case .NotDetermined:
+            return "使用拒否"
+        case .notDetermined:
             print("許可未済")
             // 認証要求
             self.manager.requestAlwaysAuthorization()
-            self.statusLabel.text = "許可未済"
+            return "許可未済"
         default:
             print("機能制限")
-            self.statusLabel.text = "機能制限"
+            return  "機能制限"
         }
-
-        // 検知開始
-        self.manager.startMonitoringForRegion(self.beaconRegion!)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
         // 縦画面固定
-        return UIInterfaceOrientationMask.Portrait
+        return UIInterfaceOrientationMask.portrait
     }
 
     // MARK: - iBeacon
     
     // 領域モニタリング開始
-    func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         print("モニタリング開始")
-        self.statusLabel.text = "モニタリング開始"
-        manager.requestStateForRegion(region)
+        let view = self.view as! DetectionView
+        view.statusLabel.text = "モニタリング開始"
+        manager.requestState(for: region)
     }
     
     // 領域モニタリング停止
-    func locationManager(manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
         print("モニタリング停止")
-        self.statusLabel.text = "測定停止中"
+        let view = self.view as! DetectionView
+        view.statusLabel.text = "測定停止中"
     }
     
     // モニタリング結果判定
-    func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
 
         // リージョン判定
         switch (state) {
-        case .Inside:
+        case .inside:
             print("距離測定開始")
-            self.statusLabel.text = "距離測定開始"
-            manager.startRangingBeaconsInRegion(self.beaconRegion!)
-        case .Outside:
+            let view = self.view as! DetectionView
+            view.statusLabel.text = "距離測定開始"
+            manager.startRangingBeacons(in: self.beaconRegion!)
+        case .outside:
             print("距離測定対象外距離")
-            self.statusLabel.text = "距離測定対象外距離"
+            let view = self.view as! DetectionView
+            view.statusLabel.text = "距離測定対象外距離"
         default:
             print("不明")
-            self.statusLabel.text = "不明"
+            let view = self.view as! DetectionView
+            view.statusLabel.text = "不明"
         }
     }
     
     // リージョン監視失敗
-    func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         print("距離測定監視失敗")
 
 
-        if ((region?.isKindOfClass(CLBeaconRegion)) != nil) {
+        if ((region?.isKind(of: CLBeaconRegion.self)) != nil) {
             print("iBeacon測定判定失敗")
-            self.statusLabel.text = "測定失敗"
+            let view = self.view as! DetectionView
+            view.statusLabel.text = "測定失敗"
         }
     }
 
     // 通信失敗
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("エラーコード:" + String(error.code))
-        self.statusLabel.text = "通信失敗 エラーコード:" + String(error.code)
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("エラーコード:" + String(error._code))
+        let view = self.view as! DetectionView
+        view.statusLabel.text = "通信失敗 エラーコード:" + String(error._code)
     }
     
     // 領域内判定
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         print("距離内")
-        self.statusLabel.text = "測定距離内"
+        let view = self.view as! DetectionView
+        view.statusLabel.text = "測定距離内"
     }
     
     // 領域外判定
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("距離外")
-        self.statusLabel.text = "測定距離外"
+        let view = self.view as! DetectionView
+        view.statusLabel.text = "測定距離外"
     }
     
     // ビーコン確保
-    func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         
         if beacons.count == 0 {
             print("見つかりません:0")
@@ -164,26 +174,28 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
 
             let beacon = self.beacons![i] as CLBeacon
 
+            let view = self.view as! DetectionView
+            
             switch (beacon.proximity) {
-            case .Unknown:
+            case .unknown:
                 print("見つかりません")
-                self.statusLabel.text = "みつかりません"
+                view.statusLabel.text = "みつかりません"
                 // 結果初期化
                 setBeaconResult(nil)
-            case .Immediate:
+            case .immediate:
                 print("近くにあります: 50cm以内？")
-                self.statusLabel.text = "およそ50cm以内"
-            case .Near:
+                view.statusLabel.text = "およそ50cm以内"
+            case .near:
                 print("わりと近くにあります: 50cm~6m?")
-                self.statusLabel.text = "およそ50cm~6mの範囲内"
+                view.statusLabel.text = "およそ50cm~6mの範囲内"
             default:
                 print("かなり遠いです: 6m~20m?")
-                self.statusLabel.text = "およそ6m~20mの範囲内"
+                view.statusLabel.text = "およそ6m~20mの範囲内"
             }
             
             // 情報出力
             // 識別子
-            print(beacon.proximityUUID.UUIDString)
+            print(beacon.proximityUUID.uuidString)
             print(beacon.major)    // 16bit識別子
             print(beacon.minor)    // 16bit識別子
             // 電波情報
@@ -197,35 +209,35 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     // MARK: - Action
     
     // 送信ボタン
-    @IBAction func sendBtnTouchUpInside(sender: UIButton) {
+    func sendBtnTouchUpInside(_ sender: UIButton) {
         print("送信ボタン押下")
         // ???: 現在地不可の場合、そもそもBeacon自体取得できないんだし、送信ボタン自体をdisableにしたほうがいいかな？
         // ???: 今のところ送信前にチェックしている
         sendBeaconDetectionData()
     }
-
+    
     // Helpボタン
-    @IBAction func helpBtnTouchUpInside(sender: UIButton) {
+    func helpBtnTouchUpInside(_ sender: UIButton) {
         print("help")
         let helpViewController = HelpViewController()
-        helpViewController.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
-        self.presentViewController(helpViewController, animated: true, completion: nil)
+        helpViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        self.present(helpViewController, animated: true, completion: nil)
     }
-
+    
     // 再検知ボタン
-    @IBAction func retryBtnTouchUpInside(sender: UIButton) {
+    func retryBtnTouchUpInside(_ sender: UIButton) {
         print("再検知")
-        if(!isMonitoringCapable()){
+        if(!viewModel.isMonitoringCapable()){
             // 実施可能ではない
             return
         }
-        self.manager.startRangingBeaconsInRegion(self.beaconRegion!)
+        self.manager.startRangingBeacons(in: self.beaconRegion!)
     }
 
     // 検知停止ボタン
-    @IBAction func stopBtnTouchUpInside(sender: UIButton) {
+    func stopBtnTouchUpInside(_ sender: UIButton) {
         print("停止")
-        self.manager.stopRangingBeaconsInRegion(self.beaconRegion!)
+        self.manager.stopRangingBeacons(in: self.beaconRegion!)
     }
 
     // MARK: - Tools
@@ -234,105 +246,65 @@ class DetectionViewController: UIViewController, CLLocationManagerDelegate {
     func sendBeaconDetectionData() {
         print("サーバ送信")
         
-        // ローディング
-        SVProgressHUD.showWithStatus("通信中", maskType: SVProgressHUDMaskType.Clear)
-        
         // 送信前に検知を停止
-        self.manager.stopMonitoringForRegion(self.beaconRegion!)
+        self.manager.stopMonitoring(for: self.beaconRegion!)
         
-        // 現在地の情報取得が取得できる場合、一緒に送信する
-        var currentAccuracyStr:String
-        currentAccuracyStr = ""
-        var currentLongitudeStr:String
-        currentLongitudeStr = ""
-        var currentLatitudeStr:String
-        currentLatitudeStr = ""
-
-        if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
-            let locMgr = INTULocationManager.sharedInstance()
-            locMgr.requestLocationWithDesiredAccuracy(INTULocationAccuracy.City,
-                timeout: 10.0,
-                block: { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
-                    
-                    switch (status) {
-                    case .Success:
-                        print("success")
-                    case .TimedOut:
-                        print("timeout")
-                    default:
-                        print("default")
-                    }
-                    
-                    currentAccuracyStr = String(achievedAccuracy.rawValue)
-                    print("currentAccuracy=" + currentAccuracyStr)
-                    
-                    if currentLocation != nil {
-
-                        currentLongitudeStr = String(currentLocation.coordinate.longitude)
-                        currentLatitudeStr = String(currentLocation.coordinate.latitude)
-
-                        print("currentLongitude = " + currentLongitudeStr)
-                        print("currentLatitude  = " + currentLatitudeStr)
-                    }
-            })
-        } else {
-            print("現在地使用不可")
-        }
-
+        // ローディング
+        SVProgressHUD.show(withStatus: "通信中")
+        SVProgressHUD.setDefaultMaskType(.clear)
+        
         // 検出データ送信
         let postUrl = Const.DESTINATION_BASE_URL + Const.DESTINATION_API_URL
         
-        let manager = AFHTTPRequestOperationManager()
+        let manager = AFHTTPSessionManager()
+        
+        let view = self.view as! DetectionView
         
         var param:Dictionary<String, String> = ["":""]
-        param["proximityUUID"] = self.proximityUUIDLabel.text!
-        param["major"] = self.majorLabel.text!
-        param["minor"] = self.minorLabel.text!
-        param["accuracy"] = self.accuracyLabel.text!
-        param["rssi"] = self.rssiLabel.text!
-
-        param["currentAccuracy"] = currentAccuracyStr
-        param["currentLongitude"] = currentLongitudeStr // ケイド
-        param["currentLatitude"] = currentLatitudeStr   // イド
-
-        manager.POST(postUrl, parameters:param,
-            success:{(operation: AFHTTPRequestOperation!, responseObject:AnyObject) in
+        param["proximityUUID"] = view.proximityUUIDLabel.text!
+        param["major"] = view.majorLabel.text!
+        param["minor"] = view.minorLabel.text!
+        param["accuracy"] = view.accuracyLabel.text!
+        param["rssi"] = view.rssiLabel.text!
+        
+        viewModel.setLocation(param: &param)
+        
+        manager .post(
+            postUrl,
+            parameters: param,
+            progress: nil,
+            success: { (operation, responseObject) in
                 print("通信成功")
-                // ローディング
                 SVProgressHUD.dismiss()
-            },
-            failure:{(operation: AFHTTPRequestOperation?, error:NSError) in
-                print("通信失敗:" + String(error))
-                // TODO: 情報送信失敗時処理
-                // ローディング
+        },
+            failure: { (operation, error) in
+                print("通信失敗:" + String(describing: error))
                 SVProgressHUD.dismiss()
         })
     }
 
     // 通知内容を設定する(nil == 初期化)
-    func setBeaconResult(beacon: CLBeacon?) {
+    func setBeaconResult(_ beacon: CLBeacon?) {
+        
+        let view = self.view as! DetectionView
         
         // 表示設定
         if beacon == nil {
-            self.proximityUUIDLabel.text = ""
-            self.majorLabel.text = ""
-            self.minorLabel.text = ""
-            self.accuracyLabel.text = ""
-            self.rssiLabel.text = ""
+            view.proximityUUIDLabel.text = ""
+            view.majorLabel.text = ""
+            view.minorLabel.text = ""
+            view.accuracyLabel.text = ""
+            view.rssiLabel.text = ""
         } else {
-            self.proximityUUIDLabel.text = beacon!.proximityUUID.UUIDString
-            self.majorLabel.text = "\(beacon!.major)"
-            self.minorLabel.text = "\(beacon!.minor)"
-            self.accuracyLabel.text = "\(beacon!.accuracy)"
-            self.rssiLabel.text = "\(beacon!.rssi)"
+            view.proximityUUIDLabel.text = beacon!.proximityUUID.uuidString
+            view.majorLabel.text = "\(beacon!.major)"
+            view.minorLabel.text = "\(beacon!.minor)"
+            view.accuracyLabel.text = "\(beacon!.accuracy)"
+            view.rssiLabel.text = "\(beacon!.rssi)"
         }
     }
+}
 
-    // 使用できるかチェック
-    func isMonitoringCapable() -> Bool {
-        if (!CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion)) {
-            return false;
-        }
-        return true;
-    }
+extension DetectionViewController : CLLocationManagerDelegate {
+    
 }
