@@ -77,4 +77,22 @@ class DetectionViewModel: NSObject {
             print("現在地使用不可")
         }
     }
+    
+    /// 位置情報サービス認証状態を返す
+    func getAuthorizationStatusString() -> (String) {
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways:
+            return "使用許可"
+        case .authorizedWhenInUse:
+            return "測定可能"
+        case .denied:
+            return "使用拒否"
+        case .notDetermined:
+            return "許可未済"
+        default:
+            return "機能制限"
+        }
+    }
+
 }

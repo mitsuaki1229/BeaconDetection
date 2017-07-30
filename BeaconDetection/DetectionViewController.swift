@@ -28,6 +28,12 @@ class DetectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "探知"
+        
+        let settingBtn
+            = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(self.settingBtnTouchUpInside(_:)))
+        self.navigationItem.rightBarButtonItem = settingBtn
+        
         // 初期化
         setBeaconResult(nil)
 
@@ -46,34 +52,13 @@ class DetectionViewController: UIViewController {
         view.helpBtn.addTarget(self, action: #selector(self.helpBtnTouchUpInside(_:)), for: .touchUpInside)
         view.stopBtn.addTarget(self, action: #selector(self.stopBtnTouchUpInside(_:)), for: .touchUpInside)
         
-        view.statusLabel.text = self.getAuthorizationStatusString()
+        view.statusLabel.text = self.viewModel.getAuthorizationStatusString()
+        if view.statusLabel.text == "許可未済" {
+            self.manager.requestAlwaysAuthorization()
+        }
 
         // 検知開始
         self.manager.startMonitoring(for: self.beaconRegion!)
-    }
-    
-    private func getAuthorizationStatusString() -> (String) {
-        
-        // 位置情報サービス認証状態
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways:
-            print("使用許可")
-            return "使用許可"
-        case .authorizedWhenInUse:
-            print("iBeacon距離観測可能")
-            return "測定可能"
-        case .denied:
-            print("使用拒否")
-            return "使用拒否"
-        case .notDetermined:
-            print("許可未済")
-            // 認証要求
-            self.manager.requestAlwaysAuthorization()
-            return "許可未済"
-        default:
-            print("機能制限")
-            return  "機能制限"
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -233,13 +218,20 @@ class DetectionViewController: UIViewController {
         }
         self.manager.startRangingBeacons(in: self.beaconRegion!)
     }
-
+    
     // 検知停止ボタン
     func stopBtnTouchUpInside(_ sender: UIButton) {
         print("停止")
         self.manager.stopRangingBeacons(in: self.beaconRegion!)
     }
-
+    
+    // 設定ボタン
+    func settingBtnTouchUpInside(_ sender: UIButton) {
+        print("設定")
+        let settingViewController = SettingViewController()
+        self.navigationController?.pushViewController(settingViewController, animated: true)
+    }
+    
     // MARK: - Tools
 
     // 検知内容を送信する
