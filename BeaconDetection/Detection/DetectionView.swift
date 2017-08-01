@@ -23,6 +23,8 @@ class DetectionView: UIView {
     var retryBtn = UIButton()
     var stopBtn = UIButton()
     
+    var simulatorBtn = UIButton()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -36,6 +38,7 @@ class DetectionView: UIView {
         self.addSubview(sendBtn)
         self.addSubview(retryBtn)
         self.addSubview(stopBtn)
+        self.addSubview(simulatorBtn)
         
         self.backgroundColor = UIColor(patternImage: UIImage(named: "monitoring_background")!)
     }
@@ -140,5 +143,15 @@ class DetectionView: UIView {
         
         stopBtn.backgroundColor = .magenta
         stopBtn.setTitle("Stop", for: .normal)
+        
+        simulatorBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(stopBtn.snp.bottom)
+            make.width.equalTo(100)
+            make.height.equalTo(31)
+            make.centerX.equalTo(self)
+        }
+        
+        simulatorBtn.backgroundColor = .gray
+        simulatorBtn.setTitle("Simulator", for: .normal)
     }
 }

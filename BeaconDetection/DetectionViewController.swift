@@ -51,6 +51,7 @@ class DetectionViewController: UIViewController {
         view.retryBtn.addTarget(self, action: #selector(self.retryBtnTouchUpInside(_:)), for: .touchUpInside)
         view.helpBtn.addTarget(self, action: #selector(self.helpBtnTouchUpInside(_:)), for: .touchUpInside)
         view.stopBtn.addTarget(self, action: #selector(self.stopBtnTouchUpInside(_:)), for: .touchUpInside)
+        view.simulatorBtn.addTarget(self, action: #selector(self.simulatorBtnTouchUpInside(_:)), for: .touchUpInside)
         
         view.statusLabel.text = self.viewModel.getAuthorizationStatusString()
         if view.statusLabel.text == "許可未済" {
@@ -223,6 +224,13 @@ class DetectionViewController: UIViewController {
     func stopBtnTouchUpInside(_ sender: UIButton) {
         print("停止")
         self.manager.stopRangingBeacons(in: self.beaconRegion!)
+    }
+    
+    /// シミュレーターボタン
+    func simulatorBtnTouchUpInside(_ sender: UIButton) {
+        print("シミュレーター")
+        let simulatorViewController = SimulatorViewController()
+        self.navigationController?.pushViewController(simulatorViewController, animated: true)
     }
     
     // 設定ボタン
