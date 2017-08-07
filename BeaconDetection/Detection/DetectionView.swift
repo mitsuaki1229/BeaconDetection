@@ -40,7 +40,7 @@ class DetectionView: UIView {
         self.addSubview(stopBtn)
         self.addSubview(simulatorBtn)
         
-        self.backgroundColor = UIColor(patternImage: UIImage(named: "monitoring_background")!)
+        self.backgroundColor = UIColor(patternImage: UIImage(named: "MonitoringBackground")!)
     }
     
     required init?(coder aDecoder: NSCoder) {

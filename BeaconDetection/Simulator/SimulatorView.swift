@@ -25,15 +25,19 @@ class SimulatorView: UIView {
     let majorLabel = UILabel()
     let minorLabel = UILabel()
     
+    fileprivate let backgroundImageView = UIImageView()
+    
     fileprivate let itemStackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         self.backgroundColor = UIColor.white
         
-        self.addSubview(itemNameStackView)
+        self.addSubview(backgroundImageView)
+        backgroundImageView.image = UIImage(named: "BeaconSimulatorBackground")
         
+        self.addSubview(itemNameStackView)
         itemNameStackView.addArrangedSubview(uuidItemNameLabel)
         uuidItemNameLabel.text = "UUID"
         itemNameStackView.addArrangedSubview(identifierItemNameLabel)
@@ -58,13 +62,21 @@ class SimulatorView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        backgroundImageView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(50)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(200)
+            make.height.equalTo(200)
+        }
+        
         itemNameStackView.axis = .vertical
         itemNameStackView.alignment = .center
         itemNameStackView.distribution = .fillEqually
         itemNameStackView.spacing = 2
         
         itemNameStackView.snp.makeConstraints { (make) in
-            make.top.left.bottom.equalToSuperview().inset(20)
+            make.top.equalTo(backgroundImageView.snp.bottom)
+            make.left.bottom.equalToSuperview().inset(20)
             make.width.equalTo(200)
         }
         
@@ -74,7 +86,8 @@ class SimulatorView: UIView {
         itemStackView.spacing = 2
         
         itemStackView.snp.makeConstraints { (make) in
-            make.top.bottom.right.equalToSuperview().inset(20)
+            make.top.equalTo(itemNameStackView)
+            make.bottom.right.equalToSuperview().inset(20)
             make.left.equalTo(itemNameStackView.snp.right)
         }
     }
