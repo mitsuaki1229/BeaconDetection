@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SimulatorViewController: UIViewController {
     
-    let viewModel = SimulatorViewModel()
+    private let viewModel = SimulatorViewModel()
+    private let disposeBag = DisposeBag()
     
     override func loadView() {
         self.view = SimulatorView()
@@ -18,6 +21,26 @@ class SimulatorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.isTranslucent = false
+        
+        let simulatorView = self.view as! SimulatorView
+        
+        viewModel.proximityUUID.subscribe(onNext: { s in
+            simulatorView.uuidLabel.text = s
+        }).disposed(by: disposeBag)
+        
+        viewModel.major.subscribe(onNext: { i in
+            simulatorView.majorLabel.text = String(i)
+            }).disposed(by: disposeBag)
+        
+        viewModel.minor.subscribe(onNext: { i in
+            simulatorView.minorLabel.text = String(i)
+        }).disposed(by: disposeBag)
+        
+        viewModel.identifier.subscribe(onNext: { s in
+            simulatorView.identifierLabel.text = s
+        }).disposed(by: disposeBag)
     }
     
     override func didReceiveMemoryWarning() {

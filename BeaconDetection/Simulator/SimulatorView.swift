@@ -7,11 +7,48 @@
 //
 
 import UIKit
+import SnapKit
 
 class SimulatorView: UIView {
     
+    let regenerateButton = UIButton()
+    
+    let uuidItemNameLabel = UILabel()
+    let identifierItemNameLabel = UILabel()
+    let majorItemNameLabel = UILabel()
+    let minorItemNameLabel = UILabel()
+    
+    fileprivate let itemNameStackView = UIStackView()
+    
+    let uuidLabel = UILabel()
+    let identifierLabel = UILabel()
+    let majorLabel = UILabel()
+    let minorLabel = UILabel()
+    
+    fileprivate let itemStackView = UIStackView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.backgroundColor = UIColor.white
+        
+        self.addSubview(itemNameStackView)
+        
+        itemNameStackView.addArrangedSubview(uuidItemNameLabel)
+        uuidItemNameLabel.text = "UUID"
+        itemNameStackView.addArrangedSubview(identifierItemNameLabel)
+        identifierItemNameLabel.text = "identifier"
+        itemNameStackView.addArrangedSubview(majorItemNameLabel)
+        majorItemNameLabel.text = "major"
+        itemNameStackView.addArrangedSubview(minorItemNameLabel)
+        minorItemNameLabel.text = "minor"
+        
+        self.addSubview(itemStackView)
+        
+        itemStackView.addArrangedSubview(uuidLabel)
+        itemStackView.addArrangedSubview(identifierLabel)
+        itemStackView.addArrangedSubview(majorLabel)
+        itemStackView.addArrangedSubview(minorLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -20,5 +57,25 @@ class SimulatorView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        itemNameStackView.axis = .vertical
+        itemNameStackView.alignment = .center
+        itemNameStackView.distribution = .fillEqually
+        itemNameStackView.spacing = 2
+        
+        itemNameStackView.snp.makeConstraints { (make) in
+            make.top.left.bottom.equalToSuperview().inset(20)
+            make.width.equalTo(200)
+        }
+        
+        itemStackView.axis = .vertical
+        itemStackView.alignment = .center
+        itemStackView.distribution = .fillEqually
+        itemStackView.spacing = 2
+        
+        itemStackView.snp.makeConstraints { (make) in
+            make.top.bottom.right.equalToSuperview().inset(20)
+            make.left.equalTo(itemNameStackView.snp.right)
+        }
     }
 }

@@ -10,8 +10,14 @@ import UIKit
 
 class SettingView: UIView {
     
+    let listTableView = UITableView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.backgroundColor = .white
+        
+        self.addSubview(listTableView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -20,5 +26,8 @@ class SettingView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        listTableView.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalToSuperview()
+        }
     }
 }

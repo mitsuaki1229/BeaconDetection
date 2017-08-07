@@ -28,6 +28,8 @@ class DetectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.isTranslucent = false
+        
         self.navigationItem.title = "探知"
         
         let settingBtn
