@@ -6,15 +6,12 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-
 import UIKit
 
 class SettingListTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.backgroundColor = .orange
     }
     
     required init?(coder aDecoder: NSCoder) {

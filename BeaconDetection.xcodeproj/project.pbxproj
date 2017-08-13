@@ -33,6 +33,9 @@
 		2CE5A3E81F2C06EF002BC345 /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3E71F2C06EF002BC345 /* HelpViewModel.swift */; };
 		2CE5A3EB1F2C0905002BC345 /* BeaconDetectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3EA1F2C0905002BC345 /* BeaconDetectionUITests.swift */; };
 		2CE5A3EE1F2C092A002BC345 /* BeaconDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3ED1F2C092A002BC345 /* BeaconDetectionTests.swift */; };
+		2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3B1F3F43A500230368 /* DescriptionView.swift */; };
+		2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */; };
+		2CF00F401F3F43D100230368 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */; };
 		6E7CADC21BEC95D70046E77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7CADC11BEC95D70046E77B /* AppDelegate.swift */; };
 		6E7CADC71BEC95D70046E77B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7CADC51BEC95D70046E77B /* Main.storyboard */; };
 		6E7CADC91BEC95D70046E77B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E7CADC81BEC95D70046E77B /* Assets.xcassets */; };
@@ -86,6 +89,9 @@
 		2CE8E6321F2B77B900DE4004 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		2CE8E6331F2B77B900DE4004 /* INTULocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = INTULocationManager.framework; path = Carthage/Build/iOS/INTULocationManager.framework; sourceTree = "<group>"; };
 		2CE8E6341F2B77B900DE4004 /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
+		2CF00F3B1F3F43A500230368 /* DescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewModel.swift; sourceTree = "<group>"; };
+		2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		6E7CADBE1BEC95D70046E77B /* BeaconDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7CADC11BEC95D70046E77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7CADC61BEC95D70046E77B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -165,6 +171,9 @@
 				2CBD1C491F34ABFD00916042 /* SettingListTableViewCell.swift */,
 				2C3F00881F2D482C0086076D /* SettingView.swift */,
 				2C3F008C1F2D48550086076D /* SettingViewController.swift */,
+				2CF00F3B1F3F43A500230368 /* DescriptionView.swift */,
+				2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */,
+				2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -425,6 +434,8 @@
 				2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */,
 				2C659E901F2B89C500E90CCE /* DetectionView.swift in Sources */,
 				2C659E921F2B89D100E90CCE /* DetectionViewModel.swift in Sources */,
+				2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */,
+				2CF00F401F3F43D100230368 /* DescriptionViewController.swift in Sources */,
 				2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */,
 				2CBD1C4A1F34ABFD00916042 /* SettingListTableViewCell.swift in Sources */,
 				2CE5A3E61F2C06E0002BC345 /* HelpView.swift in Sources */,
@@ -434,6 +445,7 @@
 				2C1F7F111F30B212001A9B2C /* SimulatorViewController.swift in Sources */,
 				2C3F008B1F2D48480086076D /* SettingViewModel.swift in Sources */,
 				2CE5A3E81F2C06EF002BC345 /* HelpViewModel.swift in Sources */,
+				2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */,
 				2C0C24C01BF3787500213E1E /* HelpViewController.swift in Sources */,
 				2C3F008D1F2D48550086076D /* SettingViewController.swift in Sources */,
 			);
