@@ -32,14 +32,29 @@ class SettingViewController: UIViewController {
             .map { [weak self] ip in
                 return (ip, self?.viewModel.dataSource[ip])
             }
-            .subscribe(onNext: { ip, ds in
+            .subscribe(onNext: { [weak self] ip, ds in
+                
+                switch ip.row {
+                case 0:
+                    break
+                case 2:
+                    break
+                default:
+                    return
+                }
+                
+                let descriptionViewController = DescriptionViewController(type: ip.row)
+                self?.navigationController?.pushViewController(descriptionViewController, animated: true)
+                
                 print("indexpath:section:\(ip.section) row:\(ip.row)" )
             }).disposed(by: disposeBag)
+        
+        let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         
         let sections = [
             SectionSettingListData(header: "Info", items: [
                 SettinglistData(title: "License"),
-                SettinglistData(title: "Version"),
+                SettinglistData(title: "Version:" + version),
                 SettinglistData(title: "About"),
                 ])
         ]
