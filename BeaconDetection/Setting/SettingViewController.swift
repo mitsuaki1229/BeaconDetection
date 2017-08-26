@@ -34,16 +34,20 @@ class SettingViewController: UIViewController {
             }
             .subscribe(onNext: { [weak self] ip, ds in
                 
+                var type: DescriptionFileType!
+                
                 switch ip.row {
                 case 0:
+                    type = .license
                     break
                 case 2:
+                    type = .readme
                     break
                 default:
                     return
                 }
                 
-                let descriptionViewController = DescriptionViewController(type: ip.row)
+                let descriptionViewController = DescriptionViewController(type: type)
                 self?.navigationController?.pushViewController(descriptionViewController, animated: true)
                 
                 print("indexpath:section:\(ip.section) row:\(ip.row)" )

@@ -35,9 +35,16 @@ class SettingViewModel: NSObject {
         super.init()
         
         dataSource.configureCell = {ds, tv, ip, item in
-            let cell = tv.dequeueReusableCell(withIdentifier: "Cell") ?? SettingListTableViewCell(style: .default, reuseIdentifier: "Cell")
+            let cell = tv.dequeueReusableCell(withIdentifier: "SettingListTableViewCell")
+                ?? SettingListTableViewCell(style: .default, reuseIdentifier: "SettingListTableViewCell")
             
             cell.textLabel?.text = item.title
+            
+            if ip.row == 1 {
+                cell.selectionStyle = .none
+            } else {
+                cell.selectionStyle = .default
+            }
             
             return cell
         }
