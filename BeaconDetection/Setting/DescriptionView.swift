@@ -27,7 +27,7 @@ class DescriptionView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        displayArea.snp.makeConstraints { (make) in
+        displayArea.snp.remakeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
         }
     }

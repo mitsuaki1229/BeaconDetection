@@ -26,7 +26,7 @@ class SettingView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        listTableView.snp.makeConstraints { (make) in
+        listTableView.snp.remakeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
         }
     }

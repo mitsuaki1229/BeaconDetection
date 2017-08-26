@@ -62,7 +62,7 @@ class SimulatorView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        backgroundImageView.snp.makeConstraints { (make) in
+        backgroundImageView.snp.remakeConstraints { (make) in
             make.top.equalToSuperview().offset(50)
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
@@ -74,7 +74,7 @@ class SimulatorView: UIView {
         itemNameStackView.distribution = .fillEqually
         itemNameStackView.spacing = 2
         
-        itemNameStackView.snp.makeConstraints { (make) in
+        itemNameStackView.snp.remakeConstraints { (make) in
             make.top.equalTo(backgroundImageView.snp.bottom)
             make.left.bottom.equalToSuperview().inset(20)
             make.width.equalTo(200)
@@ -85,7 +85,7 @@ class SimulatorView: UIView {
         itemStackView.distribution = .fillEqually
         itemStackView.spacing = 2
         
-        itemStackView.snp.makeConstraints { (make) in
+        itemStackView.snp.remakeConstraints { (make) in
             make.top.equalTo(itemNameStackView)
             make.bottom.right.equalToSuperview().inset(20)
             make.left.equalTo(itemNameStackView.snp.right)

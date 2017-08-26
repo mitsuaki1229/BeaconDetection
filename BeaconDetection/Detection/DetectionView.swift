@@ -50,7 +50,7 @@ class DetectionView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        helpBtn.snp.makeConstraints { (make) in
+        helpBtn.snp.remakeConstraints { (make) in
             make.top.equalTo(self).offset(30)
             make.right.equalTo(self)
             make.width.equalTo(100)
@@ -61,7 +61,7 @@ class DetectionView: UIView {
         
         helpBtn.setTitle("ヘルプ", for: .normal)
         
-        statusLabel.snp.makeConstraints { (make) in
+        statusLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(self).offset(30)
             make.centerX.equalTo(self)
             make.width.equalTo(100)
@@ -69,7 +69,7 @@ class DetectionView: UIView {
         }
         statusLabel.backgroundColor = .orange
         
-        proximityUUIDLabel.snp.makeConstraints { (make) in
+        proximityUUIDLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(statusLabel.snp.bottom).offset(0)
             make.centerX.equalTo(self)
             make.width.equalTo(100)
@@ -78,7 +78,7 @@ class DetectionView: UIView {
         
         proximityUUIDLabel.backgroundColor = .blue
         
-        majorLabel.snp.makeConstraints { (make) in
+        majorLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(proximityUUIDLabel.snp.bottom).offset(0)
             make.centerX.equalTo(self)
             make.width.equalTo(100)
@@ -87,7 +87,7 @@ class DetectionView: UIView {
         
         majorLabel.backgroundColor = .yellow
         
-        minorLabel.snp.makeConstraints { (make) in
+        minorLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(majorLabel.snp.bottom)
             make.centerX.equalTo(self)
             make.width.equalTo(100)
@@ -96,7 +96,7 @@ class DetectionView: UIView {
         
         minorLabel.backgroundColor = .purple
         
-        accuracyLabel.snp.makeConstraints { (make) in
+        accuracyLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(minorLabel.snp.bottom)
             make.centerX.equalTo(self)
             make.width.equalTo(100)
@@ -105,7 +105,7 @@ class DetectionView: UIView {
         
         accuracyLabel.backgroundColor = .cyan
 
-        rssiLabel.snp.makeConstraints { (make) in
+        rssiLabel.snp.remakeConstraints { (make) in
             make.top.equalTo(accuracyLabel.snp.bottom)
             make.centerX.equalTo(self)
             make.width.equalTo(100)
@@ -114,7 +114,7 @@ class DetectionView: UIView {
         
         rssiLabel.backgroundColor = .darkGray
 
-        sendBtn.snp.makeConstraints { (make) in
+        sendBtn.snp.remakeConstraints { (make) in
             make.top.equalTo(rssiLabel.snp.bottom)
             make.centerX.equalTo(self)
             make.width.equalTo(100)
@@ -124,7 +124,7 @@ class DetectionView: UIView {
         sendBtn.backgroundColor = .green
         sendBtn.setTitle("Send", for: .normal)
 
-        retryBtn.snp.makeConstraints { (make) in
+        retryBtn.snp.remakeConstraints { (make) in
             make.top.equalTo(sendBtn.snp.bottom)
             make.left.equalTo(self)
             make.width.equalTo(100)
@@ -134,7 +134,7 @@ class DetectionView: UIView {
         retryBtn.backgroundColor = .groupTableViewBackground
         retryBtn.setTitle("Retry", for: .normal)
 
-        stopBtn.snp.makeConstraints { (make) in
+        stopBtn.snp.remakeConstraints { (make) in
             make.top.equalTo(sendBtn.snp.bottom)
             make.right.equalTo(self)
             make.width.equalTo(100)
@@ -144,7 +144,7 @@ class DetectionView: UIView {
         stopBtn.backgroundColor = .magenta
         stopBtn.setTitle("Stop", for: .normal)
         
-        simulatorBtn.snp.makeConstraints { (make) in
+        simulatorBtn.snp.remakeConstraints { (make) in
             make.top.equalTo(stopBtn.snp.bottom)
             make.width.equalTo(100)
             make.height.equalTo(31)

@@ -179,8 +179,8 @@
 				2C3F00881F2D482C0086076D /* SettingView.swift */,
 				2CBD1C491F34ABFD00916042 /* SettingListTableViewCell.swift */,
 				2C3F008C1F2D48550086076D /* SettingViewController.swift */,
-				2CF00F3B1F3F43A500230368 /* DescriptionView.swift */,
 				2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */,
+				2CF00F3B1F3F43A500230368 /* DescriptionView.swift */,
 				2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */,
 			);
 			path = Setting;
