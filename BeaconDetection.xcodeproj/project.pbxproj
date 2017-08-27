@@ -23,8 +23,14 @@
 		2C4D4AA71F486D620050CB14 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */; };
 		2C4D4AAB1F4B04130050CB14 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
+		2C5154CB1F5311D2001DD679 /* stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C5154CA1F5311D2001DD679 /* stub.json */; };
 		2C659E901F2B89C500E90CCE /* DetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C659E8F1F2B89C500E90CCE /* DetectionView.swift */; };
 		2C659E921F2B89D100E90CCE /* DetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C659E911F2B89D100E90CCE /* DetectionViewModel.swift */; };
+		2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */; };
+		2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F051F30A56E001A9B2C /* RxTest.framework */; };
+		2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486B1F52F7F9008616CD /* Nimble.framework */; };
+		2C7B486F1F52F7F9008616CD /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486C1F52F7F9008616CD /* OHHTTPStubs.framework */; };
+		2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486D1F52F7F9008616CD /* Quick.framework */; };
 		2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
 		2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */; };
@@ -76,9 +82,13 @@
 		2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMMarkdown.framework; path = Carthage/Build/iOS/MMMarkdown.framework; sourceTree = "<group>"; };
 		2C4D4AAA1F4B04130050CB14 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		2C4E55551F2BFD44001975A3 /* BeaconDetection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeaconDetection-Bridging-Header.h"; sourceTree = "<group>"; };
+		2C5154CA1F5311D2001DD679 /* stub.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stub.json; sourceTree = "<group>"; };
 		2C659E8F1F2B89C500E90CCE /* DetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionView.swift; sourceTree = "<group>"; };
 		2C659E911F2B89D100E90CCE /* DetectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionViewModel.swift; sourceTree = "<group>"; };
 		2C659E931F2B906400E90CCE /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		2C7B486B1F52F7F9008616CD /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		2C7B486C1F52F7F9008616CD /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		2C7B486D1F52F7F9008616CD /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		2CB89EE51BEE4F7C002A4EC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2CB89EE81BEE567C002A4EC7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetectionViewController.swift; path = BeaconDetection/DetectionViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -128,6 +138,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */,
+				2C7B486F1F52F7F9008616CD /* OHHTTPStubs.framework in Frameworks */,
+				2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */,
+				2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */,
+				2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +159,9 @@
 		08E2F86F4D9CD7C0F52361CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C7B486B1F52F7F9008616CD /* Nimble.framework */,
+				2C7B486C1F52F7F9008616CD /* OHHTTPStubs.framework */,
+				2C7B486D1F52F7F9008616CD /* Quick.framework */,
 				2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */,
 				2CDDF20C1F35474100101FD7 /* RxDataSources.framework */,
 				2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */,
@@ -258,6 +276,7 @@
 				2CE5A3ED1F2C092A002BC345 /* BeaconDetectionTests.swift */,
 				6E7CADD81BEC95D70046E77B /* Info.plist */,
 				2CE5A3EC1F2C092A002BC345 /* BeaconDetectionTests-Bridging-Header.h */,
+				2C5154CA1F5311D2001DD679 /* stub.json */,
 			);
 			path = BeaconDetectionTests;
 			sourceTree = "<group>";
@@ -300,6 +319,7 @@
 				6E7CADCE1BEC95D70046E77B /* Sources */,
 				6E7CADCF1BEC95D70046E77B /* Frameworks */,
 				6E7CADD01BEC95D70046E77B /* Resources */,
+				2C7B48681F52F424008616CD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -347,6 +367,7 @@
 					6E7CADD11BEC95D70046E77B = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 0830;
+						ProvisioningStyle = Manual;
 						TestTargetID = 6E7CADBD1BEC95D70046E77B;
 					};
 					6E7CADDC1BEC95D80046E77B = {
@@ -394,6 +415,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C5154CB1F5311D2001DD679 /* stub.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +429,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2C7B48681F52F424008616CD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 		2CE8E6381F2B77C300DE4004 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -602,6 +642,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -623,6 +664,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -643,10 +685,16 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = BeaconDetectionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetectionTests/BeaconDetectionTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -659,10 +707,16 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = BeaconDetectionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetectionTests/BeaconDetectionTests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeaconDetection.app/BeaconDetection";
@@ -673,6 +727,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BeaconDetectionUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -691,6 +746,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BeaconDetectionUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

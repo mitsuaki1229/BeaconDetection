@@ -1,0 +1,9 @@
+{
+    "id": 12345678,
+    "message": "test",
+    "user": {
+        "userId": 4567,
+        "name": "日本語テスト　さん",
+        "fileName": "/images/taro.png"
+    }
+}
