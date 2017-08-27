@@ -16,15 +16,16 @@ class SimulatorViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     override func loadView() {
-        self.view = SimulatorView()
+        view = SimulatorView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "Simulator"
         
-        let simulatorView = self.view as! SimulatorView
+        let simulatorView = view as! SimulatorView
         
         viewModel.proximityUUID.subscribe(onNext: { u in
             simulatorView.uuidLabel.text = u.uuidString
@@ -32,7 +33,7 @@ class SimulatorViewController: UIViewController {
         
         viewModel.major.subscribe(onNext: { n in
             simulatorView.majorLabel.text = n.stringValue
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         viewModel.minor.subscribe(onNext: { n in
             simulatorView.minorLabel.text = n.stringValue
@@ -41,6 +42,14 @@ class SimulatorViewController: UIViewController {
         viewModel.identifier.subscribe(onNext: { s in
             simulatorView.identifierLabel.text = s
         }).disposed(by: disposeBag)
+        
+        UIView.animate(withDuration: 1.0,
+                       delay: 0.0,
+                       options: .repeat, animations: { () -> Void in
+                        
+                        let view = self.view as! SimulatorView
+                        view.backgroundImageView.alpha = 0.0
+        }, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

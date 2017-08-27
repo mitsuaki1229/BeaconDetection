@@ -11,13 +11,13 @@ import UIKit
 class HelpViewController: UIViewController {
     
     override func loadView() {
-        self.view = HelpView()
+        view = HelpView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +31,6 @@ class HelpViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

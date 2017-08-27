@@ -16,14 +16,14 @@ class DetectionViewController: UIViewController {
     private let viewModel = DetectionViewModel()
     
     override func loadView() {
-        self.view = DetectionView()
+        view = DetectionView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.settingNavigation()
-        self.settingView()
+        settingNavigation()
+        settingView()
     }
     
     override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
@@ -32,15 +32,15 @@ class DetectionViewController: UIViewController {
     
     private func settingNavigation() {
         
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationItem.title = "探知"
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "Detection"
         
         let settingBtn = UIBarButtonItem()
-        settingBtn.title = "設定"
+        settingBtn.title = "⚙"
         settingBtn.style = .plain
         settingBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchSettingBtn()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         self.navigationItem.rightBarButtonItem = settingBtn
     }
@@ -54,48 +54,48 @@ class DetectionViewController: UIViewController {
             .status
             .asObservable()
             .bind(to: view.statusLabel.rx.text)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         viewModel.proximityUUID.subscribe(onNext: { u in
             view.proximityUUIDLabel.text = u.uuidString
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         viewModel.major.subscribe(onNext: { n in
             view.majorLabel.text = n.stringValue
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         viewModel.minor.subscribe(onNext: { n in
             view.minorLabel.text = n.stringValue
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         viewModel.accuracy.subscribe(onNext: { i in
             view.accuracyLabel.text = String(i)
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         viewModel.rssi.subscribe(onNext: { i in
             view.rssiLabel.text = String(i)
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         // アクション
         view.sendBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchSendBtn()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         view.retryBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchRetryBtn()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         view.helpBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchHelpBtn()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         view.stopBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchStopBtn()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         view.simulatorBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchSimulatorBtn()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     // MARK: - Action
@@ -103,7 +103,7 @@ class DetectionViewController: UIViewController {
     private func touchSendBtn() {
         print("touchSendBtn")
         
-        self.viewModel.sendBeaconDetectionData()
+        viewModel.sendBeaconDetectionData()
     }
     
     private func touchHelpBtn() {
@@ -111,32 +111,32 @@ class DetectionViewController: UIViewController {
         
         let helpViewController = HelpViewController()
         helpViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        self.present(helpViewController, animated: true, completion: nil)
+        present(helpViewController, animated: true, completion: nil)
     }
     
     private func touchRetryBtn() {
         print("touchRetryBtn")
         
-        self.viewModel.startRanging()
+        viewModel.startRanging()
     }
     
     private func touchStopBtn() {
         print("touchStopBtn")
         
-        self.viewModel.stopRanging()
+        viewModel.stopRanging()
     }
     
     private func touchSimulatorBtn() {
         print("touchSimulatorBtn")
         
         let simulatorViewController = SimulatorViewController()
-        self.navigationController?.pushViewController(simulatorViewController, animated: true)
+        navigationController?.pushViewController(simulatorViewController, animated: true)
     }
     
     private func touchSettingBtn() {
         print("touchSettingBtn")
         
         let settingViewController = SettingViewController()
-        self.navigationController?.pushViewController(settingViewController, animated: true)
+        navigationController?.pushViewController(settingViewController, animated: true)
     }
 }

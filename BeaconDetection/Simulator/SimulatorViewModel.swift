@@ -33,8 +33,8 @@ class SimulatorViewModel: NSObject {
             return
         }
         proximityUUIDVar.value = uuid
-        majorVar.value = 1
-        minorVar.value = 2
+        majorVar.value = getRandomNum()
+        minorVar.value = getRandomNum()
         identifierVar.value = "UNIQUE"
         
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
@@ -55,8 +55,13 @@ class SimulatorViewModel: NSObject {
                                   identifier: identifierVar.value)
         
         let beaconPeripheralData = NSDictionary(dictionary: beaconRegion.peripheralData(withMeasuredPower: nil))
-
+        
         peripheralManager.startAdvertising(beaconPeripheralData as? [String : AnyObject])
+    }
+    
+    private func getRandomNum() -> NSNumber {
+        let randomNum: Int = Int(arc4random_uniform(10)) + 1
+        return NSNumber(value: randomNum)
     }
 }
 

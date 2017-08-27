@@ -16,9 +16,9 @@ class DescriptionView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .white
+        backgroundColor = .white
         
-        self.addSubview(displayArea)
+        addSubview(displayArea)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,6 +27,7 @@ class DescriptionView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         displayArea.snp.remakeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
         }

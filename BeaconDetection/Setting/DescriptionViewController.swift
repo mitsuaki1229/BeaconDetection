@@ -28,6 +28,9 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "Description"
+        
         loadDisplayArea()
     }
     

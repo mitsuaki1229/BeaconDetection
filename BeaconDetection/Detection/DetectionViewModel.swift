@@ -42,16 +42,16 @@ class DetectionViewModel: NSObject {
             return
         }
         
-        self.proximityUUIDVar.value = uuid
-        self.beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: "一意キー")
+        proximityUUIDVar.value = uuid
+        beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: "一意キー")
         
-        self.manager = CLLocationManager()
-        self.manager.delegate = self
+        manager = CLLocationManager()
+        manager.delegate = self
         
-        self.authorizationStatusCheck()
+        authorizationStatusCheck()
         
         // 検知開始
-        self.manager.startMonitoring(for: self.beaconRegion!)
+        manager.startMonitoring(for: beaconRegion!)
     }
     
     // MARK: - iBeacon
@@ -60,7 +60,7 @@ class DetectionViewModel: NSObject {
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         print("モニタリング開始")
         
-        self.statusVar.value = "モニタリング開始"
+        statusVar.value = "モニタリング開始"
         manager.requestState(for: region)
     }
     
@@ -68,7 +68,7 @@ class DetectionViewModel: NSObject {
     func locationManager(_ manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
         print("モニタリング停止")
         
-        self.statusVar.value = "測定停止中"
+        statusVar.value = "測定停止中"
     }
     
     // モニタリング結果判定
@@ -78,14 +78,14 @@ class DetectionViewModel: NSObject {
         switch (state) {
         case .inside:
             print("距離測定開始")
-            self.statusVar.value = "距離測定開始"
-            manager.startRangingBeacons(in: self.beaconRegion!)
+            statusVar.value = "距離測定開始"
+            manager.startRangingBeacons(in: beaconRegion!)
         case .outside:
             print("距離測定対象外距離")
-            self.statusVar.value = "距離測定対象外距離"
+            statusVar.value = "距離測定対象外距離"
         default:
             print("不明")
-            self.statusVar.value = "不明"
+            statusVar.value = "不明"
         }
     }
     
@@ -98,25 +98,25 @@ class DetectionViewModel: NSObject {
         }
         
         print("iBeacon測定判定失敗")
-        self.statusVar.value = "測定失敗"
+        statusVar.value = "測定失敗"
     }
     
     // 通信失敗
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("エラーコード:" + String(error._code))
-        self.statusVar.value = "通信失敗 エラーコード:" + String(error._code)
+        statusVar.value = "通信失敗 エラーコード:" + String(error._code)
     }
     
     // 領域内判定
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         print("距離内")
-        self.statusVar.value = "測定距離内"
+        statusVar.value = "測定距離内"
     }
     
     // 領域外判定
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         print("距離外")
-        self.statusVar.value = "測定距離外"
+        statusVar.value = "測定距離外"
     }
     
     // ビーコン確保
@@ -124,13 +124,13 @@ class DetectionViewModel: NSObject {
         
         self.beacons = beacons
         
-        for beacon in self.beacons! {
+        for beacon in beacons {
             
             switch (beacon.proximity) {
             case .unknown:
                 
                 print("見つかりません")
-                self.statusVar.value = "みつかりません"
+                statusVar.value = "みつかりません"
                 
                 // 初期化しつつ戻る
                 setBeaconResult(nil)
@@ -139,13 +139,13 @@ class DetectionViewModel: NSObject {
                 
             case .immediate:
                 print("近くにあります: 50cm以内？")
-                self.statusVar.value = "およそ50cm以内"
+                statusVar.value = "およそ50cm以内"
             case .near:
                 print("わりと近くにあります: 50cm~6m?")
-                self.statusVar.value = "およそ50cm~6mの範囲内"
+                statusVar.value = "およそ50cm~6mの範囲内"
             default:
                 print("かなり遠いです: 6m~20m?")
-                self.statusVar.value = "およそ6m~20mの範囲内"
+                statusVar.value = "およそ6m~20mの範囲内"
             }
             
             // 情報出力
@@ -168,16 +168,24 @@ class DetectionViewModel: NSObject {
     
     func startRanging() {
         
-        guard self.isMonitoringCapable() else {
+        guard isMonitoringCapable() else {
             self.statusVar.value = "Beacon使用不可"
             return
         }
         
-        self.manager.startRangingBeacons(in: self.beaconRegion!)
+        guard let beaconRegion = beaconRegion else {
+            return
+        }
+        
+        self.manager.startRangingBeacons(in: beaconRegion)
     }
     
     func stopRanging() {
-        self.manager.stopRangingBeacons(in: self.beaconRegion!)
+        
+        guard let beaconRegion = beaconRegion else {
+            return
+        }
+        self.manager.stopRangingBeacons(in: beaconRegion)
     }
     
     // 検知内容を送信する
@@ -185,7 +193,7 @@ class DetectionViewModel: NSObject {
         print("サーバ送信")
         
         // 送信前に検知を停止
-        self.manager.stopMonitoring(for: self.beaconRegion!)
+        self.manager.stopMonitoring(for: beaconRegion!)
         
         // ローディング
         SVProgressHUD.show(withStatus: "通信中")
@@ -203,7 +211,7 @@ class DetectionViewModel: NSObject {
         param["accuracy"] = String(accuracyVar.value)
         param["rssi"] = String(rssiVar.value)
         
-        self.setLocation(param: &param)
+        setLocation(param: &param)
         
         manager .post(
             postUrl,
@@ -224,21 +232,16 @@ class DetectionViewModel: NSObject {
         
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways:
-            self.statusVar.value = "使用許可"
-            break
+            statusVar.value = "使用許可"
         case .authorizedWhenInUse:
-            self.statusVar.value = "測定可能"
-            break
+            statusVar.value = "測定可能"
         case .denied:
-            self.statusVar.value = "使用拒否"
-            break
+            statusVar.value = "使用拒否"
         case .notDetermined:
-            self.manager.requestAlwaysAuthorization()
-            self.statusVar.value = "許可未済"
-            break
+            manager.requestAlwaysAuthorization()
+            statusVar.value = "許可未済"
         default:
-            self.statusVar.value = "機能制限"
-            break
+            statusVar.value = "機能制限"
         }
     }
     

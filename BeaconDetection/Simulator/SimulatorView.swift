@@ -25,19 +25,19 @@ class SimulatorView: UIView {
     let majorLabel = UILabel()
     let minorLabel = UILabel()
     
-    fileprivate let backgroundImageView = UIImageView()
+    let backgroundImageView = UIImageView()
     
     fileprivate let itemStackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.backgroundColor = UIColor.white
+        backgroundColor = UIColor.white
         
-        self.addSubview(backgroundImageView)
+        addSubview(backgroundImageView)
         backgroundImageView.image = UIImage(named: "BeaconSimulatorBackground")
         
-        self.addSubview(itemNameStackView)
+        addSubview(itemNameStackView)
         itemNameStackView.addArrangedSubview(uuidItemNameLabel)
         uuidItemNameLabel.text = "UUID"
         itemNameStackView.addArrangedSubview(identifierItemNameLabel)
@@ -47,7 +47,7 @@ class SimulatorView: UIView {
         itemNameStackView.addArrangedSubview(minorItemNameLabel)
         minorItemNameLabel.text = "minor"
         
-        self.addSubview(itemStackView)
+        addSubview(itemStackView)
         
         itemStackView.addArrangedSubview(uuidLabel)
         itemStackView.addArrangedSubview(identifierLabel)

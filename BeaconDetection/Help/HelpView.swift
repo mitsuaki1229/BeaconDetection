@@ -13,8 +13,8 @@ class HelpView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.alpha = 0.5
-        self.backgroundColor = UIColor.white
+        alpha = 0.5
+        backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {

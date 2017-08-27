@@ -16,17 +16,18 @@ class SettingViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     override func loadView() {
-        self.view = SettingView()
+        view = SettingView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "Description"
         
-        let settingView = self.view as! SettingView
+        let settingView = view as! SettingView
         settingView.listTableView.rx.setDelegate(self)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         settingView.listTableView.rx.itemSelected
             .map { [weak self] ip in
@@ -50,7 +51,6 @@ class SettingViewController: UIViewController {
                 let descriptionViewController = DescriptionViewController(type: type)
                 self?.navigationController?.pushViewController(descriptionViewController, animated: true)
                 
-                print("indexpath:section:\(ip.section) row:\(ip.row)" )
             }).disposed(by: disposeBag)
         
         let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
@@ -68,7 +68,7 @@ class SettingViewController: UIViewController {
                 .listTableView
                 .rx
                 .items(dataSource: viewModel.dataSource))
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
     
     override func didReceiveMemoryWarning() {
