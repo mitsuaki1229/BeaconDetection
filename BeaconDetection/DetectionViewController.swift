@@ -10,15 +10,18 @@ import UIKit
 import CoreLocation
 import SVProgressHUD
 import AFNetworking
+import RxSwift
+import RxCocoa
 
 class DetectionViewController: UIViewController {
     
-    var proximityUUID:UUID?
+    let disposeBag = DisposeBag()
+    
     var beaconRegion:CLBeaconRegion?
     var manager:CLLocationManager!
     var beacons:[CLBeacon]?
     let viewModel = DetectionViewModel()
-
+    
     // MARK: -
     
     override func loadView() {
@@ -38,15 +41,37 @@ class DetectionViewController: UIViewController {
         
         // 初期化
         setBeaconResult(nil)
-
+        
+        let view = self.view as! DetectionView
+        
+        // バインド
+        viewModel.proximityUUID.subscribe(onNext: { u in
+            view.proximityUUIDLabel.text = u.uuidString
+        }).disposed(by: disposeBag)
+        
+        viewModel.major.subscribe(onNext: { i in
+            view.majorLabel.text = String(i)
+        }).disposed(by: disposeBag)
+        
+        viewModel.minor.subscribe(onNext: { i in
+            view.minorLabel.text = String(i)
+        }).disposed(by: disposeBag)
+        
+        viewModel.rssi.subscribe(onNext: { i in
+            view.rssiLabel.text = String(i)
+        }).disposed(by: disposeBag)
+        
         // ビーコン用UUID設定
-        self.proximityUUID = UUID(uuidString: Const.PROXIMITY_UUID)!
-        self.beaconRegion = CLBeaconRegion(proximityUUID: self.proximityUUID!, identifier: "一意キー")
-
+        guard let uuid = UUID(uuidString: Const.PROXIMITY_UUID) else {
+            return
+        }
+        
+        self.viewModel.proximityUUIDVar.value = uuid
+        self.beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: "一意キー")
+        
         self.manager = CLLocationManager()
         self.manager.delegate = self
         
-        let view = self.view as! DetectionView
         
         // ボタン設定
         view.sendBtn.addTarget(self, action: #selector(self.sendBtnTouchUpInside(_:)), for: .touchUpInside)

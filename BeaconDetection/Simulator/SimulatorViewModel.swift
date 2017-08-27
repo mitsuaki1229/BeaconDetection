@@ -16,12 +16,12 @@ class SimulatorViewModel: NSObject {
     
     let disposeBag = DisposeBag()
     
-    fileprivate let  proximityUUIDVar = Variable("")
-    fileprivate let majorVar = Variable(0)
-    fileprivate let minorVar = Variable(0)
-    fileprivate let identifierVar = Variable("")
+    private let proximityUUIDVar = Variable(UUID())
+    private let majorVar = Variable(0)
+    private let minorVar = Variable(0)
+    private let identifierVar = Variable("")
     
-    var proximityUUID: Observable<String> { return proximityUUIDVar.asObservable() }
+    var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
     var major: Observable<Int> { return majorVar.asObservable() }
     var minor: Observable<Int> { return minorVar.asObservable() }
     var identifier: Observable<String> { return identifierVar.asObservable() }
@@ -31,9 +31,10 @@ class SimulatorViewModel: NSObject {
     override init() {
         super.init()
         
-        print("SimulatorViewModel init")
-        
-        proximityUUIDVar.value = "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
+        guard let uuid = UUID(uuidString: Const.PROXIMITY_UUID) else {
+            return
+        }
+        proximityUUIDVar.value = uuid
         majorVar.value = 1
         minorVar.value = 2
         identifierVar.value = "UNIQUE"
@@ -43,11 +44,8 @@ class SimulatorViewModel: NSObject {
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         
-        print("peripheralManagerDidUpdateState")
-        
         if peripheral.state != .poweredOn {
-            print("Bluetoothがオフです")
-            // TODO: 画面のどっかのラベルに値を通知する？
+            print("Bluetooth off.")
             return;
         }
         

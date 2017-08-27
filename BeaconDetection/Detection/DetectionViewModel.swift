@@ -9,8 +9,19 @@
 import Foundation
 import CoreLocation
 import INTULocationManager
+import RxSwift
 
 class DetectionViewModel: NSObject {
+    
+    let proximityUUIDVar = Variable(UUID())
+    private let majorVar = Variable(0)
+    private let minorVar = Variable(0)
+    private let rssiVar = Variable(0)
+    
+    var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
+    var major: Observable<Int> { return majorVar.asObservable() }
+    var minor: Observable<Int> { return minorVar.asObservable() }
+    var rssi: Observable<Int> { return rssiVar.asObservable() }
     
     override init() {
         super.init()

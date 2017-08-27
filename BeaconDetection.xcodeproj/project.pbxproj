@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2C0C24C01BF3787500213E1E /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0C24BF1BF3787500213E1E /* HelpViewController.swift */; };
-		2C1F7F061F30A56E001A9B2C /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */; };
 		2C1F7F071F30A56E001A9B2C /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F031F30A56E001A9B2C /* RxCocoa.framework */; };
 		2C1F7F081F30A56E001A9B2C /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F041F30A56E001A9B2C /* RxSwift.framework */; };
-		2C1F7F091F30A56E001A9B2C /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F051F30A56E001A9B2C /* RxTest.framework */; };
 		2C1F7F0D1F30B1A2001A9B2C /* SimulatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0C1F30B1A2001A9B2C /* SimulatorViewModel.swift */; };
 		2C1F7F0F1F30B1C0001A9B2C /* SimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0E1F30B1C0001A9B2C /* SimulatorView.swift */; };
 		2C1F7F111F30B212001A9B2C /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F101F30B212001A9B2C /* SimulatorViewController.swift */; };
@@ -119,10 +117,8 @@
 				2CDDF20D1F35474100101FD7 /* RxDataSources.framework in Frameworks */,
 				2C3F00831F2C58C40086076D /* AFNetworking.framework in Frameworks */,
 				2C3F00841F2C58C40086076D /* INTULocationManager.framework in Frameworks */,
-				2C1F7F061F30A56E001A9B2C /* RxBlocking.framework in Frameworks */,
 				2C1F7F071F30A56E001A9B2C /* RxCocoa.framework in Frameworks */,
 				2C1F7F081F30A56E001A9B2C /* RxSwift.framework in Frameworks */,
-				2C1F7F091F30A56E001A9B2C /* RxTest.framework in Frameworks */,
 				2C3F00851F2C58C40086076D /* SnapKit.framework in Frameworks */,
 				2C3F00861F2C58C40086076D /* SVProgressHUD.framework in Frameworks */,
 			);
@@ -421,10 +417,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/INTULocationManager.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MMMarkdown.framework",
 			);
@@ -537,6 +531,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -583,6 +578,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

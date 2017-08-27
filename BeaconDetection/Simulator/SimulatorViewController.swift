@@ -26,8 +26,8 @@ class SimulatorViewController: UIViewController {
         
         let simulatorView = self.view as! SimulatorView
         
-        viewModel.proximityUUID.subscribe(onNext: { s in
-            simulatorView.uuidLabel.text = s
+        viewModel.proximityUUID.subscribe(onNext: { u in
+            simulatorView.uuidLabel.text = u.uuidString
         }).disposed(by: disposeBag)
         
         viewModel.major.subscribe(onNext: { i in
