@@ -30,12 +30,12 @@ class SimulatorViewController: UIViewController {
             simulatorView.uuidLabel.text = u.uuidString
         }).disposed(by: disposeBag)
         
-        viewModel.major.subscribe(onNext: { i in
-            simulatorView.majorLabel.text = String(i)
+        viewModel.major.subscribe(onNext: { n in
+            simulatorView.majorLabel.text = n.stringValue
             }).disposed(by: disposeBag)
         
-        viewModel.minor.subscribe(onNext: { i in
-            simulatorView.minorLabel.text = String(i)
+        viewModel.minor.subscribe(onNext: { n in
+            simulatorView.minorLabel.text = n.stringValue
         }).disposed(by: disposeBag)
         
         viewModel.identifier.subscribe(onNext: { s in

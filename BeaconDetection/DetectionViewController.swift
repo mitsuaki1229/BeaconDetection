@@ -7,22 +7,13 @@
 //
 
 import UIKit
-import CoreLocation
-import SVProgressHUD
-import AFNetworking
 import RxSwift
 import RxCocoa
 
 class DetectionViewController: UIViewController {
     
-    let disposeBag = DisposeBag()
-    
-    var beaconRegion:CLBeaconRegion?
-    var manager:CLLocationManager!
-    var beacons:[CLBeacon]?
-    let viewModel = DetectionViewModel()
-    
-    // MARK: -
+    private let disposeBag = DisposeBag()
+    private let viewModel = DetectionViewModel()
     
     override func loadView() {
         self.view = DetectionView()
@@ -31,307 +22,121 @@ class DetectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isTranslucent = false
+        self.settingNavigation()
+        self.settingView()
+    }
+    
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    private func settingNavigation() {
         
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.title = "探知"
         
-        let settingBtn
-            = UIBarButtonItem(title: "設定", style: .plain, target: self, action: #selector(self.settingBtnTouchUpInside(_:)))
-        self.navigationItem.rightBarButtonItem = settingBtn
+        let settingBtn = UIBarButtonItem()
+        settingBtn.title = "設定"
+        settingBtn.style = .plain
+        settingBtn.rx.tap.subscribe(onNext: { [weak self] x in
+            self?.touchSettingBtn()
+        }).addDisposableTo(disposeBag)
         
-        // 初期化
-        setBeaconResult(nil)
+        self.navigationItem.rightBarButtonItem = settingBtn
+    }
+    
+    private func settingView() {
         
         let view = self.view as! DetectionView
         
         // バインド
+        viewModel
+            .status
+            .asObservable()
+            .bind(to: view.statusLabel.rx.text)
+            .addDisposableTo(disposeBag)
+        
         viewModel.proximityUUID.subscribe(onNext: { u in
             view.proximityUUIDLabel.text = u.uuidString
-        }).disposed(by: disposeBag)
+        }).addDisposableTo(disposeBag)
         
-        viewModel.major.subscribe(onNext: { i in
-            view.majorLabel.text = String(i)
-        }).disposed(by: disposeBag)
+        viewModel.major.subscribe(onNext: { n in
+            view.majorLabel.text = n.stringValue
+        }).addDisposableTo(disposeBag)
         
-        viewModel.minor.subscribe(onNext: { i in
-            view.minorLabel.text = String(i)
-        }).disposed(by: disposeBag)
+        viewModel.minor.subscribe(onNext: { n in
+            view.minorLabel.text = n.stringValue
+        }).addDisposableTo(disposeBag)
+        
+        viewModel.accuracy.subscribe(onNext: { i in
+            view.accuracyLabel.text = String(i)
+        }).addDisposableTo(disposeBag)
         
         viewModel.rssi.subscribe(onNext: { i in
             view.rssiLabel.text = String(i)
-        }).disposed(by: disposeBag)
+        }).addDisposableTo(disposeBag)
         
-        // ビーコン用UUID設定
-        guard let uuid = UUID(uuidString: Const.PROXIMITY_UUID) else {
-            return
-        }
+        // アクション
+        view.sendBtn.rx.tap.subscribe(onNext: { [weak self] x in
+            self?.touchSendBtn()
+        }).addDisposableTo(disposeBag)
         
-        self.viewModel.proximityUUIDVar.value = uuid
-        self.beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: "一意キー")
+        view.retryBtn.rx.tap.subscribe(onNext: { [weak self] x in
+            self?.touchRetryBtn()
+        }).addDisposableTo(disposeBag)
         
-        self.manager = CLLocationManager()
-        self.manager.delegate = self
+        view.helpBtn.rx.tap.subscribe(onNext: { [weak self] x in
+            self?.touchHelpBtn()
+        }).addDisposableTo(disposeBag)
         
+        view.stopBtn.rx.tap.subscribe(onNext: { [weak self] x in
+            self?.touchStopBtn()
+        }).addDisposableTo(disposeBag)
         
-        // ボタン設定
-        view.sendBtn.addTarget(self, action: #selector(self.sendBtnTouchUpInside(_:)), for: .touchUpInside)
-        view.retryBtn.addTarget(self, action: #selector(self.retryBtnTouchUpInside(_:)), for: .touchUpInside)
-        view.helpBtn.addTarget(self, action: #selector(self.helpBtnTouchUpInside(_:)), for: .touchUpInside)
-        view.stopBtn.addTarget(self, action: #selector(self.stopBtnTouchUpInside(_:)), for: .touchUpInside)
-        view.simulatorBtn.addTarget(self, action: #selector(self.simulatorBtnTouchUpInside(_:)), for: .touchUpInside)
-        
-        view.statusLabel.text = self.viewModel.getAuthorizationStatusString()
-        if view.statusLabel.text == "許可未済" {
-            self.manager.requestAlwaysAuthorization()
-        }
-
-        // 検知開始
-        self.manager.startMonitoring(for: self.beaconRegion!)
+        view.simulatorBtn.rx.tap.subscribe(onNext: { [weak self] x in
+            self?.touchSimulatorBtn()
+        }).addDisposableTo(disposeBag)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        // 縦画面固定
-        return UIInterfaceOrientationMask.portrait
-    }
-
-    // MARK: - iBeacon
-    
-    // 領域モニタリング開始
-    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        print("モニタリング開始")
-        let view = self.view as! DetectionView
-        view.statusLabel.text = "モニタリング開始"
-        manager.requestState(for: region)
-    }
-    
-    // 領域モニタリング停止
-    func locationManager(_ manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
-        print("モニタリング停止")
-        let view = self.view as! DetectionView
-        view.statusLabel.text = "測定停止中"
-    }
-    
-    // モニタリング結果判定
-    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-
-        // リージョン判定
-        switch (state) {
-        case .inside:
-            print("距離測定開始")
-            let view = self.view as! DetectionView
-            view.statusLabel.text = "距離測定開始"
-            manager.startRangingBeacons(in: self.beaconRegion!)
-        case .outside:
-            print("距離測定対象外距離")
-            let view = self.view as! DetectionView
-            view.statusLabel.text = "距離測定対象外距離"
-        default:
-            print("不明")
-            let view = self.view as! DetectionView
-            view.statusLabel.text = "不明"
-        }
-    }
-    
-    // リージョン監視失敗
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print("距離測定監視失敗")
-
-
-        if ((region?.isKind(of: CLBeaconRegion.self)) != nil) {
-            print("iBeacon測定判定失敗")
-            let view = self.view as! DetectionView
-            view.statusLabel.text = "測定失敗"
-        }
-    }
-
-    // 通信失敗
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("エラーコード:" + String(error._code))
-        let view = self.view as! DetectionView
-        view.statusLabel.text = "通信失敗 エラーコード:" + String(error._code)
-    }
-    
-    // 領域内判定
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("距離内")
-        let view = self.view as! DetectionView
-        view.statusLabel.text = "測定距離内"
-    }
-    
-    // 領域外判定
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        print("距離外")
-        let view = self.view as! DetectionView
-        view.statusLabel.text = "測定距離外"
-    }
-    
-    // ビーコン確保
-    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-        
-        if beacons.count == 0 {
-            print("見つかりません:0")
-            self.beacons = nil
-            return
-        }
-
-        // TODO: 複数対応
-        // TODO: 確保した結果をテーブルにmajor,minorで振り分け、表示したい
-        // TODO: 今のところ、最終結果のみ表示している
-        self.beacons = beacons
-
-        for i in 0..<self.beacons!.count {
-
-            let beacon = self.beacons![i] as CLBeacon
-
-            let view = self.view as! DetectionView
-            
-            switch (beacon.proximity) {
-            case .unknown:
-                print("見つかりません")
-                view.statusLabel.text = "みつかりません"
-                // 結果初期化
-                setBeaconResult(nil)
-            case .immediate:
-                print("近くにあります: 50cm以内？")
-                view.statusLabel.text = "およそ50cm以内"
-            case .near:
-                print("わりと近くにあります: 50cm~6m?")
-                view.statusLabel.text = "およそ50cm~6mの範囲内"
-            default:
-                print("かなり遠いです: 6m~20m?")
-                view.statusLabel.text = "およそ6m~20mの範囲内"
-            }
-            
-            // 情報出力
-            // 識別子
-            print(beacon.proximityUUID.uuidString)
-            print(beacon.major)    // 16bit識別子
-            print(beacon.minor)    // 16bit識別子
-            // 電波情報
-            print(beacon.accuracy) // 近接度精度
-            print(beacon.rssi)     // 受信強度
-            
-            setBeaconResult(beacon)
-        }
-    }
-
     // MARK: - Action
     
-    // 送信ボタン
-    func sendBtnTouchUpInside(_ sender: UIButton) {
-        print("送信ボタン押下")
-        // ???: 現在地不可の場合、そもそもBeacon自体取得できないんだし、送信ボタン自体をdisableにしたほうがいいかな？
-        // ???: 今のところ送信前にチェックしている
-        sendBeaconDetectionData()
+    private func touchSendBtn() {
+        print("touchSendBtn")
+        
+        self.viewModel.sendBeaconDetectionData()
     }
     
-    // Helpボタン
-    func helpBtnTouchUpInside(_ sender: UIButton) {
-        print("help")
+    private func touchHelpBtn() {
+        print("touchHelpBtn")
+        
         let helpViewController = HelpViewController()
         helpViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         self.present(helpViewController, animated: true, completion: nil)
     }
     
-    // 再検知ボタン
-    func retryBtnTouchUpInside(_ sender: UIButton) {
-        print("再検知")
-        if(!viewModel.isMonitoringCapable()){
-            // 実施可能ではない
-            return
-        }
-        self.manager.startRangingBeacons(in: self.beaconRegion!)
+    private func touchRetryBtn() {
+        print("touchRetryBtn")
+        
+        self.viewModel.startRanging()
     }
     
-    // 検知停止ボタン
-    func stopBtnTouchUpInside(_ sender: UIButton) {
-        print("停止")
-        self.manager.stopRangingBeacons(in: self.beaconRegion!)
+    private func touchStopBtn() {
+        print("touchStopBtn")
+        
+        self.viewModel.stopRanging()
     }
     
-    /// シミュレーターボタン
-    func simulatorBtnTouchUpInside(_ sender: UIButton) {
-        print("シミュレーター")
+    private func touchSimulatorBtn() {
+        print("touchSimulatorBtn")
+        
         let simulatorViewController = SimulatorViewController()
         self.navigationController?.pushViewController(simulatorViewController, animated: true)
     }
     
-    // 設定ボタン
-    func settingBtnTouchUpInside(_ sender: UIButton) {
-        print("設定")
+    private func touchSettingBtn() {
+        print("touchSettingBtn")
+        
         let settingViewController = SettingViewController()
         self.navigationController?.pushViewController(settingViewController, animated: true)
     }
-    
-    // MARK: - Tools
-
-    // 検知内容を送信する
-    func sendBeaconDetectionData() {
-        print("サーバ送信")
-        
-        // 送信前に検知を停止
-        self.manager.stopMonitoring(for: self.beaconRegion!)
-        
-        // ローディング
-        SVProgressHUD.show(withStatus: "通信中")
-        SVProgressHUD.setDefaultMaskType(.clear)
-        
-        // 検出データ送信
-        let postUrl = Const.DESTINATION_BASE_URL + Const.DESTINATION_API_URL
-        
-        let manager = AFHTTPSessionManager()
-        
-        let view = self.view as! DetectionView
-        
-        var param:Dictionary<String, String> = ["":""]
-        param["proximityUUID"] = view.proximityUUIDLabel.text!
-        param["major"] = view.majorLabel.text!
-        param["minor"] = view.minorLabel.text!
-        param["accuracy"] = view.accuracyLabel.text!
-        param["rssi"] = view.rssiLabel.text!
-        
-        viewModel.setLocation(param: &param)
-        
-        manager .post(
-            postUrl,
-            parameters: param,
-            progress: nil,
-            success: { (operation, responseObject) in
-                print("通信成功")
-                SVProgressHUD.dismiss()
-        },
-            failure: { (operation, error) in
-                print("通信失敗:" + String(describing: error))
-                SVProgressHUD.dismiss()
-        })
-    }
-
-    // 通知内容を設定する(nil == 初期化)
-    func setBeaconResult(_ beacon: CLBeacon?) {
-        
-        let view = self.view as! DetectionView
-        
-        // 表示設定
-        if beacon == nil {
-            view.proximityUUIDLabel.text = ""
-            view.majorLabel.text = ""
-            view.minorLabel.text = ""
-            view.accuracyLabel.text = ""
-            view.rssiLabel.text = ""
-        } else {
-            view.proximityUUIDLabel.text = beacon!.proximityUUID.uuidString
-            view.majorLabel.text = "\(beacon!.major)"
-            view.minorLabel.text = "\(beacon!.minor)"
-            view.accuracyLabel.text = "\(beacon!.accuracy)"
-            view.rssiLabel.text = "\(beacon!.rssi)"
-        }
-    }
-}
-
-extension DetectionViewController : CLLocationManagerDelegate {
-    
 }

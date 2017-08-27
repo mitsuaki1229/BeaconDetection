@@ -6,27 +6,25 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 import CoreBluetooth
 import RxSwift
-import RxCocoa
 
 class SimulatorViewModel: NSObject {
     
     let disposeBag = DisposeBag()
     
     private let proximityUUIDVar = Variable(UUID())
-    private let majorVar = Variable(0)
-    private let minorVar = Variable(0)
+    private let majorVar = Variable(NSNumber())
+    private let minorVar = Variable(NSNumber())
     private let identifierVar = Variable("")
     
     var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
-    var major: Observable<Int> { return majorVar.asObservable() }
-    var minor: Observable<Int> { return minorVar.asObservable() }
+    var major: Observable<NSNumber> { return majorVar.asObservable() }
+    var minor: Observable<NSNumber> { return minorVar.asObservable() }
     var identifier: Observable<String> { return identifierVar.asObservable() }
     
-    var peripheralManager: CBPeripheralManager!
+    private var peripheralManager: CBPeripheralManager!
     
     override init() {
         super.init()
@@ -44,8 +42,7 @@ class SimulatorViewModel: NSObject {
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         
-        if peripheral.state != .poweredOn {
-            print("Bluetooth off.")
+        guard peripheral.state == .poweredOn else {
             return;
         }
         
