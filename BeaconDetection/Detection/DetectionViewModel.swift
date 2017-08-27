@@ -200,7 +200,7 @@ class DetectionViewModel: NSObject {
         SVProgressHUD.setDefaultMaskType(.clear)
         
         // 検出データ送信
-        let postUrl = Const.DESTINATION_BASE_URL + Const.DESTINATION_API_URL
+        let postUrl = Const.DESTINATION_BASE_URL + Const.DESTINATION_API_ENDPOINT
         
         let manager = AFHTTPSessionManager()
         

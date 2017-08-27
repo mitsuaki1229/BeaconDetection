@@ -42,7 +42,7 @@ class DetectionViewController: UIViewController {
             self?.touchSettingBtn()
         }).disposed(by: disposeBag)
         
-        self.navigationItem.rightBarButtonItem = settingBtn
+        navigationItem.rightBarButtonItem = settingBtn
     }
     
     private func settingView() {
