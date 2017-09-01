@@ -13,10 +13,10 @@ class SimulatorView: UIView {
     
     let regenerateButton = UIButton()
     
-    let uuidItemNameLabel = UILabel()
-    let identifierItemNameLabel = UILabel()
-    let majorItemNameLabel = UILabel()
-    let minorItemNameLabel = UILabel()
+    private let uuidItemNameLabel = UILabel()
+    private let identifierItemNameLabel = UILabel()
+    private let majorItemNameLabel = UILabel()
+    private let minorItemNameLabel = UILabel()
     
     fileprivate let itemNameStackView = UIStackView()
     

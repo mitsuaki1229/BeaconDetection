@@ -12,8 +12,8 @@ import RxSwift
 
 class SettingViewController: UIViewController {
     
-    let viewModel = SettingViewModel()
-    let disposeBag = DisposeBag()
+    private let viewModel = SettingViewModel()
+    private let disposeBag = DisposeBag()
     
     override func loadView() {
         view = SettingView()
