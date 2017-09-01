@@ -10,15 +10,23 @@ import CoreLocation
 import CoreBluetooth
 import RxSwift
 
+enum SimulatorViewModelState {
+    case normal
+    case peripheralError
+    case other
+}
+
 class SimulatorViewModel: NSObject {
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
+    private let statusVar = Variable(SimulatorViewModelState.other)
     private let proximityUUIDVar = Variable(UUID())
     private let majorVar = Variable(NSNumber())
     private let minorVar = Variable(NSNumber())
     private let identifierVar = Variable("")
     
+    var status: Observable<SimulatorViewModelState> { return statusVar.asObservable() }
     var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
     var major: Observable<NSNumber> { return majorVar.asObservable() }
     var minor: Observable<NSNumber> { return minorVar.asObservable() }
@@ -43,8 +51,11 @@ class SimulatorViewModel: NSObject {
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         
         guard peripheral.state == .poweredOn else {
+            statusVar.value = .peripheralError
             return;
         }
+        
+        statusVar.value = .normal
         
         let proximityUUID = NSUUID.init(uuidString: Const.PROXIMITY_UUID)
         

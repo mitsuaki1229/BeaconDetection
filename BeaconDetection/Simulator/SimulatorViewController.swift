@@ -43,6 +43,37 @@ class SimulatorViewController: UIViewController {
             simulatorView.identifierLabel.text = s
         }).disposed(by: disposeBag)
         
+        viewModel.status.subscribe(onNext: { [unowned self] status in
+            
+            switch status {
+            case .other:
+                break
+            case .normal:
+                self.beginningAnimation()
+            case .peripheralError:
+                let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                }))
+                
+                self.rootViewController().present(
+                    alert,
+                    animated: false,
+                    completion: {
+                })
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    private func rootViewController() -> UIViewController {
+        return UIApplication.shared.keyWindow!.rootViewController!
+    }
+    
+    private func beginningAnimation() {
+        
         UIView.animate(withDuration: 1.0,
                        delay: 0.0,
                        options: .repeat, animations: { () -> Void in
@@ -50,9 +81,5 @@ class SimulatorViewController: UIViewController {
                         let view = self.view as! SimulatorView
                         view.backgroundImageView.alpha = 0.0
         }, completion: nil)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 }
