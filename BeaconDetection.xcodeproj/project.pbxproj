@@ -13,23 +13,18 @@
 		2C1F7F0D1F30B1A2001A9B2C /* SimulatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0C1F30B1A2001A9B2C /* SimulatorViewModel.swift */; };
 		2C1F7F0F1F30B1C0001A9B2C /* SimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0E1F30B1C0001A9B2C /* SimulatorView.swift */; };
 		2C1F7F111F30B212001A9B2C /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F101F30B212001A9B2C /* SimulatorViewController.swift */; };
-		2C3F00831F2C58C40086076D /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE8E6321F2B77B900DE4004 /* AFNetworking.framework */; };
-		2C3F00841F2C58C40086076D /* INTULocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE8E6331F2B77B900DE4004 /* INTULocationManager.framework */; };
 		2C3F00851F2C58C40086076D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C659E931F2B906400E90CCE /* SnapKit.framework */; };
-		2C3F00861F2C58C40086076D /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE8E6341F2B77B900DE4004 /* SVProgressHUD.framework */; };
 		2C3F00891F2D482C0086076D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F00881F2D482C0086076D /* SettingView.swift */; };
 		2C3F008B1F2D48480086076D /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F008A1F2D48480086076D /* SettingViewModel.swift */; };
 		2C3F008D1F2D48550086076D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F008C1F2D48550086076D /* SettingViewController.swift */; };
 		2C4D4AA71F486D620050CB14 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */; };
 		2C4D4AAB1F4B04130050CB14 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
-		2C5154CB1F5311D2001DD679 /* stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C5154CA1F5311D2001DD679 /* stub.json */; };
 		2C659E901F2B89C500E90CCE /* DetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C659E8F1F2B89C500E90CCE /* DetectionView.swift */; };
 		2C659E921F2B89D100E90CCE /* DetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C659E911F2B89D100E90CCE /* DetectionViewModel.swift */; };
 		2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */; };
 		2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F051F30A56E001A9B2C /* RxTest.framework */; };
 		2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486B1F52F7F9008616CD /* Nimble.framework */; };
-		2C7B486F1F52F7F9008616CD /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486C1F52F7F9008616CD /* OHHTTPStubs.framework */; };
 		2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486D1F52F7F9008616CD /* Quick.framework */; };
 		2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
@@ -39,7 +34,6 @@
 		2CE5A3E61F2C06E0002BC345 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3E51F2C06E0002BC345 /* HelpView.swift */; };
 		2CE5A3E81F2C06EF002BC345 /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3E71F2C06EF002BC345 /* HelpViewModel.swift */; };
 		2CE5A3EB1F2C0905002BC345 /* BeaconDetectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3EA1F2C0905002BC345 /* BeaconDetectionUITests.swift */; };
-		2CE5A3EE1F2C092A002BC345 /* BeaconDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3ED1F2C092A002BC345 /* BeaconDetectionTests.swift */; };
 		2CE891551F4B04D80046EC73 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
 		2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3B1F3F43A500230368 /* DescriptionView.swift */; };
 		2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */; };
@@ -81,13 +75,10 @@
 		2C3F008C1F2D48550086076D /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMMarkdown.framework; path = Carthage/Build/iOS/MMMarkdown.framework; sourceTree = "<group>"; };
 		2C4D4AAA1F4B04130050CB14 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		2C4E55551F2BFD44001975A3 /* BeaconDetection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeaconDetection-Bridging-Header.h"; sourceTree = "<group>"; };
-		2C5154CA1F5311D2001DD679 /* stub.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stub.json; sourceTree = "<group>"; };
 		2C659E8F1F2B89C500E90CCE /* DetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionView.swift; sourceTree = "<group>"; };
 		2C659E911F2B89D100E90CCE /* DetectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionViewModel.swift; sourceTree = "<group>"; };
 		2C659E931F2B906400E90CCE /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		2C7B486B1F52F7F9008616CD /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
-		2C7B486C1F52F7F9008616CD /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
 		2C7B486D1F52F7F9008616CD /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		2CB89EE51BEE4F7C002A4EC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2CB89EE81BEE567C002A4EC7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
@@ -96,13 +87,7 @@
 		2CDDF20C1F35474100101FD7 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
 		2CE5A3E51F2C06E0002BC345 /* HelpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		2CE5A3E71F2C06EF002BC345 /* HelpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewModel.swift; sourceTree = "<group>"; };
-		2CE5A3E91F2C0905002BC345 /* BeaconDetectionUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeaconDetectionUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		2CE5A3EA1F2C0905002BC345 /* BeaconDetectionUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDetectionUITests.swift; sourceTree = "<group>"; };
-		2CE5A3EC1F2C092A002BC345 /* BeaconDetectionTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeaconDetectionTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		2CE5A3ED1F2C092A002BC345 /* BeaconDetectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDetectionTests.swift; sourceTree = "<group>"; };
-		2CE8E6321F2B77B900DE4004 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
-		2CE8E6331F2B77B900DE4004 /* INTULocationManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = INTULocationManager.framework; path = Carthage/Build/iOS/INTULocationManager.framework; sourceTree = "<group>"; };
-		2CE8E6341F2B77B900DE4004 /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		2CF00F3B1F3F43A500230368 /* DescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewModel.swift; sourceTree = "<group>"; };
 		2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
@@ -125,12 +110,9 @@
 			files = (
 				2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */,
 				2CDDF20D1F35474100101FD7 /* RxDataSources.framework in Frameworks */,
-				2C3F00831F2C58C40086076D /* AFNetworking.framework in Frameworks */,
-				2C3F00841F2C58C40086076D /* INTULocationManager.framework in Frameworks */,
 				2C1F7F071F30A56E001A9B2C /* RxCocoa.framework in Frameworks */,
 				2C1F7F081F30A56E001A9B2C /* RxSwift.framework in Frameworks */,
 				2C3F00851F2C58C40086076D /* SnapKit.framework in Frameworks */,
-				2C3F00861F2C58C40086076D /* SVProgressHUD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +121,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */,
-				2C7B486F1F52F7F9008616CD /* OHHTTPStubs.framework in Frameworks */,
 				2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */,
 				2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */,
 				2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */,
@@ -160,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				2C7B486B1F52F7F9008616CD /* Nimble.framework */,
-				2C7B486C1F52F7F9008616CD /* OHHTTPStubs.framework */,
 				2C7B486D1F52F7F9008616CD /* Quick.framework */,
 				2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */,
 				2CDDF20C1F35474100101FD7 /* RxDataSources.framework */,
@@ -169,9 +149,6 @@
 				2C1F7F041F30A56E001A9B2C /* RxSwift.framework */,
 				2C1F7F051F30A56E001A9B2C /* RxTest.framework */,
 				2C659E931F2B906400E90CCE /* SnapKit.framework */,
-				2CE8E6321F2B77B900DE4004 /* AFNetworking.framework */,
-				2CE8E6331F2B77B900DE4004 /* INTULocationManager.framework */,
-				2CE8E6341F2B77B900DE4004 /* SVProgressHUD.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -265,7 +242,6 @@
 				6E7CADC81BEC95D70046E77B /* Assets.xcassets */,
 				6E7CADCA1BEC95D70046E77B /* LaunchScreen.storyboard */,
 				6E7CADCD1BEC95D70046E77B /* Info.plist */,
-				2C4E55551F2BFD44001975A3 /* BeaconDetection-Bridging-Header.h */,
 			);
 			path = BeaconDetection;
 			sourceTree = "<group>";
@@ -273,10 +249,7 @@
 		6E7CADD51BEC95D70046E77B /* BeaconDetectionTests */ = {
 			isa = PBXGroup;
 			children = (
-				2CE5A3ED1F2C092A002BC345 /* BeaconDetectionTests.swift */,
 				6E7CADD81BEC95D70046E77B /* Info.plist */,
-				2CE5A3EC1F2C092A002BC345 /* BeaconDetectionTests-Bridging-Header.h */,
-				2C5154CA1F5311D2001DD679 /* stub.json */,
 			);
 			path = BeaconDetectionTests;
 			sourceTree = "<group>";
@@ -286,7 +259,6 @@
 			children = (
 				2CE5A3EA1F2C0905002BC345 /* BeaconDetectionUITests.swift */,
 				6E7CADE31BEC95D80046E77B /* Info.plist */,
-				2CE5A3E91F2C0905002BC345 /* BeaconDetectionUITests-Bridging-Header.h */,
 			);
 			path = BeaconDetectionUITests;
 			sourceTree = "<group>";
@@ -415,7 +387,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C5154CB1F5311D2001DD679 /* stub.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +408,6 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
 			);
@@ -453,9 +423,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/INTULocationManager.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SVProgressHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
@@ -502,7 +469,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CE5A3EE1F2C092A002BC345 /* BeaconDetectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,7 +618,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetection-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -674,7 +639,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetection-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -685,6 +649,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -695,7 +660,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetectionTests/BeaconDetectionTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeaconDetection.app/BeaconDetection";
@@ -707,6 +671,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -717,7 +682,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetectionTests/BeaconDetectionTests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeaconDetection.app/BeaconDetection";
 			};
@@ -734,7 +698,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetectionUITests/BeaconDetectionUITests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BeaconDetection;
@@ -753,7 +716,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeaconDetectionUITests/BeaconDetectionUITests-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = BeaconDetection;
 				USES_XCTRUNNER = YES;

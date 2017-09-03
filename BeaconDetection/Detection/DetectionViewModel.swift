@@ -7,12 +7,7 @@
 //
 
 import CoreLocation
-
-import INTULocationManager
 import RxSwift
-
-import AFNetworking
-import SVProgressHUD
 
 class DetectionViewModel: NSObject {
     
@@ -126,6 +121,8 @@ class DetectionViewModel: NSObject {
         
         for beacon in beacons {
             
+            // TODO: 複数表示
+            
             switch (beacon.proximity) {
             case .unknown:
                 
@@ -188,45 +185,6 @@ class DetectionViewModel: NSObject {
         self.manager.stopRangingBeacons(in: beaconRegion)
     }
     
-    // 検知内容を送信する
-    func sendBeaconDetectionData() {
-        print("サーバ送信")
-        
-        // 送信前に検知を停止
-        self.manager.stopMonitoring(for: beaconRegion!)
-        
-        // ローディング
-        SVProgressHUD.show(withStatus: "通信中")
-        SVProgressHUD.setDefaultMaskType(.clear)
-        
-        // 検出データ送信
-        let postUrl = Const.DESTINATION_BASE_URL + Const.DESTINATION_API_ENDPOINT
-        
-        let manager = AFHTTPSessionManager()
-        
-        var param:Dictionary<String, String> = ["":""]
-        param["proximityUUID"] = proximityUUIDVar.value.uuidString
-        param["major"] = majorVar.value.stringValue
-        param["minor"] = minorVar.value.stringValue
-        param["accuracy"] = String(accuracyVar.value)
-        param["rssi"] = String(rssiVar.value)
-        
-        setLocation(param: &param)
-        
-        manager .post(
-            postUrl,
-            parameters: param,
-            progress: nil,
-            success: { (operation, responseObject) in
-                print("通信成功")
-                SVProgressHUD.dismiss()
-        },
-            failure: { (operation, error) in
-                print("通信失敗:" + String(describing: error))
-                SVProgressHUD.dismiss()
-        })
-    }
-    
     /// 位置情報サービス認証状態を確認する
     func authorizationStatusCheck() {
         
@@ -270,56 +228,6 @@ class DetectionViewModel: NSObject {
         minorVar.value = 0
         accuracyVar.value = 0
         rssiVar.value = 0
-    }
-    
-    /// 現在地情報を送信情報にセットする
-    private func setLocation(param: inout Dictionary<String, String>) {
-        
-        guard CLLocationManager.authorizationStatus() == .authorizedAlways else {
-            return
-        }
-        
-        var currentAccuracyStr  = ""
-        var currentLongitudeStr = ""
-        var currentLatitudeStr  = ""
-        
-        var keepAlive = true
-        
-        let locMgr = INTULocationManager.sharedInstance()
-        locMgr.requestLocation(withDesiredAccuracy: INTULocationAccuracy.city,
-                               timeout: 10.0,
-                               block: { (currentLocation:CLLocation!, achievedAccuracy:INTULocationAccuracy, status:INTULocationStatus) -> Void in
-                                
-                                switch (status) {
-                                case .success:
-                                    break
-                                default:
-                                    keepAlive = false
-                                    return
-                                }
-                                
-                                currentAccuracyStr = String(achievedAccuracy.rawValue)
-                                
-                                guard let currentLocation = currentLocation else {
-                                    keepAlive = false
-                                    return
-                                }
-                                
-                                currentLongitudeStr = String(currentLocation.coordinate.longitude)
-                                currentLatitudeStr = String(currentLocation.coordinate.latitude)
-                                
-                                keepAlive = false
-        })
-        
-        let runLoop = RunLoop.current
-        while keepAlive &&
-            runLoop.run(mode: .defaultRunLoopMode, before: Date(timeIntervalSinceNow: 0.1)) {
-                // 処理継続
-        }
-        
-        param["currentAccuracy"] = currentAccuracyStr
-        param["currentLongitude"] = currentLongitudeStr
-        param["currentLatitude"] = currentLatitudeStr
     }
 }
 

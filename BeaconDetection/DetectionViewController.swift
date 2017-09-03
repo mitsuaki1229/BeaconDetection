@@ -77,10 +77,6 @@ class DetectionViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         // アクション
-        view.sendBtn.rx.tap.subscribe(onNext: { [weak self] x in
-            self?.touchSendBtn()
-        }).disposed(by: disposeBag)
-        
         view.retryBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchRetryBtn()
         }).disposed(by: disposeBag)
@@ -99,12 +95,6 @@ class DetectionViewController: UIViewController {
     }
     
     // MARK: - Action
-    
-    private func touchSendBtn() {
-        print("touchSendBtn")
-        
-        viewModel.sendBeaconDetectionData()
-    }
     
     private func touchHelpBtn() {
         print("touchHelpBtn")

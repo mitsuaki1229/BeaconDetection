@@ -19,7 +19,6 @@ class DetectionView: UIView {
     let rssiLabel = UILabel()
     
     let helpBtn = UIButton()
-    let sendBtn = UIButton()
     let retryBtn = UIButton()
     let stopBtn = UIButton()
     
@@ -35,7 +34,6 @@ class DetectionView: UIView {
         addSubview(accuracyLabel)
         addSubview(rssiLabel)
         addSubview(helpBtn)
-        addSubview(sendBtn)
         addSubview(retryBtn)
         addSubview(stopBtn)
         addSubview(simulatorBtn)
@@ -113,19 +111,9 @@ class DetectionView: UIView {
         }
         
         rssiLabel.backgroundColor = .darkGray
-
-        sendBtn.snp.remakeConstraints { (make) in
-            make.top.equalTo(rssiLabel.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
-        }
         
-        sendBtn.backgroundColor = .green
-        sendBtn.setTitle("Send", for: .normal)
-
         retryBtn.snp.remakeConstraints { (make) in
-            make.top.equalTo(sendBtn.snp.bottom)
+            make.top.equalTo(rssiLabel.snp.bottom)
             make.left.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(31)
@@ -135,7 +123,7 @@ class DetectionView: UIView {
         retryBtn.setTitle("Retry", for: .normal)
 
         stopBtn.snp.remakeConstraints { (make) in
-            make.top.equalTo(sendBtn.snp.bottom)
+            make.top.equalTo(rssiLabel.snp.bottom)
             make.right.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(31)
