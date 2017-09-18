@@ -34,15 +34,6 @@ class DetectionViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = "Detection"
-        
-        let settingBtn = UIBarButtonItem()
-        settingBtn.title = "⚙"
-        settingBtn.style = .plain
-        settingBtn.rx.tap.subscribe(onNext: { [weak self] x in
-            self?.touchSettingBtn()
-        }).disposed(by: disposeBag)
-        
-        navigationItem.rightBarButtonItem = settingBtn
     }
     
     private func settingView() {
@@ -81,28 +72,12 @@ class DetectionViewController: UIViewController {
             self?.touchRetryBtn()
         }).disposed(by: disposeBag)
         
-        view.helpBtn.rx.tap.subscribe(onNext: { [weak self] x in
-            self?.touchHelpBtn()
-        }).disposed(by: disposeBag)
-        
         view.stopBtn.rx.tap.subscribe(onNext: { [weak self] x in
             self?.touchStopBtn()
-        }).disposed(by: disposeBag)
-        
-        view.simulatorBtn.rx.tap.subscribe(onNext: { [weak self] x in
-            self?.touchSimulatorBtn()
         }).disposed(by: disposeBag)
     }
     
     // MARK: - Action
-    
-    private func touchHelpBtn() {
-        print("touchHelpBtn")
-        
-        let helpViewController = HelpViewController()
-        helpViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        present(helpViewController, animated: true, completion: nil)
-    }
     
     private func touchRetryBtn() {
         print("touchRetryBtn")
@@ -114,19 +89,5 @@ class DetectionViewController: UIViewController {
         print("touchStopBtn")
         
         viewModel.stopRanging()
-    }
-    
-    private func touchSimulatorBtn() {
-        print("touchSimulatorBtn")
-        
-        let simulatorViewController = SimulatorViewController()
-        navigationController?.pushViewController(simulatorViewController, animated: true)
-    }
-    
-    private func touchSettingBtn() {
-        print("touchSettingBtn")
-        
-        let settingViewController = SettingViewController()
-        navigationController?.pushViewController(settingViewController, animated: true)
     }
 }

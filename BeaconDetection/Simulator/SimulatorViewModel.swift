@@ -24,7 +24,7 @@ class SimulatorViewModel: NSObject {
     private let proximityUUIDVar = Variable(UUID())
     private let majorVar = Variable(NSNumber())
     private let minorVar = Variable(NSNumber())
-    private let identifierVar = Variable("")
+    private let identifierVar = Variable("UNIQUE")
     
     var status: Observable<SimulatorViewModelState> { return statusVar.asObservable() }
     var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
@@ -43,10 +43,11 @@ class SimulatorViewModel: NSObject {
         proximityUUIDVar.value = uuid
         majorVar.value = getRandomNum()
         minorVar.value = getRandomNum()
-        identifierVar.value = "UNIQUE"
         
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
+    
+    // MARK: CBPeripheralManagerDelegate
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         
@@ -61,14 +62,16 @@ class SimulatorViewModel: NSObject {
         
         let beaconRegion
             = CLBeaconRegion.init(proximityUUID: proximityUUID! as UUID,
-                                  major: CLBeaconMajorValue(majorVar.value),
-                                  minor: CLBeaconMinorValue(minorVar.value),
+                                  major: CLBeaconMajorValue(truncating: majorVar.value),
+                                  minor: CLBeaconMinorValue(truncating: minorVar.value),
                                   identifier: identifierVar.value)
         
         let beaconPeripheralData = NSDictionary(dictionary: beaconRegion.peripheralData(withMeasuredPower: nil))
         
         peripheralManager.startAdvertising(beaconPeripheralData as? [String : AnyObject])
     }
+    
+    // MARK: Tools
     
     private func getRandomNum() -> NSNumber {
         let randomNum: Int = Int(arc4random_uniform(10)) + 1

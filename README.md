@@ -18,9 +18,9 @@ beacon技術と触れ合うためのアプリを目指しています。
 
 ## Requirement
 
-* Xcode 8.3.3
-* Swift 3.1
-* Carthage 0.24.0
+* Xcode 9.0
+* Swift 4
+* Carthage 0.25.0
 
 ## Install
 

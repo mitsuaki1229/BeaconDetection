@@ -39,9 +39,9 @@ class SimulatorViewController: UIViewController {
             simulatorView.minorLabel.text = n.stringValue
         }).disposed(by: disposeBag)
         
-        viewModel.identifier.subscribe(onNext: { s in
-            simulatorView.identifierLabel.text = s
-        }).disposed(by: disposeBag)
+        viewModel.identifier
+            .bind(to: simulatorView.identifierLabel.rx.text)
+            .disposed(by: disposeBag)
         
         viewModel.status.subscribe(onNext: { [unowned self] status in
             

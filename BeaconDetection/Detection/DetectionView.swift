@@ -18,11 +18,8 @@ class DetectionView: UIView {
     let accuracyLabel = UILabel()
     let rssiLabel = UILabel()
     
-    let helpBtn = UIButton()
     let retryBtn = UIButton()
     let stopBtn = UIButton()
-    
-    let simulatorBtn = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,10 +30,8 @@ class DetectionView: UIView {
         addSubview(minorLabel)
         addSubview(accuracyLabel)
         addSubview(rssiLabel)
-        addSubview(helpBtn)
         addSubview(retryBtn)
         addSubview(stopBtn)
-        addSubview(simulatorBtn)
         
         backgroundColor = UIColor(patternImage: UIImage(named: "MonitoringBackground")!)
     }
@@ -47,17 +42,6 @@ class DetectionView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        helpBtn.snp.remakeConstraints { (make) in
-            make.top.equalToSuperview().offset(30)
-            make.right.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
-        }
-        
-        helpBtn.backgroundColor = .brown
-        
-        helpBtn.setTitle("Help", for: .normal)
         
         statusLabel.snp.remakeConstraints { (make) in
             make.top.equalToSuperview().offset(30)
@@ -131,15 +115,5 @@ class DetectionView: UIView {
         
         stopBtn.backgroundColor = .magenta
         stopBtn.setTitle("Stop", for: .normal)
-        
-        simulatorBtn.snp.remakeConstraints { (make) in
-            make.top.equalTo(stopBtn.snp.bottom)
-            make.width.equalTo(100)
-            make.height.equalTo(31)
-            make.centerX.equalToSuperview()
-        }
-        
-        simulatorBtn.backgroundColor = .gray
-        simulatorBtn.setTitle("Simulator", for: .normal)
     }
 }
