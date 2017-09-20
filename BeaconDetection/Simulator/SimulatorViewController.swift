@@ -49,34 +49,33 @@ class SimulatorViewController: UIViewController {
             case .other:
                 break
             case .normal:
-                self.beginningAnimation()
+                self.switchAnimation(animatie: true)
             case .peripheralError:
+                
                 let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-                }))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 
                 self.rootViewController().present(
                     alert,
                     animated: false,
-                    completion: {
-                })
+                    completion: nil)
+                
+                self.switchAnimation(animatie: false)
             }
         }).disposed(by: disposeBag)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    private func rootViewController() -> UIViewController {
-        return UIApplication.shared.keyWindow!.rootViewController!
-    }
-    
-    private func beginningAnimation() {
+    private func switchAnimation(animatie: Bool) {
+        
+        if !animatie {
+            let view = self.view as! SimulatorView
+            view.layer.removeAllAnimations()
+            return
+        }
         
         UIView.animate(withDuration: 1.0,
                        delay: 0.0,
-                       options: .repeat, animations: { () -> Void in
+                       options: .repeat, animations: { [unowned self] () -> Void in
                         
                         let view = self.view as! SimulatorView
                         view.backgroundImageView.alpha = 0.0

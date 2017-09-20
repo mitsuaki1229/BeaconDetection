@@ -55,6 +55,32 @@ class DetectionViewModel: NSObject {
         settingBeaconManager()
     }
     
+    // MARK: - Tools
+    
+    // !!!: unuse
+    func startRanging() {
+        
+        guard isMonitoringCapable() else {
+            self.statusVar.value = "Beacon使用不可"
+            return
+        }
+        
+        guard let beaconRegion = beaconRegion else {
+            return
+        }
+        
+        self.manager.startRangingBeacons(in: beaconRegion)
+    }
+    
+    // !!!: unuse
+    func stopRanging() {
+        
+        guard let beaconRegion = beaconRegion else {
+            return
+        }
+        self.manager.stopRangingBeacons(in: beaconRegion)
+    }
+    
     private func settingDetectionInfoTable() {
         
         dataSource.configureCell = { [unowned self] ds, tv, ip, item in
@@ -96,7 +122,53 @@ class DetectionViewModel: NSObject {
         manager.startMonitoring(for: beaconRegion!)
     }
     
-    // MARK: - iBeacon
+    private func authorizationStatusCheck() {
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways:
+            statusVar.value = "使用許可"
+        case .authorizedWhenInUse:
+            statusVar.value = "測定可能"
+        case .denied:
+            statusVar.value = "使用拒否"
+        case .notDetermined:
+            manager.requestAlwaysAuthorization()
+            statusVar.value = "許可未済"
+        default:
+            statusVar.value = "機能制限"
+        }
+    }
+    
+    private func isMonitoringCapable() -> Bool {
+        return CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self)
+    }
+    
+    private func convertProximityStatusToText(proximity: CLProximity) -> String {
+        
+        switch (proximity) {
+        case .unknown:
+            return "みつかりません"
+        case .immediate:
+            return "およそ50cm以内"
+        case .near:
+            return "およそ50cm~6mの範囲内"
+        case .far:
+            return "およそ6m~20mの範囲内"
+        }
+    }
+    
+    private func debugBeacon(beacon: CLBeacon) {
+        
+        print(beacon.proximityUUID.uuidString)
+        print(beacon.major)
+        print(beacon.minor)
+        print(convertProximityStatusToText(proximity: beacon.proximity))
+        print(beacon.accuracy)
+        print(beacon.rssi)
+    }
+}
+
+extension DetectionViewModel: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         statusVar.value = "モニタリング開始"
@@ -160,81 +232,4 @@ class DetectionViewModel: NSObject {
             debugBeacon(beacon: beacon)
         }
     }
-    
-    // MARK: - Tools
-    
-    // MARK: - Public
-    
-    func startRanging() {
-        
-        guard isMonitoringCapable() else {
-            self.statusVar.value = "Beacon使用不可"
-            return
-        }
-        
-        guard let beaconRegion = beaconRegion else {
-            return
-        }
-        
-        self.manager.startRangingBeacons(in: beaconRegion)
-    }
-    
-    func stopRanging() {
-        
-        guard let beaconRegion = beaconRegion else {
-            return
-        }
-        self.manager.stopRangingBeacons(in: beaconRegion)
-    }
-    
-    // MARK: - Private
-    
-    private func authorizationStatusCheck() {
-        
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways:
-            statusVar.value = "使用許可"
-        case .authorizedWhenInUse:
-            statusVar.value = "測定可能"
-        case .denied:
-            statusVar.value = "使用拒否"
-        case .notDetermined:
-            manager.requestAlwaysAuthorization()
-            statusVar.value = "許可未済"
-        default:
-            statusVar.value = "機能制限"
-        }
-    }
-    
-    private func isMonitoringCapable() -> Bool {
-        return CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self)
-    }
-    
-    private func convertProximityStatusToText(proximity: CLProximity) -> String {
-        
-        switch (proximity) {
-        case .unknown:
-            return "みつかりません"
-        case .immediate:
-            return "およそ50cm以内"
-        case .near:
-            return "およそ50cm~6mの範囲内"
-        case .far:
-            return "およそ6m~20mの範囲内"
-        }
-    }
-    
-    private func debugBeacon(beacon: CLBeacon) {
-        
-        print(beacon.proximityUUID.uuidString)
-        print(beacon.major)
-        print(beacon.minor)
-        print(convertProximityStatusToText(proximity: beacon.proximity))
-        print(beacon.accuracy)
-        print(beacon.rssi)
-    }
 }
-
-extension DetectionViewModel: CLLocationManagerDelegate {
-}
-

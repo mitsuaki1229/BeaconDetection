@@ -34,10 +34,6 @@ class DescriptionViewController: UIViewController {
         loadDisplayArea()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     private func loadDisplayArea() {
         
         let descriptionView = view as! DescriptionView

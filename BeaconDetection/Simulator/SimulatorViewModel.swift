@@ -24,7 +24,8 @@ class SimulatorViewModel: NSObject {
     private let proximityUUIDVar = Variable(UUID())
     private let majorVar = Variable(NSNumber())
     private let minorVar = Variable(NSNumber())
-    private let identifierVar = Variable("UNIQUE")
+    // TODO: Set identifier Var
+    private let identifierVar = Variable("")
     
     var status: Observable<SimulatorViewModelState> { return statusVar.asObservable() }
     var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
@@ -47,13 +48,21 @@ class SimulatorViewModel: NSObject {
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
     
-    // MARK: CBPeripheralManagerDelegate
+    // MARK: Tools
+    
+    private func getRandomNum() -> NSNumber {
+        let randomNum: Int = Int(arc4random_uniform(10)) + 1
+        return NSNumber(value: randomNum)
+    }
+}
+
+extension SimulatorViewModel : CBPeripheralManagerDelegate {
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         
         guard peripheral.state == .poweredOn else {
             statusVar.value = .peripheralError
-            return;
+            return
         }
         
         statusVar.value = .normal
@@ -70,14 +79,4 @@ class SimulatorViewModel: NSObject {
         
         peripheralManager.startAdvertising(beaconPeripheralData as? [String : AnyObject])
     }
-    
-    // MARK: Tools
-    
-    private func getRandomNum() -> NSNumber {
-        let randomNum: Int = Int(arc4random_uniform(10)) + 1
-        return NSNumber(value: randomNum)
-    }
-}
-
-extension SimulatorViewModel : CBPeripheralManagerDelegate {
 }

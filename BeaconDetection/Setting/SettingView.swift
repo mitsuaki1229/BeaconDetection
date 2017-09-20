@@ -10,7 +10,7 @@ import UIKit
 
 class SettingView: UIView {
     
-    let listTableView = UITableView()
+    let listTableView = UITableView(frame: .zero, style: .grouped)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,17 +18,13 @@ class SettingView: UIView {
         backgroundColor = .white
         
         addSubview(listTableView)
+        
+        listTableView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalToSuperview()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        listTableView.snp.remakeConstraints { (make) in
-            make.top.left.right.bottom.equalToSuperview()
-        }
     }
 }

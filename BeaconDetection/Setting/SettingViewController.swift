@@ -25,11 +25,11 @@ class SettingViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = "Description"
         
-        let settingView = view as! SettingView
-        settingView.listTableView.rx.setDelegate(self)
+        let view = self.view as! SettingView
+        view.listTableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        settingView.listTableView.rx.itemSelected
+        view.listTableView.rx.itemSelected
             .map { [weak self] ip in
                 return (ip, self?.viewModel.dataSource[ip])
             }
@@ -49,15 +49,11 @@ class SettingViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         Observable.just(viewModel.sections)
-            .bind(to: settingView
+            .bind(to: view
                 .listTableView
                 .rx
                 .items(dataSource: viewModel.dataSource))
             .disposed(by: disposeBag)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 }
 
@@ -65,5 +61,9 @@ extension SettingViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
     }
 }

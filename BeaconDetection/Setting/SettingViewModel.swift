@@ -48,15 +48,16 @@ class SettingViewModel: NSObject {
         super.init()
         
         dataSource.configureCell = {ds, tv, ip, item in
-            let cell = tv.dequeueReusableCell(withIdentifier: "SettingListTableViewCell")
-                ?? SettingListTableViewCell(style: .default, reuseIdentifier: "SettingListTableViewCell")
-            
+            let cell = tv.dequeueReusableCell(withIdentifier: "Cell")
+                ?? UITableViewCell(style: .default, reuseIdentifier: "Cell")
             cell.textLabel?.text = item.title
             
             if ip.row == 1 {
                 cell.selectionStyle = .none
+                cell.accessoryType = .none
             } else {
                 cell.selectionStyle = .default
+                cell.accessoryType = .disclosureIndicator
             }
             
             return cell

@@ -26,16 +26,20 @@ class SimulatorView: UIView {
     let minorLabel = UILabel()
     
     let backgroundImageView = UIImageView()
+    let simulatorTerminalImageView = UIImageView()
     
     fileprivate let itemStackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         backgroundColor = UIColor.white
         
         addSubview(backgroundImageView)
         backgroundImageView.image = UIImage(named: "SimulatorBackground")
+        
+        addSubview(simulatorTerminalImageView)
+        simulatorTerminalImageView.image = UIImage(named: "SimulatorTerminal")
         
         addSubview(itemNameStackView)
         itemNameStackView.addArrangedSubview(uuidItemNameLabel)
@@ -53,20 +57,17 @@ class SimulatorView: UIView {
         itemStackView.addArrangedSubview(identifierLabel)
         itemStackView.addArrangedSubview(majorLabel)
         itemStackView.addArrangedSubview(minorLabel)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
         
-        backgroundImageView.snp.remakeConstraints { (make) in
-            make.top.equalToSuperview().offset(50)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(200)
-            make.height.equalTo(200)
+        // Install Constraints
+        
+        backgroundImageView.snp.makeConstraints { (make) in
+            make.centerX.centerY.equalToSuperview()
+            make.width.height.equalTo(300)
+        }
+        
+        simulatorTerminalImageView.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(backgroundImageView)
+            make.width.height.equalTo(200)
         }
         
         itemNameStackView.axis = .vertical
@@ -74,7 +75,7 @@ class SimulatorView: UIView {
         itemNameStackView.distribution = .fillEqually
         itemNameStackView.spacing = 2
         
-        itemNameStackView.snp.remakeConstraints { (make) in
+        itemNameStackView.snp.makeConstraints { (make) in
             make.top.equalTo(backgroundImageView.snp.bottom)
             make.left.bottom.equalToSuperview().inset(20)
             make.width.equalTo(200)
@@ -85,10 +86,14 @@ class SimulatorView: UIView {
         itemStackView.distribution = .fillEqually
         itemStackView.spacing = 2
         
-        itemStackView.snp.remakeConstraints { (make) in
+        itemStackView.snp.makeConstraints { (make) in
             make.top.equalTo(itemNameStackView)
             make.bottom.right.equalToSuperview().inset(20)
             make.left.equalTo(itemNameStackView.snp.right)
         }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

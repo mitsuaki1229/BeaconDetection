@@ -12,6 +12,7 @@
 		2C1F7F0D1F30B1A2001A9B2C /* SimulatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0C1F30B1A2001A9B2C /* SimulatorViewModel.swift */; };
 		2C1F7F0F1F30B1C0001A9B2C /* SimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0E1F30B1C0001A9B2C /* SimulatorView.swift */; };
 		2C1F7F111F30B212001A9B2C /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F101F30B212001A9B2C /* SimulatorViewController.swift */; };
+		2C33D1A61F7232B60007B141 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C33D1A51F7232B60007B141 /* Extension.swift */; };
 		2C3F00851F2C58C40086076D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C659E931F2B906400E90CCE /* SnapKit.framework */; };
 		2C3F00891F2D482C0086076D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F00881F2D482C0086076D /* SettingView.swift */; };
 		2C3F008B1F2D48480086076D /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F008A1F2D48480086076D /* SettingViewModel.swift */; };
@@ -26,7 +27,6 @@
 		2C7D3E611F70B500005E893F /* DetectionInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */; };
 		2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
-		2CBD1C4A1F34ABFD00916042 /* SettingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD1C491F34ABFD00916042 /* SettingListTableViewCell.swift */; };
 		2CCCF0881F6FFEE000B5B560 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */; };
 		2CCCF08A1F706EB500B5B560 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */; };
 		2CCCF08C1F706EC000B5B560 /* DetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */; };
@@ -66,6 +66,7 @@
 		2C1F7F0C1F30B1A2001A9B2C /* SimulatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorViewModel.swift; sourceTree = "<group>"; };
 		2C1F7F0E1F30B1C0001A9B2C /* SimulatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorView.swift; sourceTree = "<group>"; };
 		2C1F7F101F30B212001A9B2C /* SimulatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorViewController.swift; sourceTree = "<group>"; };
+		2C33D1A51F7232B60007B141 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		2C3F00881F2D482C0086076D /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2C3F008A1F2D48480086076D /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		2C3F008C1F2D48550086076D /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -77,7 +78,6 @@
 		2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2CB89EE51BEE4F7C002A4EC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2CB89EE81BEE567C002A4EC7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
-		2CBD1C491F34ABFD00916042 /* SettingListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingListTableViewCell.swift; sourceTree = "<group>"; };
 		2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
 		2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewModel.swift; sourceTree = "<group>"; };
@@ -162,7 +162,6 @@
 			children = (
 				2C3F008A1F2D48480086076D /* SettingViewModel.swift */,
 				2C3F00881F2D482C0086076D /* SettingView.swift */,
-				2CBD1C491F34ABFD00916042 /* SettingListTableViewCell.swift */,
 				2C3F008C1F2D48550086076D /* SettingViewController.swift */,
 				2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */,
 				2CF00F3B1F3F43A500230368 /* DescriptionView.swift */,
@@ -187,6 +186,7 @@
 			children = (
 				2CB89EE81BEE567C002A4EC7 /* Const.swift */,
 				2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */,
+				2C33D1A51F7232B60007B141 /* Extension.swift */,
 			);
 			name = Common;
 			path = common;
@@ -433,12 +433,12 @@
 				2CCCF08C1F706EC000B5B560 /* DetectionViewModel.swift in Sources */,
 				2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */,
 				2CF00F401F3F43D100230368 /* DescriptionViewController.swift in Sources */,
-				2CBD1C4A1F34ABFD00916042 /* SettingListTableViewCell.swift in Sources */,
 				2C1F7F0D1F30B1A2001A9B2C /* SimulatorViewModel.swift in Sources */,
 				6E7CADC21BEC95D70046E77B /* AppDelegate.swift in Sources */,
 				2C1F7F0F1F30B1C0001A9B2C /* SimulatorView.swift in Sources */,
 				2C1F7F111F30B212001A9B2C /* SimulatorViewController.swift in Sources */,
 				2C3F008B1F2D48480086076D /* SettingViewModel.swift in Sources */,
+				2C33D1A61F7232B60007B141 /* Extension.swift in Sources */,
 				2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */,
 				2CCCF0881F6FFEE000B5B560 /* TabBarController.swift in Sources */,
 				2CCCF08E1F706ECB00B5B560 /* DetectionView.swift in Sources */,

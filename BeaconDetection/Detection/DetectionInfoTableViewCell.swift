@@ -29,9 +29,8 @@ class DetectionInfoTableViewCell: UITableViewCell {
         addSubview(rssiLabel)
         
         uuidLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(5)
+            make.top.left.right.equalToSuperview().offset(5)
             make.height.equalTo(15)
-            make.width.equalTo(100)
         }
         
         majorLabel.snp.makeConstraints { make in
@@ -54,22 +53,25 @@ class DetectionInfoTableViewCell: UITableViewCell {
         accuracyLabel.snp.makeConstraints { make in
             make.top.equalTo(proximityLabel.snp.bottom).offset(5)
             make.left.height.equalTo(proximityLabel)
-            make.width.equalTo(100)
+            make.right.equalTo(rssiLabel.snp.left).offset(5)
         }
 
         rssiLabel.snp.makeConstraints { make in
             make.top.height.equalTo(accuracyLabel)
-            make.left.equalTo(accuracyLabel.snp.right).offset(5)
-            make.right.equalToSuperview().offset(5)
+            make.right.equalToSuperview().offset(-5)
+            make.width.equalTo(50)
         }
+        
+        uuidLabel.adjustsFontSizeToFitWidth = true
+        majorLabel.adjustsFontSizeToFitWidth = true
+        minorLabel.adjustsFontSizeToFitWidth = true
+        proximityLabel.adjustsFontSizeToFitWidth = true
+        accuracyLabel.adjustsFontSizeToFitWidth = true
+        rssiLabel.adjustsFontSizeToFitWidth = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
     }
 }
 
