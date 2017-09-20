@@ -33,10 +33,13 @@ class DetectionViewModel: NSObject {
     
     let dataSource = RxTableViewSectionedReloadDataSource<SectionDetectionInfoListData>()
     
+    private let rangingButtonIconVar: Variable<UIImage> = Variable(UIImage(named: "RangingButtonIconPause")!)
     private let statusVar = Variable("")
     private let inputProximityUUIDVar = Variable("")
     private let InputMajorVar = Variable("")
     private let inputMinorVar = Variable("")
+    
+    var rangingButtonIcon: Observable<UIImage> { return rangingButtonIconVar.asObservable() }
     var status: Observable<String> { return statusVar.asObservable() }
     var inputProximityUUID: Observable<String> { return inputProximityUUIDVar.asObservable() }
     var InputMajor: Observable<String> { return InputMajorVar.asObservable() }
@@ -48,6 +51,8 @@ class DetectionViewModel: NSObject {
     private let sectionsVar = Variable<[SectionDetectionInfoListData]>([SectionDetectionInfoListData(header: "Info", items: [])])
     var sections: Observable<[SectionDetectionInfoListData]> { return sectionsVar.asObservable() }
     
+    var isRanging = false
+    
     override init() {
         super.init()
         
@@ -57,8 +62,16 @@ class DetectionViewModel: NSObject {
     
     // MARK: - Tools
     
-    // !!!: unuse
-    func startRanging() {
+    func changeRanging() {
+        
+        if isRanging {
+            stopRanging()
+        } else {
+            startRanging()
+        }
+    }
+    
+    private func startRanging() {
         
         guard isMonitoringCapable() else {
             self.statusVar.value = "Beacon使用不可"
@@ -69,15 +82,19 @@ class DetectionViewModel: NSObject {
             return
         }
         
+        rangingButtonIconVar.value = UIImage(named: "RangingButtonIconStart")!
+        isRanging = true
         self.manager.startRangingBeacons(in: beaconRegion)
     }
     
-    // !!!: unuse
-    func stopRanging() {
+    private func stopRanging() {
         
         guard let beaconRegion = beaconRegion else {
             return
         }
+        
+        rangingButtonIconVar.value = UIImage(named: "RangingButtonIconPause")!
+        isRanging = false
         self.manager.stopRangingBeacons(in: beaconRegion)
     }
     
@@ -111,7 +128,8 @@ class DetectionViewModel: NSObject {
         }
         
         inputProximityUUIDVar.value = uuid.uuidString
-        beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: "一意キー")
+        
+        beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: Const.kDefaultRegionIdentifier)
         
         manager = CLLocationManager()
         manager.delegate = self
@@ -188,7 +206,7 @@ extension DetectionViewModel: CLLocationManagerDelegate {
         switch (state) {
         case .inside:
             statusVar.value = "距離測定開始"
-            manager.startRangingBeacons(in: beaconRegion!)
+            startRanging()
         case .outside:
             statusVar.value = "距離測定対象外距離"
         default:

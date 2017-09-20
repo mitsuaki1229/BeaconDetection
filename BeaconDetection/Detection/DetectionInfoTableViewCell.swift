@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class DetectionInfoTableViewCell: UITableViewCell {
+class DetectionInfoTableViewCell: UITableViewCell, CustomView {
     
     let uuidLabel = UILabel()
     let majorLabel = UILabel()
@@ -27,6 +27,22 @@ class DetectionInfoTableViewCell: UITableViewCell {
         addSubview(proximityLabel)
         addSubview(accuracyLabel)
         addSubview(rssiLabel)
+        
+        uuidLabel.adjustsFontSizeToFitWidth = true
+        majorLabel.adjustsFontSizeToFitWidth = true
+        minorLabel.adjustsFontSizeToFitWidth = true
+        proximityLabel.adjustsFontSizeToFitWidth = true
+        accuracyLabel.adjustsFontSizeToFitWidth = true
+        rssiLabel.adjustsFontSizeToFitWidth = true
+        
+        installConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func installConstraints() {
         
         uuidLabel.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview().offset(5)
@@ -55,23 +71,12 @@ class DetectionInfoTableViewCell: UITableViewCell {
             make.left.height.equalTo(proximityLabel)
             make.right.equalTo(rssiLabel.snp.left).offset(5)
         }
-
+        
         rssiLabel.snp.makeConstraints { make in
             make.top.height.equalTo(accuracyLabel)
             make.right.equalToSuperview().offset(-5)
             make.width.equalTo(50)
         }
-        
-        uuidLabel.adjustsFontSizeToFitWidth = true
-        majorLabel.adjustsFontSizeToFitWidth = true
-        minorLabel.adjustsFontSizeToFitWidth = true
-        proximityLabel.adjustsFontSizeToFitWidth = true
-        accuracyLabel.adjustsFontSizeToFitWidth = true
-        rssiLabel.adjustsFontSizeToFitWidth = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class DetectionView: UIView {
+class DetectionView: UIView, CustomView {
     
     let detectionInfoTableView = UITableView()
     
@@ -39,7 +39,14 @@ class DetectionView: UIView {
         detectionInfoTableView.layer.borderWidth = 1.0
         detectionInfoTableView.layer.borderColor = UIColor.black.cgColor
         
-        // Install Constraints
+        installConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func installConstraints() {
         
         statusLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(30)
@@ -76,9 +83,5 @@ class DetectionView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 5.0
         textField.keyboardType = .asciiCapable
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

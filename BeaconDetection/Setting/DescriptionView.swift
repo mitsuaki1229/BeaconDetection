@@ -9,8 +9,8 @@
 import UIKit
 import WebKit
 
-class DescriptionView: UIView {
-
+class DescriptionView: UIView, CustomView {
+    
     let displayArea = WKWebView()
     
     override init(frame: CGRect) {
@@ -20,12 +20,17 @@ class DescriptionView: UIView {
         
         addSubview(displayArea)
         
-        displayArea.snp.makeConstraints { (make) in
-            make.top.left.right.bottom.equalToSuperview()
-        }
+        installConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func installConstraints() {
+        
+        displayArea.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalToSuperview()
+        }
     }
 }

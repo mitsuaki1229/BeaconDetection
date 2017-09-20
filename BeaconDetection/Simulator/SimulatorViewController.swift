@@ -65,11 +65,26 @@ class SimulatorViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.updateStatusSignal()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.switchAnimation(animatie: false)
+    }
+    
+    // MARK: Tools
+    
     private func switchAnimation(animatie: Bool) {
         
         if !animatie {
             let view = self.view as! SimulatorView
-            view.layer.removeAllAnimations()
+            view.backgroundImageView.layer.removeAllAnimations()
+            view.backgroundImageView.alpha = 1.0
             return
         }
         

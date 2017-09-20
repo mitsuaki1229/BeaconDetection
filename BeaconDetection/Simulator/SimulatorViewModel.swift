@@ -24,8 +24,7 @@ class SimulatorViewModel: NSObject {
     private let proximityUUIDVar = Variable(UUID())
     private let majorVar = Variable(NSNumber())
     private let minorVar = Variable(NSNumber())
-    // TODO: Set identifier Var
-    private let identifierVar = Variable("")
+    private let identifierVar = Variable(Const.kDefaultRegionIdentifier)
     
     var status: Observable<SimulatorViewModelState> { return statusVar.asObservable() }
     var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
@@ -49,6 +48,10 @@ class SimulatorViewModel: NSObject {
     }
     
     // MARK: Tools
+    
+    func updateStatusSignal() {
+        statusVar.value = statusVar.value
+    }
     
     private func getRandomNum() -> NSNumber {
         let randomNum: Int = Int(arc4random_uniform(10)) + 1

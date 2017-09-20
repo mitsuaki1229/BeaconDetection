@@ -25,8 +25,22 @@ class DetectionViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         title = "Detection"
         
-        // TODO: Start/Stop
-        // startRanging/stopRanging
+        let rangingButton = UIBarButtonItem()
+        
+        viewModel
+            .rangingButtonIcon
+            .bind(to: rangingButton.rx.image)
+            .disposed(by: disposeBag)
+        
+        rangingButton
+            .rx
+            .tap
+            .subscribe(onNext: { [unowned self] _ in
+                
+                self.viewModel.changeRanging()
+            }).disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem = rangingButton
         
         let view = self.view as! DetectionView
         

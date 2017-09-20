@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingView: UIView {
+class SettingView: UIView, CustomView {
     
     let listTableView = UITableView(frame: .zero, style: .grouped)
     
@@ -18,6 +18,11 @@ class SettingView: UIView {
         backgroundColor = .white
         
         addSubview(listTableView)
+        
+        installConstraints()
+    }
+    
+    func installConstraints() {
         
         listTableView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview()
