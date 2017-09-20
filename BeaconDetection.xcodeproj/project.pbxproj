@@ -19,19 +19,19 @@
 		2C4D4AA71F486D620050CB14 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */; };
 		2C4D4AAB1F4B04130050CB14 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
-		2C659E901F2B89C500E90CCE /* DetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C659E8F1F2B89C500E90CCE /* DetectionView.swift */; };
-		2C659E921F2B89D100E90CCE /* DetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C659E911F2B89D100E90CCE /* DetectionViewModel.swift */; };
 		2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */; };
 		2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F051F30A56E001A9B2C /* RxTest.framework */; };
 		2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486B1F52F7F9008616CD /* Nimble.framework */; };
 		2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486D1F52F7F9008616CD /* Quick.framework */; };
+		2C7D3E611F70B500005E893F /* DetectionInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */; };
 		2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
-		2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */; };
 		2CBD1C4A1F34ABFD00916042 /* SettingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD1C491F34ABFD00916042 /* SettingListTableViewCell.swift */; };
 		2CCCF0881F6FFEE000B5B560 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */; };
+		2CCCF08A1F706EB500B5B560 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */; };
+		2CCCF08C1F706EC000B5B560 /* DetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */; };
+		2CCCF08E1F706ECB00B5B560 /* DetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF08D1F706ECB00B5B560 /* DetectionView.swift */; };
 		2CDDF20D1F35474100101FD7 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CDDF20C1F35474100101FD7 /* RxDataSources.framework */; };
-		2CE5A3EB1F2C0905002BC345 /* BeaconDetectionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE5A3EA1F2C0905002BC345 /* BeaconDetectionUITests.swift */; };
 		2CE891551F4B04D80046EC73 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
 		2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3B1F3F43A500230368 /* DescriptionView.swift */; };
 		2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */; };
@@ -71,18 +71,18 @@
 		2C3F008C1F2D48550086076D /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMMarkdown.framework; path = Carthage/Build/iOS/MMMarkdown.framework; sourceTree = "<group>"; };
 		2C4D4AAA1F4B04130050CB14 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		2C659E8F1F2B89C500E90CCE /* DetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionView.swift; sourceTree = "<group>"; };
-		2C659E911F2B89D100E90CCE /* DetectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectionViewModel.swift; sourceTree = "<group>"; };
 		2C659E931F2B906400E90CCE /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		2C7B486B1F52F7F9008616CD /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		2C7B486D1F52F7F9008616CD /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionInfoTableViewCell.swift; sourceTree = "<group>"; };
 		2CB89EE51BEE4F7C002A4EC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2CB89EE81BEE567C002A4EC7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
-		2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetectionViewController.swift; path = BeaconDetection/DetectionViewController.swift; sourceTree = SOURCE_ROOT; };
 		2CBD1C491F34ABFD00916042 /* SettingListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingListTableViewCell.swift; sourceTree = "<group>"; };
 		2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewController.swift; sourceTree = "<group>"; };
+		2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewModel.swift; sourceTree = "<group>"; };
+		2CCCF08D1F706ECB00B5B560 /* DetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionView.swift; sourceTree = "<group>"; };
 		2CDDF20C1F35474100101FD7 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
-		2CE5A3EA1F2C0905002BC345 /* BeaconDetectionUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDetectionUITests.swift; sourceTree = "<group>"; };
 		2CF00F3B1F3F43A500230368 /* DescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewModel.swift; sourceTree = "<group>"; };
 		2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
@@ -174,9 +174,10 @@
 		2C659E8D1F2B892600E90CCE /* Detection */ = {
 			isa = PBXGroup;
 			children = (
-				2C659E911F2B89D100E90CCE /* DetectionViewModel.swift */,
-				2C659E8F1F2B89C500E90CCE /* DetectionView.swift */,
-				2CB89EEA1BEEDFEA002A4EC7 /* DetectionViewController.swift */,
+				2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */,
+				2CCCF08D1F706ECB00B5B560 /* DetectionView.swift */,
+				2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */,
+				2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */,
 			);
 			path = Detection;
 			sourceTree = "<group>";
@@ -240,7 +241,6 @@
 		6E7CADE01BEC95D80046E77B /* BeaconDetectionUITests */ = {
 			isa = PBXGroup;
 			children = (
-				2CE5A3EA1F2C0905002BC345 /* BeaconDetectionUITests.swift */,
 				6E7CADE31BEC95D80046E77B /* Info.plist */,
 			);
 			path = BeaconDetectionUITests;
@@ -424,15 +424,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C7D3E611F70B500005E893F /* DetectionInfoTableViewCell.swift in Sources */,
 				2C4D4AAB1F4B04130050CB14 /* LICENSE.md in Sources */,
 				2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */,
 				2C3F00891F2D482C0086076D /* SettingView.swift in Sources */,
 				2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */,
-				2C659E901F2B89C500E90CCE /* DetectionView.swift in Sources */,
-				2C659E921F2B89D100E90CCE /* DetectionViewModel.swift in Sources */,
+				2CCCF08A1F706EB500B5B560 /* DetectionViewController.swift in Sources */,
+				2CCCF08C1F706EC000B5B560 /* DetectionViewModel.swift in Sources */,
 				2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */,
 				2CF00F401F3F43D100230368 /* DescriptionViewController.swift in Sources */,
-				2CB89EEB1BEEDFEA002A4EC7 /* DetectionViewController.swift in Sources */,
 				2CBD1C4A1F34ABFD00916042 /* SettingListTableViewCell.swift in Sources */,
 				2C1F7F0D1F30B1A2001A9B2C /* SimulatorViewModel.swift in Sources */,
 				6E7CADC21BEC95D70046E77B /* AppDelegate.swift in Sources */,
@@ -441,6 +441,7 @@
 				2C3F008B1F2D48480086076D /* SettingViewModel.swift in Sources */,
 				2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */,
 				2CCCF0881F6FFEE000B5B560 /* TabBarController.swift in Sources */,
+				2CCCF08E1F706ECB00B5B560 /* DetectionView.swift in Sources */,
 				2C3F008D1F2D48550086076D /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,7 +457,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CE5A3EB1F2C0905002BC345 /* BeaconDetectionUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +593,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -614,6 +615,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

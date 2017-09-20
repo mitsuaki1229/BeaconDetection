@@ -31,7 +31,6 @@ class TabBarController: UITabBarController {
         
         let detectionViewController = DetectionViewController()
         detectionViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 1)
-        
         let detectionNavigationController = UINavigationController(rootViewController: detectionViewController)
         viewControllers.append(detectionNavigationController)
         

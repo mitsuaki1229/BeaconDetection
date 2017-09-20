@@ -35,16 +35,11 @@ class SettingViewController: UIViewController {
             }
             .subscribe(onNext: { [weak self] ip, ds in
                 
-                var type: DescriptionFileType!
+                guard let type = DescriptionFileType(rawValue: ip.row) else {
+                    return
+                }
                 
-                switch ip.row {
-                case 0:
-                    type = .license
-                    break
-                case 2:
-                    type = .readme
-                    break
-                default:
+                guard type != .none else {
                     return
                 }
                 
@@ -53,17 +48,7 @@ class SettingViewController: UIViewController {
                 
             }).disposed(by: disposeBag)
         
-        let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        
-        let sections = [
-            SectionSettingListData(header: "Info", items: [
-                SettinglistData(title: "License"),
-                SettinglistData(title: "Version:" + version),
-                SettinglistData(title: "About"),
-                ])
-        ]
-        
-        Observable.just(sections)
+        Observable.just(viewModel.sections)
             .bind(to: settingView
                 .listTableView
                 .rx

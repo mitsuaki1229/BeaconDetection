@@ -31,6 +31,19 @@ class SettingViewModel: NSObject {
     
     let dataSource = RxTableViewSectionedReloadDataSource<SectionSettingListData>()
     
+    var sections: [SectionSettingListData] {
+        
+        let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        
+        return [
+            SectionSettingListData(header: "Info", items: [
+                SettinglistData(title: "License"),
+                SettinglistData(title: "Version:" + version),
+                SettinglistData(title: "About"),
+                ])
+        ]
+    }
+    
     override init() {
         super.init()
         

@@ -10,7 +10,8 @@ import MMMarkdown
 
 enum DescriptionFileType : Int {
     case license = 0
-    case readme
+    case readme = 2
+    case none
 }
 
 class DescriptionViewModel: NSObject {

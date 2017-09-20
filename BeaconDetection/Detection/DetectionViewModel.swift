@@ -2,42 +2,89 @@
 //  DetectionViewModel.swift
 //  BeaconDetection
 //
-//  Created by Mitsuaki Ihara on 2017/07/29.
+//  Created by Mitsuaki Ihara on 2017/09/19.
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
+import RxDataSources
 import CoreLocation
 import RxSwift
 
+struct DetectionInfoListData {
+    var beacon: CLBeacon
+}
+
+struct SectionDetectionInfoListData {
+    var header: String
+    var items: [Item]
+}
+
+extension SectionDetectionInfoListData: SectionModelType {
+    
+    typealias Item = DetectionInfoListData
+    
+    init(original: SectionDetectionInfoListData, items: [Item]) {
+        self = original
+        self.items = items
+    }
+}
+
 class DetectionViewModel: NSObject {
     
-    private let statusVar = Variable("")
-    private let proximityUUIDVar = Variable(UUID())
-    private let majorVar = Variable(NSNumber())
-    private let minorVar = Variable(NSNumber())
-    private let accuracyVar = Variable(CLLocationAccuracy())
-    private let rssiVar = Variable(0)
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionDetectionInfoListData>()
     
+    private let statusVar = Variable("")
+    private let inputProximityUUIDVar = Variable("")
+    private let InputMajorVar = Variable("")
+    private let inputMinorVar = Variable("")
     var status: Observable<String> { return statusVar.asObservable() }
-    var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
-    var major: Observable<NSNumber> { return majorVar.asObservable() }
-    var minor: Observable<NSNumber> { return minorVar.asObservable() }
-    var accuracy: Observable<CLLocationAccuracy> { return accuracyVar.asObservable() }
-    var rssi: Observable<Int> { return rssiVar.asObservable() }
+    var inputProximityUUID: Observable<String> { return inputProximityUUIDVar.asObservable() }
+    var InputMajor: Observable<String> { return InputMajorVar.asObservable() }
+    var inputMinor: Observable<String> { return inputMinorVar.asObservable() }
     
     private var manager:CLLocationManager!
     private var beaconRegion:CLBeaconRegion?
-    private var beacons:[CLBeacon]?
+    
+    private let sectionsVar = Variable<[SectionDetectionInfoListData]>([SectionDetectionInfoListData(header: "Info", items: [])])
+    var sections: Observable<[SectionDetectionInfoListData]> { return sectionsVar.asObservable() }
     
     override init() {
         super.init()
         
-        // ビーコン用UUID設定
-        guard let uuid = UUID(uuidString: Const.PROXIMITY_UUID) else {
+        settingDetectionInfoTable()
+        settingBeaconManager()
+    }
+    
+    private func settingDetectionInfoTable() {
+        
+        dataSource.configureCell = { [unowned self] ds, tv, ip, item in
+            let cell = tv.dequeueReusableCell(withIdentifier: "DetectionInfoTableViewCell") as? DetectionInfoTableViewCell
+                ?? DetectionInfoTableViewCell(style: .default, reuseIdentifier: "DetectionInfoTableViewCell")
+            
+            cell.uuidLabel.text = item.beacon.proximityUUID.uuidString
+            cell.majorLabel.text = item.beacon.major.stringValue
+            cell.minorLabel.text = item.beacon.minor.stringValue
+            cell.proximityLabel.text = self.convertProximityStatusToText(proximity: item.beacon.proximity)
+            cell.accuracyLabel.text = String(item.beacon.accuracy)
+            cell.rssiLabel.text = String(item.beacon.rssi)
+            
+            cell.selectionStyle = .none
+            
+            return cell
+        }
+        
+        dataSource.titleForHeaderInSection = {ds, index in
+            ds.sectionModels[index].header
+        }
+    }
+    
+    private func settingBeaconManager() {
+        
+        guard let uuid = UUID(uuidString: Const.kDefaultProximityUUIDString) else {
             return
         }
         
-        proximityUUIDVar.value = uuid
+        inputProximityUUIDVar.value = uuid.uuidString
         beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: "一意キー")
         
         manager = CLLocationManager()
@@ -45,123 +92,78 @@ class DetectionViewModel: NSObject {
         
         authorizationStatusCheck()
         
-        // 検知開始
+        // FIXME: 測定可能時に検知を始める
         manager.startMonitoring(for: beaconRegion!)
     }
     
     // MARK: - iBeacon
     
-    /// 領域モニタリング開始
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        print("モニタリング開始")
-        
         statusVar.value = "モニタリング開始"
+        print(statusVar.value)
+        
         manager.requestState(for: region)
     }
     
-    /// 領域モニタリング停止
     func locationManager(_ manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
-        print("モニタリング停止")
-        
         statusVar.value = "測定停止中"
+        print(statusVar.value)
     }
     
-    // モニタリング結果判定
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         
-        // リージョン判定
+        // Region determination
         switch (state) {
         case .inside:
-            print("距離測定開始")
             statusVar.value = "距離測定開始"
             manager.startRangingBeacons(in: beaconRegion!)
         case .outside:
-            print("距離測定対象外距離")
             statusVar.value = "距離測定対象外距離"
         default:
-            print("不明")
             statusVar.value = "不明"
         }
+        print(statusVar.value)
     }
     
-    // リージョン監視失敗
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print("距離測定監視失敗")
         
         guard region?.isKind(of: CLBeaconRegion.self) != nil else {
             return
         }
         
-        print("iBeacon測定判定失敗")
         statusVar.value = "測定失敗"
+        print(statusVar.value)
     }
     
-    // 通信失敗
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("エラーコード:" + String(error._code))
         statusVar.value = "通信失敗 エラーコード:" + String(error._code)
+        print(statusVar.value)
     }
     
-    // 領域内判定
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("距離内")
         statusVar.value = "測定距離内"
+        print(statusVar.value)
     }
     
-    // 領域外判定
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        print("距離外")
         statusVar.value = "測定距離外"
+        print(statusVar.value)
     }
     
-    // ビーコン確保
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-        
-        self.beacons = beacons
         
         for beacon in beacons {
             
-            // TODO: 複数表示
+            sectionsVar.value[0].items.append(DetectionInfoListData(beacon: beacon))
+            statusVar.value = convertProximityStatusToText(proximity: beacon.proximity)
             
-            switch (beacon.proximity) {
-            case .unknown:
-                
-                print("見つかりません")
-                statusVar.value = "みつかりません"
-                
-                // 初期化しつつ戻る
-                setBeaconResult(nil)
-                
-                return
-                
-            case .immediate:
-                print("近くにあります: 50cm以内？")
-                statusVar.value = "およそ50cm以内"
-            case .near:
-                print("わりと近くにあります: 50cm~6m?")
-                statusVar.value = "およそ50cm~6mの範囲内"
-            default:
-                print("かなり遠いです: 6m~20m?")
-                statusVar.value = "およそ6m~20mの範囲内"
-            }
-            
-            // 情報出力
-            // 識別子
-            print(beacon.proximityUUID.uuidString)
-            print(beacon.major)    // 16bit識別子
-            print(beacon.minor)    // 16bit識別子
-            // 電波情報
-            print(beacon.accuracy) // 近接度精度
-            print(beacon.rssi)     // 受信強度
-            
-            setBeaconResult(beacon)
-            
-            // 一番最初に取得したBeaconを表示
-            return
+            debugBeacon(beacon: beacon)
         }
     }
     
-    // MARK: - Public Method
+    // MARK: - Tools
+    
+    // MARK: - Public
     
     func startRanging() {
         
@@ -185,8 +187,9 @@ class DetectionViewModel: NSObject {
         self.manager.stopRangingBeacons(in: beaconRegion)
     }
     
-    /// 位置情報サービス認証状態を確認する
-    func authorizationStatusCheck() {
+    // MARK: - Private
+    
+    private func authorizationStatusCheck() {
         
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways:
@@ -203,34 +206,35 @@ class DetectionViewModel: NSObject {
         }
     }
     
-    // MARK: - Private Method
-    
-    /// ビーコンが使用できるか確認
     private func isMonitoringCapable() -> Bool {
         return CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self)
     }
     
-    // 通知内容を設定する(nil == 初期化)
-    private func setBeaconResult(_ beacon: CLBeacon?) {
+    private func convertProximityStatusToText(proximity: CLProximity) -> String {
         
-        if let beacon = beacon {
-            proximityUUIDVar.value = beacon.proximityUUID
-            majorVar.value = beacon.major
-            minorVar.value = beacon.minor
-            accuracyVar.value = beacon.accuracy
-            rssiVar.value = beacon.rssi
-            
-            return
+        switch (proximity) {
+        case .unknown:
+            return "みつかりません"
+        case .immediate:
+            return "およそ50cm以内"
+        case .near:
+            return "およそ50cm~6mの範囲内"
+        case .far:
+            return "およそ6m~20mの範囲内"
         }
+    }
+    
+    private func debugBeacon(beacon: CLBeacon) {
         
-        proximityUUIDVar.value = UUID()
-        majorVar.value = 0
-        minorVar.value = 0
-        accuracyVar.value = 0
-        rssiVar.value = 0
+        print(beacon.proximityUUID.uuidString)
+        print(beacon.major)
+        print(beacon.minor)
+        print(convertProximityStatusToText(proximity: beacon.proximity))
+        print(beacon.accuracy)
+        print(beacon.rssi)
     }
 }
 
-extension DetectionViewModel : CLLocationManagerDelegate {
-    
+extension DetectionViewModel: CLLocationManagerDelegate {
 }
+

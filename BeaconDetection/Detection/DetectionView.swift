@@ -2,7 +2,7 @@
 //  DetectionView.swift
 //  BeaconDetection
 //
-//  Created by Mitsuaki Ihara on 2017/07/29.
+//  Created by Mitsuaki Ihara on 2017/09/19.
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
@@ -11,109 +11,75 @@ import SnapKit
 
 class DetectionView: UIView {
     
-    let statusLabel = UILabel()
-    let proximityUUIDLabel = UILabel()
-    let majorLabel = UILabel()
-    let minorLabel = UILabel()
-    let accuracyLabel = UILabel()
-    let rssiLabel = UILabel()
+    let detectionInfoTableView = UITableView()
     
-    let retryBtn = UIButton()
-    let stopBtn = UIButton()
+    let statusLabel = UILabel()
+    let proximityUUIDInputTextField = UITextField()
+    let majorInputTextField = UITextField()
+    let minorInputTextField = UITextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(statusLabel)
-        addSubview(proximityUUIDLabel)
-        addSubview(majorLabel)
-        addSubview(minorLabel)
-        addSubview(accuracyLabel)
-        addSubview(rssiLabel)
-        addSubview(retryBtn)
-        addSubview(stopBtn)
+        backgroundColor = .white
         
-        backgroundColor = UIColor(patternImage: UIImage(named: "MonitoringBackground")!)
+        addSubview(statusLabel)
+        addSubview(proximityUUIDInputTextField)
+        proximityUUIDInputTextField.placeholder = "proximityUUID"
+        addSubview(majorInputTextField)
+        majorInputTextField.placeholder = "major"
+        addSubview(minorInputTextField)
+        minorInputTextField.placeholder = "minor"
+        
+        setInputTextFieldOption(textField: proximityUUIDInputTextField)
+        setInputTextFieldOption(textField: majorInputTextField)
+        setInputTextFieldOption(textField: minorInputTextField)
+        
+        addSubview(detectionInfoTableView)
+        detectionInfoTableView.layer.borderWidth = 1.0
+        detectionInfoTableView.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    private func setInputTextFieldOption(textField :UITextField) {
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.cornerRadius = 5.0
+        textField.keyboardType = .asciiCapable
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        statusLabel.snp.remakeConstraints { (make) in
+        statusLabel.snp.remakeConstraints { make in
             make.top.equalToSuperview().offset(30)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
-        }
-        statusLabel.backgroundColor = .orange
-        
-        proximityUUIDLabel.snp.remakeConstraints { (make) in
-            make.top.equalTo(statusLabel.snp.bottom).offset(0)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalTo(majorInputTextField.snp.left).offset(-20)
+            make.height.equalTo(30)
         }
         
-        proximityUUIDLabel.backgroundColor = .blue
-        
-        majorLabel.snp.remakeConstraints { (make) in
-            make.top.equalTo(proximityUUIDLabel.snp.bottom).offset(0)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
+        proximityUUIDInputTextField.snp.remakeConstraints { make in
+            make.top.equalTo(statusLabel.snp.bottom).offset(10)
+            make.left.right.equalTo(statusLabel)
         }
         
-        majorLabel.backgroundColor = .yellow
-        
-        minorLabel.snp.remakeConstraints { (make) in
-            make.top.equalTo(majorLabel.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
+        majorInputTextField.snp.remakeConstraints { make in
+            make.top.equalTo(statusLabel)
+            make.right.equalToSuperview().offset(-10)
+            make.width.equalToSuperview().multipliedBy(0.2)
         }
         
-        minorLabel.backgroundColor = .purple
-        
-        accuracyLabel.snp.remakeConstraints { (make) in
-            make.top.equalTo(minorLabel.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
+        minorInputTextField.snp.remakeConstraints { make in
+            make.top.equalTo(proximityUUIDInputTextField)
+            make.left.right.equalTo(majorInputTextField)
         }
         
-        accuracyLabel.backgroundColor = .cyan
-
-        rssiLabel.snp.remakeConstraints { (make) in
-            make.top.equalTo(accuracyLabel.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
+        detectionInfoTableView.snp.remakeConstraints { make in
+            make.top.equalTo(minorInputTextField.snp.bottom).offset(10)
+            make.left.right.bottom.equalToSuperview()
         }
-        
-        rssiLabel.backgroundColor = .darkGray
-        
-        retryBtn.snp.remakeConstraints { (make) in
-            make.top.equalTo(rssiLabel.snp.bottom)
-            make.left.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
-        }
-        
-        retryBtn.backgroundColor = .groupTableViewBackground
-        retryBtn.setTitle("Retry", for: .normal)
-
-        stopBtn.snp.remakeConstraints { (make) in
-            make.top.equalTo(rssiLabel.snp.bottom)
-            make.right.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(31)
-        }
-        
-        stopBtn.backgroundColor = .magenta
-        stopBtn.setTitle("Stop", for: .normal)
     }
 }

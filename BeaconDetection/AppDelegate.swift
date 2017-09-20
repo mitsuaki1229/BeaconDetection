@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  BeaconDetection
 //
-//  Created by 伊原光明 on 2015/11/06.
+//  Created by Mitsuaki Ihara on 2015/11/06.
 //  Copyright © 2015年 Mitsuaki Ihara. All rights reserved.
 //
 
@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
         let viewController = TabBarController()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
         

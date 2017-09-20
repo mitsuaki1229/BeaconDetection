@@ -2,12 +2,11 @@
 //  Const.swift
 //  BeaconDetection
 //
-//  Created by 伊原光明 on 2015/11/08.
+//  Created by Mitsuaki Ihara on 2015/11/08.
 //  Copyright © 2015年 Mitsuaki Ihara. All rights reserved.
 //
 import Foundation
 
 struct Const {
-    // ビーコン用UUID ダミー
-    static let PROXIMITY_UUID:String = "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
+    static let kDefaultProximityUUIDString = "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
 }

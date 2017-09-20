@@ -37,7 +37,7 @@ class SimulatorViewModel: NSObject {
     override init() {
         super.init()
         
-        guard let uuid = UUID(uuidString: Const.PROXIMITY_UUID) else {
+        guard let uuid = UUID(uuidString: Const.kDefaultProximityUUIDString) else {
             return
         }
         proximityUUIDVar.value = uuid
@@ -58,7 +58,7 @@ class SimulatorViewModel: NSObject {
         
         statusVar.value = .normal
         
-        let proximityUUID = NSUUID.init(uuidString: Const.PROXIMITY_UUID)
+        let proximityUUID = NSUUID.init(uuidString: Const.kDefaultProximityUUIDString)
         
         let beaconRegion
             = CLBeaconRegion.init(proximityUUID: proximityUUID! as UUID,
