@@ -35,7 +35,7 @@ class SimulatorView: UIView {
         backgroundColor = UIColor.white
         
         addSubview(backgroundImageView)
-        backgroundImageView.image = UIImage(named: "BeaconSimulatorBackground")
+        backgroundImageView.image = UIImage(named: "SimulatorBackground")
         
         addSubview(itemNameStackView)
         itemNameStackView.addArrangedSubview(uuidItemNameLabel)
