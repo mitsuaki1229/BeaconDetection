@@ -38,8 +38,11 @@ class DetectionView: UIView, CustomView {
         minorInputTextField.placeholder = "minor"
         
         setInputTextFieldOption(textField: proximityUUIDInputTextField)
+        proximityUUIDInputTextField.keyboardType = .asciiCapable
         setInputTextFieldOption(textField: majorInputTextField)
+        majorInputTextField.keyboardType = .numberPad
         setInputTextFieldOption(textField: minorInputTextField)
+        minorInputTextField.keyboardType = .numberPad
         
         addSubview(detectionInfoTableView)
         detectionInfoTableView.layer.borderWidth = 1.0

@@ -42,6 +42,8 @@ class DetectionViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = rangingButton
         
+        addDoneButtonOnKeyboard()
+        
         let view = self.view as! DetectionView
         
         viewModel
@@ -62,7 +64,6 @@ class DetectionViewController: UIViewController {
             .rx
             .text
             .subscribe(onNext: { [unowned self] text in
-                // TODO: Input text Check 0 ~ 65535
                 self.viewModel.updateInputMajor(text: text!)
             })
             .disposed(by: disposeBag)
@@ -71,7 +72,6 @@ class DetectionViewController: UIViewController {
             .rx
             .text
             .subscribe(onNext: { [unowned self] text in
-                // TODO: Input text Check 0 ~ 65535
                 self.viewModel.updateInputMinor(text: text!)
             })
             .disposed(by: disposeBag)
@@ -104,6 +104,35 @@ class DetectionViewController: UIViewController {
         
         // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
         self.viewModel.updateProximityUUID(text: Const.kDefaultProximityUUIDString)
+    }
+    
+    private func addDoneButtonOnKeyboard() {
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton: UIBarButtonItem = UIBarButtonItem()
+        doneButton.title = "done"
+        doneButton.style = .done
+        
+        doneButton
+            .rx
+            .tap
+            .subscribe(onNext: { [unowned self] _ in
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(doneButton)
+        
+        let numberPadToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        numberPadToolbar.barStyle = .default
+        
+        numberPadToolbar.items = items
+        numberPadToolbar.sizeToFit()
+        
+        let view = self.view as! DetectionView
+        view.majorInputTextField.inputAccessoryView = numberPadToolbar
+        view.minorInputTextField.inputAccessoryView = numberPadToolbar
     }
 }
 

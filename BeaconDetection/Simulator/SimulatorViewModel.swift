@@ -54,7 +54,7 @@ class SimulatorViewModel: NSObject {
     }
     
     private func getRandomNum() -> NSNumber {
-        let randomNum: Int = Int(arc4random_uniform(_:65535))
+        let randomNum: Int = Int(arc4random_uniform(_:UInt32(INT16_MAX)))
         return NSNumber(value: randomNum)
     }
     

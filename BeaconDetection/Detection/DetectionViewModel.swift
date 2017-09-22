@@ -88,11 +88,11 @@ class DetectionViewModel: NSObject {
     }
     
     func updateInputMajor(text: String) {
-        inputMajorVar.value = text
+        inputMajorVar.value = int16RangeRestriction(text: text)
     }
     
     func updateInputMinor(text: String) {
-        inputMinorVar.value = text
+        inputMinorVar.value = int16RangeRestriction(text: text)
     }
     
     func changeRanging() {
@@ -236,6 +236,24 @@ class DetectionViewModel: NSObject {
         case .far:
             return "Far:6m~20m"
         }
+    }
+    
+    private func int16RangeRestriction(text: String) -> String {
+        
+        if let int: Int = Int(text) {
+            
+            if text.characters.count > String(INT16_MAX).characters.count {
+                return String(text.prefix(5))
+            }
+            
+            if int < 0 {
+                return 0.description
+            }
+            if int >= INT16_MAX {
+                return INT16_MAX.description
+            }
+        }
+        return text
     }
     
     private func debugBeacon(beacon: CLBeacon) {
