@@ -24,25 +24,17 @@ class SimulatorViewModel: NSObject {
     private let proximityUUIDVar = Variable(UUID())
     private let majorVar = Variable(NSNumber())
     private let minorVar = Variable(NSNumber())
-    private let identifierVar = Variable(Const.kDefaultRegionIdentifier)
     
     var status: Observable<SimulatorViewModelState> { return statusVar.asObservable() }
     var proximityUUID: Observable<UUID> { return proximityUUIDVar.asObservable() }
     var major: Observable<NSNumber> { return majorVar.asObservable() }
     var minor: Observable<NSNumber> { return minorVar.asObservable() }
-    var identifier: Observable<String> { return identifierVar.asObservable() }
     
     private var peripheralManager: CBPeripheralManager!
+    private var isAdvertising = false
     
     override init() {
         super.init()
-        
-        guard let uuid = UUID(uuidString: Const.kDefaultProximityUUIDString) else {
-            return
-        }
-        proximityUUIDVar.value = uuid
-        majorVar.value = getRandomNum()
-        minorVar.value = getRandomNum()
         
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
@@ -53,9 +45,44 @@ class SimulatorViewModel: NSObject {
         statusVar.value = statusVar.value
     }
     
+    func regenerateBeacon() {
+        
+        if isAdvertising {
+            stopAdvertising()
+        }
+        startAdvertising()
+    }
+    
     private func getRandomNum() -> NSNumber {
-        let randomNum: Int = Int(arc4random_uniform(10)) + 1
+        let randomNum: Int = Int(arc4random_uniform(_:65535))
         return NSNumber(value: randomNum)
+    }
+    
+    private func startAdvertising() {
+        
+        guard let uuid = UUID(uuidString: Const.kDefaultProximityUUIDString) else {
+            return
+        }
+        proximityUUIDVar.value = uuid
+        majorVar.value = getRandomNum()
+        minorVar.value = getRandomNum()
+        
+        let beaconRegion
+            = CLBeaconRegion.init(proximityUUID: proximityUUIDVar.value,
+                                  major: CLBeaconMajorValue(truncating: majorVar.value),
+                                  minor: CLBeaconMinorValue(truncating: minorVar.value),
+                                  identifier: Const.kDefaultRegionIdentifier)
+        
+        let beaconPeripheralData = NSDictionary(dictionary: beaconRegion.peripheralData(withMeasuredPower: nil))
+        
+        peripheralManager.startAdvertising(beaconPeripheralData as? [String : AnyObject])
+        isAdvertising = true
+        statusVar.value = .normal
+    }
+    
+    private func stopAdvertising() {
+        peripheralManager.stopAdvertising()
+        isAdvertising = false
     }
 }
 
@@ -68,18 +95,6 @@ extension SimulatorViewModel : CBPeripheralManagerDelegate {
             return
         }
         
-        statusVar.value = .normal
-        
-        let proximityUUID = NSUUID.init(uuidString: Const.kDefaultProximityUUIDString)
-        
-        let beaconRegion
-            = CLBeaconRegion.init(proximityUUID: proximityUUID! as UUID,
-                                  major: CLBeaconMajorValue(truncating: majorVar.value),
-                                  minor: CLBeaconMinorValue(truncating: minorVar.value),
-                                  identifier: identifierVar.value)
-        
-        let beaconPeripheralData = NSDictionary(dictionary: beaconRegion.peripheralData(withMeasuredPower: nil))
-        
-        peripheralManager.startAdvertising(beaconPeripheralData as? [String : AnyObject])
+        startAdvertising()
     }
 }

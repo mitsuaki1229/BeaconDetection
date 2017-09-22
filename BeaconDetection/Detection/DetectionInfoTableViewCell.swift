@@ -46,13 +46,13 @@ class DetectionInfoTableViewCell: UITableViewCell, CustomView {
         
         uuidLabel.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview().offset(5)
-            make.height.equalTo(15)
+            make.height.equalToSuperview().multipliedBy(0.19)
         }
         
         majorLabel.snp.makeConstraints { make in
             make.top.equalTo(uuidLabel.snp.bottom).offset(5)
             make.left.height.equalTo(uuidLabel)
-            make.width.equalTo(50)
+            make.width.equalToSuperview().multipliedBy(0.14)
         }
         
         minorLabel.snp.makeConstraints { make in
@@ -75,8 +75,7 @@ class DetectionInfoTableViewCell: UITableViewCell, CustomView {
         rssiLabel.snp.makeConstraints { make in
             make.top.height.equalTo(accuracyLabel)
             make.right.equalToSuperview().offset(-5)
-            make.width.equalTo(50)
+            make.width.equalToSuperview().multipliedBy(0.13)
         }
     }
 }
-

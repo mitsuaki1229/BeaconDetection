@@ -25,23 +25,31 @@ class SimulatorViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = "Simulator"
         
-        let simulatorView = view as! SimulatorView
+        let regenerateButton = UIBarButtonItem()
+        regenerateButton.image = UIImage(named: "RegenerateButtonIcon")
+        
+        regenerateButton
+            .rx
+            .tap
+            .subscribe(onNext: { [unowned self] _ in
+                self.viewModel.regenerateBeacon()
+            }).disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem = regenerateButton
+        
+        let view = self.view as! SimulatorView
         
         viewModel.proximityUUID.subscribe(onNext: { u in
-            simulatorView.uuidLabel.text = u.uuidString
+            view.uuidLabel.text = u.uuidString
         }).disposed(by: disposeBag)
         
         viewModel.major.subscribe(onNext: { n in
-            simulatorView.majorLabel.text = n.stringValue
+            view.majorLabel.text = n.stringValue
         }).disposed(by: disposeBag)
         
         viewModel.minor.subscribe(onNext: { n in
-            simulatorView.minorLabel.text = n.stringValue
+            view.minorLabel.text = n.stringValue
         }).disposed(by: disposeBag)
-        
-        viewModel.identifier
-            .bind(to: simulatorView.identifierLabel.rx.text)
-            .disposed(by: disposeBag)
         
         viewModel.status.subscribe(onNext: { [unowned self] status in
             
@@ -71,6 +79,15 @@ class SimulatorViewController: UIViewController {
         viewModel.updateStatusSignal()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let view = self.view as! SimulatorView
+        let x:CGFloat = (view.backgroundScrollView.contentSize.width - view.frame.width)/2
+        let center = CGPoint.init(x: x, y: 0)
+        view.backgroundScrollView.setContentOffset(center, animated: false)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -94,6 +111,6 @@ class SimulatorViewController: UIViewController {
                         
                         let view = self.view as! SimulatorView
                         view.backgroundImageView.alpha = 0.0
-        }, completion: nil)
+            }, completion: nil)
     }
 }

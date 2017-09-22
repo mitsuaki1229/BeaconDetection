@@ -52,8 +52,27 @@ class DetectionViewController: UIViewController {
         view.proximityUUIDInputTextField
             .rx
             .text
-            .subscribe(onNext: { x in
-                // TODO: change UUID method
+            .subscribe(onNext: { [unowned self] text in
+                // TODO: Input text Check XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+                //                self.viewModel.updateProximityUUID(text: text!)
+            })
+            .disposed(by: disposeBag)
+        
+        view.majorInputTextField
+            .rx
+            .text
+            .subscribe(onNext: { [unowned self] text in
+                // TODO: Input text Check 0 ~ 65535
+                self.viewModel.updateInputMajor(text: text!)
+            })
+            .disposed(by: disposeBag)
+        
+        view.minorInputTextField
+            .rx
+            .text
+            .subscribe(onNext: { [unowned self] text in
+                // TODO: Input text Check 0 ~ 65535
+                self.viewModel.updateInputMinor(text: text!)
             })
             .disposed(by: disposeBag)
         
@@ -82,6 +101,9 @@ class DetectionViewController: UIViewController {
         view.detectionInfoTableView
             .rx
             .setDelegate(self).addDisposableTo(disposeBag)
+        
+        // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
+        self.viewModel.updateProximityUUID(text: Const.kDefaultProximityUUIDString)
     }
 }
 

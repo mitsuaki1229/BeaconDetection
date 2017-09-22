@@ -11,17 +11,16 @@ import SnapKit
 
 class SimulatorView: UIView, CustomView {
     
-    let regenerateButton = UIButton()
+    let backgroundScrollView = UIScrollView()
+    private let contentView = UIView()
     
     private let uuidItemNameLabel = UILabel()
-    private let identifierItemNameLabel = UILabel()
     private let majorItemNameLabel = UILabel()
     private let minorItemNameLabel = UILabel()
     
     fileprivate let itemNameStackView = UIStackView()
     
     let uuidLabel = UILabel()
-    let identifierLabel = UILabel()
     let majorLabel = UILabel()
     let minorLabel = UILabel()
     
@@ -35,67 +34,81 @@ class SimulatorView: UIView, CustomView {
         
         backgroundColor = UIColor.white
         
-        addSubview(backgroundImageView)
+        addSubview(backgroundScrollView)
+        backgroundScrollView.addSubview(contentView)
+        
+        contentView.addSubview(backgroundImageView)
         backgroundImageView.image = UIImage(named: "SimulatorBackground")
         
-        addSubview(simulatorTerminalImageView)
+        contentView.addSubview(simulatorTerminalImageView)
         simulatorTerminalImageView.image = UIImage(named: "SimulatorTerminal")
         
-        addSubview(itemNameStackView)
+        contentView.addSubview(itemNameStackView)
         itemNameStackView.axis = .vertical
-        itemNameStackView.alignment = .center
+        itemNameStackView.alignment = .leading
         itemNameStackView.distribution = .fillEqually
         itemNameStackView.spacing = 2
         
         itemNameStackView.addArrangedSubview(uuidItemNameLabel)
-        uuidItemNameLabel.text = "UUID"
-        itemNameStackView.addArrangedSubview(identifierItemNameLabel)
-        identifierItemNameLabel.text = "identifier"
+        uuidItemNameLabel.text = "UUID:"
+        uuidItemNameLabel.adjustsFontSizeToFitWidth = true
         itemNameStackView.addArrangedSubview(majorItemNameLabel)
-        majorItemNameLabel.text = "major"
+        majorItemNameLabel.text = "major:"
+        majorItemNameLabel.adjustsFontSizeToFitWidth = true
         itemNameStackView.addArrangedSubview(minorItemNameLabel)
-        minorItemNameLabel.text = "minor"
+        minorItemNameLabel.text = "minor:"
+        minorItemNameLabel.adjustsFontSizeToFitWidth = true
         
-        addSubview(itemStackView)
+        contentView.addSubview(itemStackView)
         itemStackView.axis = .vertical
-        itemStackView.alignment = .center
+        itemStackView.alignment = .leading
         itemStackView.distribution = .fillEqually
         itemStackView.spacing = 2
         
         itemStackView.addArrangedSubview(uuidLabel)
-        itemStackView.addArrangedSubview(identifierLabel)
+        uuidLabel.lineBreakMode = .byWordWrapping
+        uuidLabel.numberOfLines = 2
         itemStackView.addArrangedSubview(majorLabel)
         itemStackView.addArrangedSubview(minorLabel)
         
         installConstraints()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func installConstraints() {
         
-        backgroundImageView.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalToSuperview()
-            make.width.height.equalTo(300)
+        backgroundScrollView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalToSuperview()
+            make.width.equalTo(self.snp.width)
+        }
+        
+        backgroundImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().multipliedBy(0.8)
+            make.width.height.equalTo(contentView.snp.width).multipliedBy(0.7)
         }
         
         simulatorTerminalImageView.snp.makeConstraints { make in
             make.centerX.centerY.equalTo(backgroundImageView)
-            make.width.height.equalTo(200)
+            make.width.height.equalTo(backgroundImageView.snp.width).multipliedBy(0.7)
         }
         
-        itemNameStackView.snp.makeConstraints { (make) in
+        itemNameStackView.snp.makeConstraints { make in
             make.top.equalTo(backgroundImageView.snp.bottom)
             make.left.bottom.equalToSuperview().inset(20)
-            make.width.equalTo(200)
         }
         
-        itemStackView.snp.makeConstraints { (make) in
+        itemStackView.snp.makeConstraints { make in
             make.top.equalTo(itemNameStackView)
             make.bottom.right.equalToSuperview().inset(20)
             make.left.equalTo(itemNameStackView.snp.right)
         }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

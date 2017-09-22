@@ -18,6 +18,12 @@ class DetectionView: UIView, CustomView {
     let majorInputTextField = UITextField()
     let minorInputTextField = UITextField()
     
+    private var tabBarHeight: CGFloat {
+        
+        let tabBarController: UITabBarController = UITabBarController()
+        return tabBarController.tabBar.frame.size.height
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -74,7 +80,7 @@ class DetectionView: UIView, CustomView {
         detectionInfoTableView.snp.makeConstraints { make in
             make.top.equalTo(minorInputTextField.snp.bottom).offset(10)
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-30)
+            make.bottom.equalToSuperview().offset(-tabBarHeight)
         }
     }
     

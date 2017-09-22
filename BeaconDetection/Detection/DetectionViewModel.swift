@@ -10,6 +10,25 @@ import RxDataSources
 import CoreLocation
 import RxSwift
 
+// TODO: Input text Check
+enum BeaconOptionValidationResult {
+    case ok(message: String)
+    case empty
+    case validating
+    case failed(message: String)
+}
+
+extension BeaconOptionValidationResult {
+    var isValid: Bool {
+        switch self {
+        case .ok:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 struct DetectionInfoListData {
     var beacon: CLBeacon
 }
@@ -35,14 +54,14 @@ class DetectionViewModel: NSObject {
     
     private let rangingButtonIconVar: Variable<UIImage> = Variable(UIImage(named: "RangingButtonIconPause")!)
     private let statusVar = Variable("")
-    private let inputProximityUUIDVar = Variable("")
-    private let InputMajorVar = Variable("")
+    private let inputProximityUUIDVar = Variable(Const.kDefaultProximityUUIDString)
+    private let inputMajorVar = Variable("")
     private let inputMinorVar = Variable("")
     
     var rangingButtonIcon: Observable<UIImage> { return rangingButtonIconVar.asObservable() }
     var status: Observable<String> { return statusVar.asObservable() }
     var inputProximityUUID: Observable<String> { return inputProximityUUIDVar.asObservable() }
-    var InputMajor: Observable<String> { return InputMajorVar.asObservable() }
+    var InputMajor: Observable<String> { return inputMajorVar.asObservable() }
     var inputMinor: Observable<String> { return inputMinorVar.asObservable() }
     
     private var manager:CLLocationManager!
@@ -62,6 +81,20 @@ class DetectionViewModel: NSObject {
     
     // MARK: - Tools
     
+    // TODO: Input text Check -> reSettingBeaconManager And Save UUIDVar
+    
+    func updateProximityUUID(text: String) {
+        inputProximityUUIDVar.value = text
+    }
+    
+    func updateInputMajor(text: String) {
+        inputMajorVar.value = text
+    }
+    
+    func updateInputMinor(text: String) {
+        inputMinorVar.value = text
+    }
+    
     func changeRanging() {
         
         if isRanging {
@@ -74,7 +107,7 @@ class DetectionViewModel: NSObject {
     private func startRanging() {
         
         guard isMonitoringCapable() else {
-            self.statusVar.value = "Beacon使用不可"
+            self.statusVar.value = "Disabled monitoring"
             return
         }
         
@@ -123,37 +156,67 @@ class DetectionViewModel: NSObject {
     
     private func settingBeaconManager() {
         
-        guard let uuid = UUID(uuidString: Const.kDefaultProximityUUIDString) else {
+        guard let uuid = UUID.init(uuidString: inputProximityUUIDVar.value) else {
             return
         }
         
-        inputProximityUUIDVar.value = uuid.uuidString
-        
-        beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: Const.kDefaultRegionIdentifier)
+        if !inputMajorVar.value.isEmpty {
+            
+            let majorNum = NSNumber.init(value: Int(inputMajorVar.value)!)
+            
+            if !inputMinorVar.value.isEmpty {
+                
+                let minorNum = NSNumber.init(value: Int(inputMinorVar.value)!)
+                
+                beaconRegion = CLBeaconRegion(proximityUUID: uuid,
+                                              major: CLBeaconMajorValue(truncating: majorNum),
+                                              minor: CLBeaconMinorValue(truncating: minorNum),
+                                              identifier: Const.kDefaultRegionIdentifier)
+            } else {
+                
+                beaconRegion = CLBeaconRegion(proximityUUID: uuid,
+                                              major: CLBeaconMajorValue(truncating: majorNum),
+                                              identifier: Const.kDefaultRegionIdentifier)
+            }
+        } else {
+            beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: Const.kDefaultRegionIdentifier)
+        }
         
         manager = CLLocationManager()
         manager.delegate = self
         
-        authorizationStatusCheck()
+        guard authorizationStatusCheck() else {
+            return
+        }
         
-        // FIXME: 測定可能時に検知を始める
         manager.startMonitoring(for: beaconRegion!)
     }
     
-    private func authorizationStatusCheck() {
+    private func reSettingBeaconManager() {
+        
+        stopRanging()
+        settingBeaconManager()
+    }
+    
+    private func authorizationStatusCheck() -> Bool {
         
         switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways:
-            statusVar.value = "使用許可"
-        case .authorizedWhenInUse:
-            statusVar.value = "測定可能"
-        case .denied:
-            statusVar.value = "使用拒否"
         case .notDetermined:
             manager.requestAlwaysAuthorization()
-            statusVar.value = "許可未済"
-        default:
-            statusVar.value = "機能制限"
+            statusVar.value = "Not determined"
+            return false
+        case .restricted:
+            statusVar.value = "Restricted"
+            return false
+        case .denied:
+            statusVar.value = "Denied"
+            return false
+        case .authorizedAlways:
+            statusVar.value = "Always"
+            return true
+        case .authorizedWhenInUse:
+            statusVar.value = "When in use"
+            return true
         }
     }
     
@@ -165,13 +228,13 @@ class DetectionViewModel: NSObject {
         
         switch (proximity) {
         case .unknown:
-            return "みつかりません"
+            return "Unknown"
         case .immediate:
-            return "およそ50cm以内"
+            return "Immediate:0~50cm"
         case .near:
-            return "およそ50cm~6mの範囲内"
+            return "Near:50cm~6m"
         case .far:
-            return "およそ6m~20mの範囲内"
+            return "Far:6m~20m"
         }
     }
     
@@ -189,30 +252,26 @@ class DetectionViewModel: NSObject {
 extension DetectionViewModel: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        statusVar.value = "モニタリング開始"
-        print(statusVar.value)
+        statusVar.value = "Start monitoring"
         
         manager.requestState(for: region)
     }
     
     func locationManager(_ manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
-        statusVar.value = "測定停止中"
-        print(statusVar.value)
+        statusVar.value = "Stop monitoring"
     }
     
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         
-        // Region determination
         switch (state) {
         case .inside:
-            statusVar.value = "距離測定開始"
+            statusVar.value = "Inside region"
             startRanging()
         case .outside:
-            statusVar.value = "距離測定対象外距離"
+            statusVar.value = "Outside region"
         default:
-            statusVar.value = "不明"
+            statusVar.value = "Unknown"
         }
-        print(statusVar.value)
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
@@ -221,23 +280,19 @@ extension DetectionViewModel: CLLocationManagerDelegate {
             return
         }
         
-        statusVar.value = "測定失敗"
-        print(statusVar.value)
+        statusVar.value = "Fail"
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        statusVar.value = "通信失敗 エラーコード:" + String(error._code)
-        print(statusVar.value)
+        statusVar.value = "Fail error code:" + String(error._code)
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        statusVar.value = "測定距離内"
-        print(statusVar.value)
+        statusVar.value = "Enter region"
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        statusVar.value = "測定距離外"
-        print(statusVar.value)
+        statusVar.value = "Exit region"
     }
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
