@@ -54,7 +54,7 @@ class DetectionViewModel: NSObject {
     
     private let rangingButtonIconVar: Variable<UIImage> = Variable(UIImage(named: "RangingButtonIconPause")!)
     private let statusVar = Variable("")
-    private let inputProximityUUIDVar = Variable(Const.kDefaultProximityUUIDString)
+    private let inputProximityUUIDVar = Variable("")
     private let inputMajorVar = Variable("")
     private let inputMinorVar = Variable("")
     
@@ -74,6 +74,10 @@ class DetectionViewModel: NSObject {
     
     override init() {
         super.init()
+        
+        if let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") {
+            inputProximityUUIDVar.value = uuidString
+        }
         
         settingDetectionInfoTable()
         settingBeaconManager()

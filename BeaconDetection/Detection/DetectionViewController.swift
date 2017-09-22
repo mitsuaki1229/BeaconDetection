@@ -103,7 +103,9 @@ class DetectionViewController: UIViewController {
             .setDelegate(self).addDisposableTo(disposeBag)
         
         // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
-        self.viewModel.updateProximityUUID(text: Const.kDefaultProximityUUIDString)
+        if let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") {
+            viewModel.updateProximityUUID(text: uuidString)
+        }
     }
     
     private func addDoneButtonOnKeyboard() {

@@ -25,7 +25,7 @@ $ carthage update --platform iOS
 
 ## TODO
 
-* Modify layout
+* Input UUID text Check
 
 ## Licence
 
