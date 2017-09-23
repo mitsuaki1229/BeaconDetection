@@ -2,10 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "SimulatorItemIcon-30x30@1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "SimulatorItemIcon-30x30@2.png",
       "scale" : "2x"
     },
     {

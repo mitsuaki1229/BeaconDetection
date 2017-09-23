@@ -37,9 +37,9 @@ class SettingViewModel: NSObject {
         
         return [
             SectionSettingListData(header: "Info", items: [
-                SettinglistData(title: "License"),
+                SettinglistData(title: "README"),
+                SettinglistData(title: "LICENSE"),
                 SettinglistData(title: "Version:" + version),
-                SettinglistData(title: "About"),
                 ])
         ]
     }
@@ -52,7 +52,7 @@ class SettingViewModel: NSObject {
                 ?? UITableViewCell(style: .default, reuseIdentifier: "Cell")
             cell.textLabel?.text = item.title
             
-            if ip.row == 1 {
+            if DescriptionFileType(rawValue: ip.row) == DescriptionFileType.none {
                 cell.selectionStyle = .none
                 cell.accessoryType = .none
             } else {

@@ -18,16 +18,16 @@ class SimulatorView: UIView, CustomView {
     private let majorItemNameLabel = UILabel()
     private let minorItemNameLabel = UILabel()
     
-    fileprivate let itemNameStackView = UIStackView()
+    private let itemNameStackView = UIStackView()
     
     let uuidLabel = UILabel()
     let majorLabel = UILabel()
     let minorLabel = UILabel()
     
     let backgroundImageView = UIImageView()
-    let simulatorTerminalImageView = UIImageView()
+    private let simulatorTerminalImageView = UIImageView()
     
-    fileprivate let itemStackView = UIStackView()
+    private let itemStackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -86,7 +86,7 @@ class SimulatorView: UIView, CustomView {
         
         contentView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview()
-            make.width.equalTo(self.snp.width)
+            make.width.equalTo(snp.width)
         }
         
         backgroundImageView.snp.makeConstraints { make in

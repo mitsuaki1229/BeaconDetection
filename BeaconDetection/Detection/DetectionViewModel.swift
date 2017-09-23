@@ -10,25 +10,6 @@ import RxDataSources
 import CoreLocation
 import RxSwift
 
-// TODO: Input text Check
-enum BeaconOptionValidationResult {
-    case ok(message: String)
-    case empty
-    case validating
-    case failed(message: String)
-}
-
-extension BeaconOptionValidationResult {
-    var isValid: Bool {
-        switch self {
-        case .ok:
-            return true
-        default:
-            return false
-        }
-    }
-}
-
 struct DetectionInfoListData {
     var beacon: CLBeacon
 }
@@ -70,7 +51,7 @@ class DetectionViewModel: NSObject {
     private let sectionsVar = Variable<[SectionDetectionInfoListData]>([SectionDetectionInfoListData(header: "Info", items: [])])
     var sections: Observable<[SectionDetectionInfoListData]> { return sectionsVar.asObservable() }
     
-    var isRanging = false
+    private var isRanging = false
     
     override init() {
         super.init()
@@ -85,10 +66,16 @@ class DetectionViewModel: NSObject {
     
     // MARK: - Tools
     
-    // TODO: Input text Check -> reSettingBeaconManager And Save UUIDVar
-    
     func updateProximityUUID(text: String) {
+        
         inputProximityUUIDVar.value = text
+        
+        guard let _ = UUID(uuidString: text) else {
+            // UUID Check NG
+            return
+        }
+        
+        UserDefaults.standard.set(text, forKey: "kProximityUUIDString")
     }
     
     func updateInputMajor(text: String) {
@@ -111,7 +98,7 @@ class DetectionViewModel: NSObject {
     private func startRanging() {
         
         guard isMonitoringCapable() else {
-            self.statusVar.value = "Disabled monitoring"
+            statusVar.value = "Disabled monitoring"
             return
         }
         
@@ -121,7 +108,7 @@ class DetectionViewModel: NSObject {
         
         rangingButtonIconVar.value = UIImage(named: "RangingButtonIconStart")!
         isRanging = true
-        self.manager.startRangingBeacons(in: beaconRegion)
+        manager.startRangingBeacons(in: beaconRegion)
     }
     
     private func stopRanging() {
@@ -132,7 +119,7 @@ class DetectionViewModel: NSObject {
         
         rangingButtonIconVar.value = UIImage(named: "RangingButtonIconPause")!
         isRanging = false
-        self.manager.stopRangingBeacons(in: beaconRegion)
+        manager.stopRangingBeacons(in: beaconRegion)
     }
     
     private func settingDetectionInfoTable() {
@@ -244,7 +231,16 @@ class DetectionViewModel: NSObject {
     
     private func int16RangeRestriction(text: String) -> String {
         
-        if let int: Int = Int(text) {
+        var intText = ""
+        
+        for character in text.characters {
+            guard let _ = Int(String(character)) else {
+                continue
+            }
+            intText.append(character.description)
+        }
+        
+        if let int: Int = Int(intText) {
             
             if text.characters.count > String(INT16_MAX).characters.count {
                 return String(text.prefix(5))
@@ -257,17 +253,7 @@ class DetectionViewModel: NSObject {
                 return INT16_MAX.description
             }
         }
-        return text
-    }
-    
-    private func debugBeacon(beacon: CLBeacon) {
-        
-        print(beacon.proximityUUID.uuidString)
-        print(beacon.major)
-        print(beacon.minor)
-        print(convertProximityStatusToText(proximity: beacon.proximity))
-        print(beacon.accuracy)
-        print(beacon.rssi)
+        return intText
     }
 }
 
@@ -323,8 +309,6 @@ extension DetectionViewModel: CLLocationManagerDelegate {
             
             sectionsVar.value[0].items.append(DetectionInfoListData(beacon: beacon))
             statusVar.value = convertProximityStatusToText(proximity: beacon.proximity)
-            
-            debugBeacon(beacon: beacon)
         }
     }
 }

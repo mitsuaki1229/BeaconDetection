@@ -20,14 +20,12 @@
 		2C3F008D1F2D48550086076D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F008C1F2D48550086076D /* SettingViewController.swift */; };
 		2C4D4AA71F486D620050CB14 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */; };
-		2C4D4AAB1F4B04130050CB14 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
 		2C6EAB711F72460200283471 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EAB701F72460200283471 /* Protocols.swift */; };
 		2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */; };
 		2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F051F30A56E001A9B2C /* RxTest.framework */; };
 		2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486B1F52F7F9008616CD /* Nimble.framework */; };
 		2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486D1F52F7F9008616CD /* Quick.framework */; };
 		2C7D3E611F70B500005E893F /* DetectionInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */; };
-		2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
 		2CCCF0881F6FFEE000B5B560 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */; };
 		2CCCF08A1F706EB500B5B560 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */; };
@@ -179,8 +177,8 @@
 			children = (
 				2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */,
 				2CCCF08D1F706ECB00B5B560 /* DetectionView.swift */,
-				2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */,
 				2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */,
+				2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */,
 			);
 			path = Detection;
 			sourceTree = "<group>";
@@ -432,8 +430,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C7D3E611F70B500005E893F /* DetectionInfoTableViewCell.swift in Sources */,
-				2C4D4AAB1F4B04130050CB14 /* LICENSE.md in Sources */,
-				2CB89EE61BEE4F7C002A4EC7 /* README.md in Sources */,
 				2C3F00891F2D482C0086076D /* SettingView.swift in Sources */,
 				2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */,
 				2CCCF08A1F706EB500B5B560 /* DetectionViewController.swift in Sources */,
@@ -499,6 +495,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -552,6 +549,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

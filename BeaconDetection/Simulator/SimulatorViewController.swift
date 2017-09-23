@@ -15,6 +15,11 @@ class SimulatorViewController: UIViewController {
     private let viewModel = SimulatorViewModel()
     private let disposeBag = DisposeBag()
     
+    private var contentCenter = { (view: SimulatorView) ->  CGPoint in
+        let x:CGFloat = (view.backgroundScrollView.contentSize.width - view.frame.width)/2
+        return CGPoint.init(x: x, y: 0)
+    }
+    
     override func loadView() {
         view = SimulatorView()
     }
@@ -83,9 +88,7 @@ class SimulatorViewController: UIViewController {
         super.viewDidAppear(animated)
         
         let view = self.view as! SimulatorView
-        let x:CGFloat = (view.backgroundScrollView.contentSize.width - view.frame.width)/2
-        let center = CGPoint.init(x: x, y: 0)
-        view.backgroundScrollView.setContentOffset(center, animated: false)
+        view.backgroundScrollView.setContentOffset(contentCenter(view), animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

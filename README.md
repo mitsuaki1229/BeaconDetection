@@ -23,10 +23,6 @@ $ carthage update --platform iOS
 * Simulator
  - Instration App is become Beacon.
 
-## TODO
-
-* Input UUID text Check
-
 ## Licence
 
 This software is released under the MIT License, see LICENSE.md.

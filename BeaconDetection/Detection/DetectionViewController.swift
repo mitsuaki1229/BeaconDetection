@@ -55,8 +55,7 @@ class DetectionViewController: UIViewController {
             .rx
             .text
             .subscribe(onNext: { [unowned self] text in
-                // TODO: Input text Check XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-                //                self.viewModel.updateProximityUUID(text: text!)
+                self.viewModel.updateProximityUUID(text: text!)
             })
             .disposed(by: disposeBag)
         

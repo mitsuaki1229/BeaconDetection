@@ -29,7 +29,7 @@ class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "Description"
+        navigationItem.title = viewModel.getTitle()
         
         loadDisplayArea()
     }

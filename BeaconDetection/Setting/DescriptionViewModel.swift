@@ -9,8 +9,8 @@
 import MMMarkdown
 
 enum DescriptionFileType : Int {
-    case license = 0
-    case readme = 2
+    case readme = 0
+    case license
     case none
 }
 
@@ -46,5 +46,9 @@ class DescriptionViewModel: NSObject {
         }
         
         return html
+    }
+    
+    func getTitle() -> String {
+        return type == .license ? "LICENSE" : "README"
     }
 }

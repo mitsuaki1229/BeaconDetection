@@ -2,10 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "RegenerateButtonIcon-20x20@1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "RegenerateButtonIcon-20x20@2.png",
       "scale" : "2x"
     },
     {
