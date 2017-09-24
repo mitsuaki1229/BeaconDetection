@@ -33,7 +33,7 @@ class DetectionViewModel: NSObject {
     
     let dataSource = RxTableViewSectionedReloadDataSource<SectionDetectionInfoListData>()
     
-    private let rangingButtonIconVar: Variable<UIImage> = Variable(UIImage(named: "RangingButtonIconPause")!)
+    private let rangingButtonIconVar: Variable<UIImage> = Variable(UIImage(named: "RangingButtonIconStart")!)
     private let statusVar = Variable("")
     private let inputProximityUUIDVar = Variable("")
     private let inputMajorVar = Variable("")
@@ -106,7 +106,11 @@ class DetectionViewModel: NSObject {
             return
         }
         
-        rangingButtonIconVar.value = UIImage(named: "RangingButtonIconStart")!
+        guard authorizationStatusCheck() else {
+            return
+        }
+        
+        rangingButtonIconVar.value = UIImage(named: "RangingButtonIconPause")!
         isRanging = true
         manager.startRangingBeacons(in: beaconRegion)
     }
@@ -117,7 +121,7 @@ class DetectionViewModel: NSObject {
             return
         }
         
-        rangingButtonIconVar.value = UIImage(named: "RangingButtonIconPause")!
+        rangingButtonIconVar.value = UIImage(named: "RangingButtonIconStart")!
         isRanging = false
         manager.stopRangingBeacons(in: beaconRegion)
     }
@@ -180,6 +184,7 @@ class DetectionViewModel: NSObject {
             return
         }
         
+        rangingButtonIconVar.value = UIImage(named: "RangingButtonIconPause")!
         manager.startMonitoring(for: beaconRegion!)
     }
     
@@ -307,8 +312,14 @@ extension DetectionViewModel: CLLocationManagerDelegate {
         
         for beacon in beacons {
             
-            sectionsVar.value[0].items.append(DetectionInfoListData(beacon: beacon))
+            sectionsVar.value[0].items.insert(DetectionInfoListData(beacon: beacon), at: 0)
             statusVar.value = convertProximityStatusToText(proximity: beacon.proximity)
+            
+            guard sectionsVar.value[0].items.count > Const.kDetectionInfosMaxNum else {
+                continue
+            }
+            
+            sectionsVar.value[0].items.removeLast()
         }
     }
 }

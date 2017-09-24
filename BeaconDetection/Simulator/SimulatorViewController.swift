@@ -76,6 +76,22 @@ class SimulatorViewController: UIViewController {
                 self.switchAnimation(animatie: false)
             }
         }).disposed(by: disposeBag)
+        
+        NotificationCenter
+            .default
+            .rx
+            .notification(.UIApplicationDidBecomeActive)
+            .subscribe(onNext: { [unowned self] _ in
+                self.viewModel.updateStatusSignal()
+            }).disposed(by: disposeBag)
+        
+        NotificationCenter
+            .default
+            .rx
+            .notification(.UIApplicationDidEnterBackground)
+            .subscribe(onNext: { [unowned self] _ in
+                self.switchAnimation(animatie: false)
+            }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +110,7 @@ class SimulatorViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.switchAnimation(animatie: false)
+        switchAnimation(animatie: false)
     }
     
     // MARK: Tools

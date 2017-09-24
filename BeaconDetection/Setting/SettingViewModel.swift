@@ -36,7 +36,7 @@ class SettingViewModel: NSObject {
         let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         
         return [
-            SectionSettingListData(header: "Info", items: [
+            SectionSettingListData(header: "", items: [
                 SettinglistData(title: "README"),
                 SettinglistData(title: "LICENSE"),
                 SettinglistData(title: "Version:" + version),

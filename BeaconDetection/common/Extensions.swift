@@ -20,7 +20,7 @@ extension UIViewController {
 extension Reactive where Base: UIBarButtonItem {
     
     var image: UIBindingObserver<Base, UIImage> {
-        return UIBindingObserver(UIElement: self.base) { UIElement, value in
+        return UIBindingObserver(UIElement: base) { UIElement, value in
             UIElement.image = value
         }
     }
