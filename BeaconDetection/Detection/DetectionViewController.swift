@@ -119,6 +119,7 @@ class DetectionViewController: UIViewController {
             .tap
             .subscribe(onNext: { [unowned self] _ in
                 self.view.endEditing(true)
+                self.viewModel.reSettingBeaconManager()
             }).disposed(by: disposeBag)
         
         var items = [UIBarButtonItem]()

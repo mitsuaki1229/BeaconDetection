@@ -95,6 +95,12 @@ class DetectionViewModel: NSObject {
         }
     }
     
+    func reSettingBeaconManager() {
+        
+        stopRanging()
+        settingBeaconManager()
+    }
+    
     private func startRanging() {
         
         guard isMonitoringCapable() else {
@@ -186,12 +192,6 @@ class DetectionViewModel: NSObject {
         
         rangingButtonIconVar.value = UIImage(named: "RangingButtonIconPause")!
         manager.startMonitoring(for: beaconRegion!)
-    }
-    
-    private func reSettingBeaconManager() {
-        
-        stopRanging()
-        settingBeaconManager()
     }
     
     private func authorizationStatusCheck() -> Bool {
