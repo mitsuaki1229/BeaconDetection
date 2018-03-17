@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class SimulatorView: UIView, CustomView {
     
@@ -38,10 +38,12 @@ class SimulatorView: UIView, CustomView {
         backgroundScrollView.addSubview(contentView)
         
         contentView.addSubview(backgroundImageView)
-        backgroundImageView.image = UIImage(named: "SimulatorBackground")
+        
+        backgroundImageView.image = #imageLiteral(resourceName: "SimulatorBackground")
         
         contentView.addSubview(simulatorTerminalImageView)
-        simulatorTerminalImageView.image = UIImage(named: "SimulatorTerminal")
+        
+        simulatorTerminalImageView.image = #imageLiteral(resourceName: "SimulatorTerminal")
         
         contentView.addSubview(itemNameStackView)
         itemNameStackView.axis = .vertical
@@ -81,11 +83,11 @@ class SimulatorView: UIView, CustomView {
     func installConstraints() {
         
         backgroundScrollView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
             make.width.equalTo(snp.width)
         }
         

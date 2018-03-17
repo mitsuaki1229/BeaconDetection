@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class DetectionInfoTableViewCell: UITableViewCell, CustomView {
     

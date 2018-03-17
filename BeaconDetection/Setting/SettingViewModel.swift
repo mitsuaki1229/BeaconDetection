@@ -39,7 +39,7 @@ class SettingViewModel: NSObject {
             SectionSettingListData(header: "", items: [
                 SettinglistData(title: "README"),
                 SettinglistData(title: "LICENSE"),
-                SettinglistData(title: "Version:" + version),
+                SettinglistData(title: "Version:" + version)
                 ])
         ]
     }

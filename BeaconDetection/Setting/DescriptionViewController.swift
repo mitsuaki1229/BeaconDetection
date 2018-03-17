@@ -10,7 +10,7 @@ import WebKit
 
 class DescriptionViewController: UIViewController {
     
-    private let viewModel: DescriptionViewModel!
+    private let viewModel: DescriptionViewModel?
     
     init(type: DescriptionFileType) {
         viewModel = DescriptionViewModel(type: type)
@@ -29,14 +29,15 @@ class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.isTranslucent = false
+        guard let viewModel = viewModel else { return }
         navigationItem.title = viewModel.getTitle()
         
         loadDisplayArea()
     }
     
     private func loadDisplayArea() {
-        
-        let descriptionView = view as! DescriptionView
-        descriptionView.displayArea.loadHTMLString(viewModel.getHtml(), baseURL: nil)
+        guard let viewModel = viewModel,
+            let view = view as! DescriptionView! else { return }
+        view.displayArea.loadHTMLString(viewModel.getHtml(), baseURL: nil)
     }
 }

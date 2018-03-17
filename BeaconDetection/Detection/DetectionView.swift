@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class DetectionView: UIView, CustomView {
     
@@ -19,9 +19,7 @@ class DetectionView: UIView, CustomView {
     let minorInputTextField = UITextField()
     
     private var tabBarHeight: CGFloat {
-        
-        let tabBarController: UITabBarController = UITabBarController()
-        return tabBarController.tabBar.frame.size.height
+        return UITabBarController().tabBar.frame.size.height
     }
     
     override init(frame: CGRect) {
@@ -87,7 +85,7 @@ class DetectionView: UIView, CustomView {
         }
     }
     
-    private func setInputTextFieldOption(textField :UITextField) {
+    private func setInputTextFieldOption(textField: UITextField) {
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 5.0

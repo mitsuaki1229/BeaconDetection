@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import CoreLocation
 import CoreBluetooth
+import CoreLocation
 import RxSwift
 
 enum SimulatorViewModelState {
@@ -30,7 +30,7 @@ class SimulatorViewModel: NSObject {
     var major: Observable<NSNumber> { return majorVar.asObservable() }
     var minor: Observable<NSNumber> { return minorVar.asObservable() }
     
-    private var peripheralManager: CBPeripheralManager!
+    private var peripheralManager: CBPeripheralManager?
     private var isAdvertising = false
     
     override init() {
@@ -54,51 +54,47 @@ class SimulatorViewModel: NSObject {
     }
     
     private func getRandomNum() -> NSNumber {
-        let randomNum: Int = Int(arc4random_uniform(_:UInt32(INT16_MAX)))
-        return NSNumber(value: randomNum)
+        return NSNumber(value: Int(arc4random_uniform(_:UInt32(INT16_MAX))))
     }
     
     private func startAdvertising() {
         
-        guard let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") else {
-            return
-        }
+        guard let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString"),
+            let uuid = UUID(uuidString: uuidString) else { return }
         
-        guard let uuid = UUID(uuidString: uuidString) else {
-            return
-        }
         proximityUUIDVar.value = uuid
         majorVar.value = getRandomNum()
         minorVar.value = getRandomNum()
         
+        guard let peripheralManager = peripheralManager else { return }
+        
         let beaconRegion
-            = CLBeaconRegion.init(proximityUUID: proximityUUIDVar.value,
-                                  major: CLBeaconMajorValue(truncating: majorVar.value),
-                                  minor: CLBeaconMinorValue(truncating: minorVar.value),
-                                  identifier: Const.kDefaultRegionIdentifier)
+            = CLBeaconRegion(proximityUUID: proximityUUIDVar.value,
+                             major: CLBeaconMajorValue(truncating: majorVar.value),
+                             minor: CLBeaconMinorValue(truncating: minorVar.value),
+                             identifier: Const.kDefaultRegionIdentifier)
+        let beaconPeripheralData: [String: AnyObject] = NSDictionary(dictionary: beaconRegion.peripheralData(withMeasuredPower: nil)) as! [String: AnyObject]
+        peripheralManager.startAdvertising(beaconPeripheralData)
         
-        let beaconPeripheralData = NSDictionary(dictionary: beaconRegion.peripheralData(withMeasuredPower: nil))
-        
-        peripheralManager.startAdvertising(beaconPeripheralData as? [String : AnyObject])
         isAdvertising = true
         statusVar.value = .normal
     }
     
     private func stopAdvertising() {
+        guard let peripheralManager = peripheralManager else { return }
         peripheralManager.stopAdvertising()
         isAdvertising = false
     }
 }
 
-extension SimulatorViewModel : CBPeripheralManagerDelegate {
+extension SimulatorViewModel: CBPeripheralManagerDelegate {
     
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         
-        guard peripheral.state == .poweredOn else {
+        if peripheral.state != .poweredOn {
             statusVar.value = .peripheralError
             return
         }
-        
         startAdvertising()
     }
 }

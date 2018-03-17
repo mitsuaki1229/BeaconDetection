@@ -31,19 +31,19 @@ class TabBarController: UITabBarController {
         
         let detectionViewController = DetectionViewController()
         detectionViewController.tabBarItem = UITabBarItem(title: "Detection",
-                                                          image: UIImage.init(named: "DetectionItemIcon"), tag: 1)
+                                                          image: #imageLiteral(resourceName: "DetectionItemIcon"), tag: 1)
         let detectionNavigationController = UINavigationController(rootViewController: detectionViewController)
         viewControllers.append(detectionNavigationController)
         
         let simulatorViewController = SimulatorViewController()
         simulatorViewController.tabBarItem = UITabBarItem(title: "Simulator",
-                                                          image: UIImage.init(named: "SimulatorItemIcon"), tag: 2)
+                                                          image: #imageLiteral(resourceName: "SimulatorItemIcon"), tag: 2)
         let simulatorViewNavigationController = UINavigationController(rootViewController: simulatorViewController)
         viewControllers.append(simulatorViewNavigationController)
         
         let settingViewController = SettingViewController()
         settingViewController.tabBarItem = UITabBarItem(title: "Setting",
-                                                          image: UIImage.init(named: "SettingItemIcon"), tag: 3)
+                                                          image: #imageLiteral(resourceName: "SettingItemIcon"), tag: 3)
         let settingNavigationController = UINavigationController(rootViewController: settingViewController)
         viewControllers.append(settingNavigationController)
         

@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
 class DetectionViewController: UIViewController {
     
@@ -36,7 +36,6 @@ class DetectionViewController: UIViewController {
             .rx
             .tap
             .subscribe(onNext: { [unowned self] _ in
-                
                 self.viewModel.changeRanging()
             }).disposed(by: disposeBag)
         
@@ -79,7 +78,7 @@ class DetectionViewController: UIViewController {
             .bind(to: view.proximityUUIDInputTextField.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.InputMajor
+        viewModel.inputMajor
             .bind(to: view.majorInputTextField.rx.text)
             .disposed(by: disposeBag)
         

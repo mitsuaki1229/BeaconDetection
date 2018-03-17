@@ -6,18 +6,18 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
 class SimulatorViewController: UIViewController {
     
     private let viewModel = SimulatorViewModel()
     private let disposeBag = DisposeBag()
     
-    private var contentCenter = { (view: SimulatorView) ->  CGPoint in
-        let x:CGFloat = (view.backgroundScrollView.contentSize.width - view.frame.width)/2
-        return CGPoint.init(x: x, y: 0)
+    private var contentCenter = {(view: SimulatorView) -> CGPoint in
+        let x: CGFloat = (view.backgroundScrollView.contentSize.width - view.frame.width) / 2
+        return CGPoint(x: x, y: 0)
     }
     
     override func loadView() {
@@ -31,7 +31,7 @@ class SimulatorViewController: UIViewController {
         navigationItem.title = "Simulator"
         
         let regenerateButton = UIBarButtonItem()
-        regenerateButton.image = UIImage(named: "RegenerateButtonIcon")
+        regenerateButton.image = #imageLiteral(resourceName: "RegenerateButtonIcon")
         
         regenerateButton
             .rx
@@ -44,16 +44,14 @@ class SimulatorViewController: UIViewController {
         
         let view = self.view as! SimulatorView
         
-        viewModel.proximityUUID.subscribe(onNext: { u in
-            view.uuidLabel.text = u.uuidString
+        viewModel.proximityUUID.subscribe(onNext: {
+            view.uuidLabel.text = $0.uuidString
         }).disposed(by: disposeBag)
-        
-        viewModel.major.subscribe(onNext: { n in
-            view.majorLabel.text = n.stringValue
+        viewModel.major.subscribe(onNext: {
+            view.majorLabel.text = $0.stringValue
         }).disposed(by: disposeBag)
-        
-        viewModel.minor.subscribe(onNext: { n in
-            view.minorLabel.text = n.stringValue
+        viewModel.minor.subscribe(onNext: {
+            view.minorLabel.text = $0.stringValue
         }).disposed(by: disposeBag)
         
         viewModel.status.subscribe(onNext: { [unowned self] status in
