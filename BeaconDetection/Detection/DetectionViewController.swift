@@ -22,6 +22,15 @@ class DetectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationbar()
+        setupViews()
+        addDoneButtonOnKeyboard()
+        
+        viewModel.updateProximityUUIDToDefault()
+    }
+    
+    private func setupNavigationbar() {
+        
         navigationController?.navigationBar.isTranslucent = false
         title = "Detection"
         
@@ -40,35 +49,27 @@ class DetectionViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         navigationItem.rightBarButtonItem = rangingButton
-        
-        addDoneButtonOnKeyboard()
+    }
+    
+    private func setupViews() {
         
         let view = self.view as! DetectionView
         
-        viewModel
-            .status
-            .bind(to: view.statusLabel.rx.text)
-            .addDisposableTo(disposeBag)
+        viewModel.status.bind(to: view.statusLabel.rx.text).addDisposableTo(disposeBag)
         
-        view.proximityUUIDInputTextField
-            .rx
-            .text
+        view.proximityUUIDInputTextField.rx.text
             .subscribe(onNext: { [unowned self] text in
-                self.viewModel.updateProximityUUID(text: text!)
+                self.viewModel.updateProximityUUID(uuidText: text!)
             })
             .disposed(by: disposeBag)
         
-        view.majorInputTextField
-            .rx
-            .text
+        view.majorInputTextField.rx.text
             .subscribe(onNext: { [unowned self] text in
                 self.viewModel.updateInputMajor(text: text!)
             })
             .disposed(by: disposeBag)
         
-        view.minorInputTextField
-            .rx
-            .text
+        view.minorInputTextField.rx.text
             .subscribe(onNext: { [unowned self] text in
                 self.viewModel.updateInputMinor(text: text!)
             })
@@ -96,14 +97,8 @@ class DetectionViewController: UIViewController {
         view.detectionInfoTableView
             .register(DetectionInfoTableViewCell.self, forCellReuseIdentifier: "DetectionInfoTableViewCell")
         
-        view.detectionInfoTableView
-            .rx
+        view.detectionInfoTableView.rx
             .setDelegate(self).addDisposableTo(disposeBag)
-        
-        // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
-        if let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") {
-            viewModel.updateProximityUUID(text: uuidString)
-        }
     }
     
     private func addDoneButtonOnKeyboard() {

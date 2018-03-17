@@ -34,50 +34,60 @@ class SimulatorView: UIView, CustomView {
         
         backgroundColor = UIColor.white
         
-        addSubview(backgroundScrollView)
-        backgroundScrollView.addSubview(contentView)
-        
-        contentView.addSubview(backgroundImageView)
-        
-        backgroundImageView.image = #imageLiteral(resourceName: "SimulatorBackground")
-        
-        contentView.addSubview(simulatorTerminalImageView)
-        
-        simulatorTerminalImageView.image = #imageLiteral(resourceName: "SimulatorTerminal")
-        
-        contentView.addSubview(itemNameStackView)
-        itemNameStackView.axis = .vertical
-        itemNameStackView.alignment = .leading
-        itemNameStackView.distribution = .fillEqually
-        itemNameStackView.spacing = 2
-        
-        itemNameStackView.addArrangedSubview(uuidItemNameLabel)
-        uuidItemNameLabel.text = "UUID:"
-        uuidItemNameLabel.adjustsFontSizeToFitWidth = true
-        itemNameStackView.addArrangedSubview(majorItemNameLabel)
-        majorItemNameLabel.text = "major:"
-        majorItemNameLabel.adjustsFontSizeToFitWidth = true
-        itemNameStackView.addArrangedSubview(minorItemNameLabel)
-        minorItemNameLabel.text = "minor:"
-        minorItemNameLabel.adjustsFontSizeToFitWidth = true
-        
-        contentView.addSubview(itemStackView)
-        itemStackView.axis = .vertical
-        itemStackView.alignment = .leading
-        itemStackView.distribution = .fillEqually
-        itemStackView.spacing = 2
-        
-        itemStackView.addArrangedSubview(uuidLabel)
-        uuidLabel.lineBreakMode = .byWordWrapping
-        uuidLabel.numberOfLines = 2
-        itemStackView.addArrangedSubview(majorLabel)
-        itemStackView.addArrangedSubview(minorLabel)
-        
+        addSubviews()
+        addOptionalParameters()
         installConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addSubviews() {
+        
+        addSubview(backgroundScrollView)
+        backgroundScrollView.addSubview(contentView)
+        contentView.addSubview(backgroundImageView)
+        
+        contentView.addSubview(simulatorTerminalImageView)
+        contentView.addSubview(itemNameStackView)
+        
+        itemNameStackView.addArrangedSubview(uuidItemNameLabel)
+        itemNameStackView.addArrangedSubview(majorItemNameLabel)
+        itemNameStackView.addArrangedSubview(minorItemNameLabel)
+        contentView.addSubview(itemStackView)
+        
+        itemStackView.addArrangedSubview(uuidLabel)
+        itemStackView.addArrangedSubview(majorLabel)
+        itemStackView.addArrangedSubview(minorLabel)
+    }
+    
+    func addOptionalParameters() {
+        
+        simulatorTerminalImageView.image = #imageLiteral(resourceName: "SimulatorTerminal")
+        
+        backgroundImageView.image = #imageLiteral(resourceName: "SimulatorBackground")
+        itemNameStackView.axis = .vertical
+        itemNameStackView.alignment = .leading
+        itemNameStackView.distribution = .fillEqually
+        itemNameStackView.spacing = 2
+        
+        uuidItemNameLabel.text = "UUID:"
+        uuidItemNameLabel.adjustsFontSizeToFitWidth = true
+        
+        majorItemNameLabel.text = "major:"
+        majorItemNameLabel.adjustsFontSizeToFitWidth = true
+        
+        minorItemNameLabel.text = "minor:"
+        minorItemNameLabel.adjustsFontSizeToFitWidth = true
+        
+        itemStackView.axis = .vertical
+        itemStackView.alignment = .leading
+        itemStackView.distribution = .fillEqually
+        itemStackView.spacing = 2
+        
+        uuidLabel.lineBreakMode = .byWordWrapping
+        uuidLabel.numberOfLines = 2
     }
     
     func installConstraints() {

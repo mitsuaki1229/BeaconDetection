@@ -27,32 +27,8 @@ class SimulatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "Simulator"
-        
-        let regenerateButton = UIBarButtonItem()
-        regenerateButton.image = #imageLiteral(resourceName: "RegenerateButtonIcon")
-        
-        regenerateButton
-            .rx
-            .tap
-            .subscribe(onNext: { [unowned self] _ in
-                self.viewModel.regenerateBeacon()
-            }).disposed(by: disposeBag)
-        
-        navigationItem.rightBarButtonItem = regenerateButton
-        
-        let view = self.view as! SimulatorView
-        
-        viewModel.proximityUUID.subscribe(onNext: {
-            view.uuidLabel.text = $0.uuidString
-        }).disposed(by: disposeBag)
-        viewModel.major.subscribe(onNext: {
-            view.majorLabel.text = $0.stringValue
-        }).disposed(by: disposeBag)
-        viewModel.minor.subscribe(onNext: {
-            view.minorLabel.text = $0.stringValue
-        }).disposed(by: disposeBag)
+        setupNavigationbar()
+        setupViews()
         
         viewModel.status.subscribe(onNext: { [unowned self] status in
             
@@ -65,27 +41,19 @@ class SimulatorViewController: UIViewController {
                 
                 let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                
-                self.rootViewController().present(
-                    alert,
-                    animated: false,
-                    completion: nil)
+                self.rootViewController().present(alert, animated: false, completion: nil)
                 
                 self.switchAnimation(animatie: false)
             }
         }).disposed(by: disposeBag)
         
-        NotificationCenter
-            .default
-            .rx
+        NotificationCenter.default.rx
             .notification(.UIApplicationDidBecomeActive)
             .subscribe(onNext: { [unowned self] _ in
                 self.viewModel.updateStatusSignal()
             }).disposed(by: disposeBag)
         
-        NotificationCenter
-            .default
-            .rx
+        NotificationCenter.default.rx
             .notification(.UIApplicationDidEnterBackground)
             .subscribe(onNext: { [unowned self] _ in
                 self.switchAnimation(animatie: false)
@@ -112,6 +80,37 @@ class SimulatorViewController: UIViewController {
     }
     
     // MARK: Tools
+    
+    private func setupNavigationbar() {
+        
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "Simulator"
+        
+        let regenerateButton = UIBarButtonItem()
+        regenerateButton.image = #imageLiteral(resourceName: "RegenerateButtonIcon")
+        
+        regenerateButton.rx.tap
+            .subscribe(onNext: { [unowned self] _ in
+                self.viewModel.regenerateBeacon()
+            }).disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem = regenerateButton
+    }
+    
+    private func setupViews() {
+        
+        let view = self.view as! SimulatorView
+        
+        viewModel.proximityUUID.subscribe(onNext: {
+            view.uuidLabel.text = $0.uuidString
+        }).disposed(by: disposeBag)
+        viewModel.major.subscribe(onNext: {
+            view.majorLabel.text = $0.stringValue
+        }).disposed(by: disposeBag)
+        viewModel.minor.subscribe(onNext: {
+            view.minorLabel.text = $0.stringValue
+        }).disposed(by: disposeBag)
+    }
     
     private func switchAnimation(animatie: Bool) {
         

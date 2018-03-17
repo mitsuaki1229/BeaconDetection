@@ -31,7 +31,6 @@ class SimulatorViewModel: NSObject {
     var minor: Observable<NSNumber> { return minorVar.asObservable() }
     
     private var peripheralManager: CBPeripheralManager?
-    private var isAdvertising = false
     
     override init() {
         super.init()
@@ -46,8 +45,9 @@ class SimulatorViewModel: NSObject {
     }
     
     func regenerateBeacon() {
+        guard let peripheralManager = peripheralManager else { return }
         
-        if isAdvertising {
+        if peripheralManager.isAdvertising {
             stopAdvertising()
         }
         startAdvertising()
@@ -76,14 +76,12 @@ class SimulatorViewModel: NSObject {
         let beaconPeripheralData: [String: AnyObject] = NSDictionary(dictionary: beaconRegion.peripheralData(withMeasuredPower: nil)) as! [String: AnyObject]
         peripheralManager.startAdvertising(beaconPeripheralData)
         
-        isAdvertising = true
         statusVar.value = .normal
     }
     
     private func stopAdvertising() {
         guard let peripheralManager = peripheralManager else { return }
         peripheralManager.stopAdvertising()
-        isAdvertising = false
     }
 }
 

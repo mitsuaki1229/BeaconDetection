@@ -21,12 +21,26 @@ class DetectionInfoTableViewCell: UITableViewCell, CustomView {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        addSubviews()
+        addOptionalParameters()
+        installConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addSubviews() {
+        
         addSubview(uuidLabel)
         addSubview(majorLabel)
         addSubview(minorLabel)
         addSubview(proximityLabel)
         addSubview(accuracyLabel)
         addSubview(rssiLabel)
+    }
+    
+    func addOptionalParameters() {
         
         uuidLabel.adjustsFontSizeToFitWidth = true
         majorLabel.adjustsFontSizeToFitWidth = true
@@ -34,12 +48,6 @@ class DetectionInfoTableViewCell: UITableViewCell, CustomView {
         proximityLabel.adjustsFontSizeToFitWidth = true
         accuracyLabel.adjustsFontSizeToFitWidth = true
         rssiLabel.adjustsFontSizeToFitWidth = true
-        
-        installConstraints()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func installConstraints() {

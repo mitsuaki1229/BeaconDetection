@@ -45,7 +45,7 @@ class DetectionViewModel: NSObject {
     var inputMajor: Observable<String> { return inputMajorVar.asObservable() }
     var inputMinor: Observable<String> { return inputMinorVar.asObservable() }
     
-    private var manager: CLLocationManager!
+    private var manager: CLLocationManager?
     private var beaconRegion: CLBeaconRegion?
     
     private let sectionsVar = Variable<[SectionDetectionInfoListData]>([SectionDetectionInfoListData(header: "Info", items: [])])
@@ -66,13 +66,18 @@ class DetectionViewModel: NSObject {
     
     // MARK: - Tools
     
-    func updateProximityUUID(text: String) {
+    func updateProximityUUIDToDefault() {
+        guard let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") else { return }
+        // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
+        updateProximityUUID(uuidText: uuidString)
+    }
+    
+    func updateProximityUUID(uuidText: String) {
         
-        inputProximityUUIDVar.value = text
+        inputProximityUUIDVar.value = uuidText
         
-        // UUID Check
-        guard UUID(uuidString: text) != nil else { return }
-        UserDefaults.standard.set(text, forKey: "kProximityUUIDString")
+        guard UUID(uuidString: uuidText) != nil else { return }
+        UserDefaults.standard.set(uuidText, forKey: "kProximityUUIDString")
     }
     
     func updateInputMajor(text: String) {
@@ -109,6 +114,7 @@ class DetectionViewModel: NSObject {
             authorizationStatusCheck() else { return }
         rangingButtonIconVar.value = #imageLiteral(resourceName: "RangingButtonIconPause")
         isRanging = true
+        guard let manager = manager else { return }
         manager.startRangingBeacons(in: beaconRegion)
     }
     
@@ -116,6 +122,7 @@ class DetectionViewModel: NSObject {
         guard let beaconRegion = beaconRegion else { return }
         rangingButtonIconVar.value = #imageLiteral(resourceName: "RangingButtonIconStart")
         isRanging = false
+        guard let manager = manager else { return }
         manager.stopRangingBeacons(in: beaconRegion)
     }
     
@@ -143,44 +150,45 @@ class DetectionViewModel: NSObject {
     }
     
     private func settingBeaconManager() {
+        manager = CLLocationManager()
+        beaconRegion = toUseBeaconRegion()
+        guard let manager = manager,
+            authorizationStatusCheck(),
+            let beaconRegion = beaconRegion else { return }
+        manager.delegate = self
+        manager.startMonitoring(for: beaconRegion)
+        rangingButtonIconVar.value = #imageLiteral(resourceName: "RangingButtonIconPause")
+    }
+    
+    private func toUseBeaconRegion() -> CLBeaconRegion! {
         
-        guard let uuid = UUID(uuidString: inputProximityUUIDVar.value) else { return }
+        guard let uuid = UUID(uuidString: inputProximityUUIDVar.value) else { return nil }
         
-        if !inputMajorVar.value.isEmpty {
-            
-            let majorNum = NSNumber(value: Int(inputMajorVar.value)!)
-            
-            if !inputMinorVar.value.isEmpty {
-                
-                let minorNum = NSNumber(value: Int(inputMinorVar.value)!)
-                
-                beaconRegion = CLBeaconRegion(proximityUUID: uuid,
-                                              major: CLBeaconMajorValue(truncating: majorNum),
-                                              minor: CLBeaconMinorValue(truncating: minorNum),
-                                              identifier: Const.kDefaultRegionIdentifier)
-            } else {
-                
-                beaconRegion = CLBeaconRegion(proximityUUID: uuid,
-                                              major: CLBeaconMajorValue(truncating: majorNum),
-                                              identifier: Const.kDefaultRegionIdentifier)
-            }
-        } else {
-            beaconRegion = CLBeaconRegion(proximityUUID: uuid, identifier: Const.kDefaultRegionIdentifier)
+        if inputMajorVar.value.isEmpty {
+            return CLBeaconRegion(proximityUUID: uuid, identifier: Const.kDefaultRegionIdentifier)
         }
         
-        manager = CLLocationManager()
-        manager.delegate = self
+        let majorNum = NSNumber(value: Int(inputMajorVar.value)!)
         
-        guard authorizationStatusCheck() else { return }
-        rangingButtonIconVar.value = #imageLiteral(resourceName: "RangingButtonIconPause")
-        manager.startMonitoring(for: beaconRegion!)
+        if inputMinorVar.value.isEmpty {
+            return CLBeaconRegion(proximityUUID: uuid,
+                                  major: CLBeaconMajorValue(truncating: majorNum),
+                                  identifier: Const.kDefaultRegionIdentifier)
+        }
+        
+        let minorNum = NSNumber(value: Int(inputMinorVar.value)!)
+        
+        return CLBeaconRegion(proximityUUID: uuid,
+                              major: CLBeaconMajorValue(truncating: majorNum),
+                              minor: CLBeaconMinorValue(truncating: minorNum),
+                              identifier: Const.kDefaultRegionIdentifier)
     }
     
     private func authorizationStatusCheck() -> Bool {
         
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
-            manager.requestAlwaysAuthorization()
+            manager?.requestAlwaysAuthorization()
             statusVar.value = "Not determined"
             return false
         case .restricted:
@@ -226,15 +234,11 @@ class DetectionViewModel: NSObject {
         }
         
         if let int: Int = Int(intText) {
-            
             if text.count > String(INT16_MAX).count {
                 return String(text.prefix(5))
-            }
-            
-            if int < 0 {
+            } else if int < 0 {
                 return 0.description
-            }
-            if int >= INT16_MAX {
+            } else if int >= INT16_MAX {
                 return INT16_MAX.description
             }
         }
@@ -291,12 +295,8 @@ extension DetectionViewModel: CLLocationManagerDelegate {
             sectionsVar.value[0].items.insert(DetectionInfoListData(beacon: beacon), at: 0)
             statusVar.value = convertProximityStatusToText(proximity: beacon.proximity)
             
-            guard sectionsVar.value[0].items.count > Const.kDetectionInfosMaxNum else {
-                continue
-            }
-            
+            guard sectionsVar.value[0].items.count > Const.kDetectionInfosMaxNum else { continue }
             sectionsVar.value[0].items.removeLast()
         }
     }
 }
-

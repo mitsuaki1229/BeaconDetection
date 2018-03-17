@@ -27,12 +27,28 @@ class DetectionView: UIView, CustomView {
         
         backgroundColor = .white
         
+        addSubviews()
+        addOptionalParameters()
+        installConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addSubviews() {
+        
         addSubview(statusLabel)
         addSubview(proximityUUIDInputTextField)
-        proximityUUIDInputTextField.placeholder = "proximityUUID"
         addSubview(majorInputTextField)
-        majorInputTextField.placeholder = "major"
         addSubview(minorInputTextField)
+        addSubview(detectionInfoTableView)
+    }
+    
+    func addOptionalParameters() {
+        
+        proximityUUIDInputTextField.placeholder = "proximityUUID"
+        majorInputTextField.placeholder = "major"
         minorInputTextField.placeholder = "minor"
         
         setInputTextFieldOption(textField: proximityUUIDInputTextField)
@@ -42,15 +58,8 @@ class DetectionView: UIView, CustomView {
         setInputTextFieldOption(textField: minorInputTextField)
         minorInputTextField.keyboardType = .numberPad
         
-        addSubview(detectionInfoTableView)
         detectionInfoTableView.layer.borderWidth = 1.0
         detectionInfoTableView.layer.borderColor = UIColor.black.cgColor
-        
-        installConstraints()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func installConstraints() {
