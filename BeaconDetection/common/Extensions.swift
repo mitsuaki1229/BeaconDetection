@@ -17,6 +17,13 @@ extension UIViewController {
     }
 }
 
+extension String {
+    
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+}
+
 extension Reactive where Base: UIBarButtonItem {
     
     var image: UIBindingObserver<Base, UIImage> {

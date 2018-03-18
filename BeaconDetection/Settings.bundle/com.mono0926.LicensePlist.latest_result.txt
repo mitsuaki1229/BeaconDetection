@@ -1,3 +1,5 @@
+name: AMPopTip, nameSpecified: , owner: andreamazz, version: 3.2.1
+
 name: MMMarkdown, nameSpecified: , owner: mdiep, version: 0.5.5
 
 name: Nimble, nameSpecified: , owner: Quick, version: v7.0.3

@@ -6,6 +6,7 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
+import AMPopTip
 import RxCocoa
 import RxSwift
 import UIKit
@@ -71,12 +72,15 @@ class SimulatorViewController: UIViewController {
         
         let view = self.view as! SimulatorView
         view.backgroundScrollView.setContentOffset(contentCenter(view), animated: false)
+        
+        setUpPopTip()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         switchAnimation(animatie: false)
+        removePopTips(view: view)
     }
     
     // MARK: Tools
@@ -110,6 +114,37 @@ class SimulatorViewController: UIViewController {
         viewModel.minor.subscribe(onNext: {
             view.minorLabel.text = $0.stringValue
         }).disposed(by: disposeBag)
+    }
+    
+    private func setUpPopTip() {
+        let checkedTips = UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)
+        popTipChain(nextTips: (checkedTips + 1))
+    }
+    
+    private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {
+        
+        guard nextTips >= 8,
+            nextTips < 10 else { return }
+        
+        let view = self.view as! SimulatorView
+        pt.show(text: ("CheckedTips" + nextTips.description).localized, direction: .none, maxWidth: 200, in: view, from: view.frame)
+        
+        let ptNext = PopTip()
+        pt.dismissHandler = { [unowned self] _ in
+            UserDefaults().set(nextTips, forKey: Const.kCheckedTipsUserDefaultKey)
+            self.popTipChain(pt: ptNext, nextTips: (nextTips + 1), completion: {
+                if let completion = completion {
+                    completion()
+                }
+            })
+        }
+    }
+    
+    private func removePopTips(view: UIView) {
+        for subview in view.subviews {
+            guard let subview = subview as? PopTip else { continue }
+            subview.removeFromSuperview()
+        }
     }
     
     private func switchAnimation(animatie: Bool) {
