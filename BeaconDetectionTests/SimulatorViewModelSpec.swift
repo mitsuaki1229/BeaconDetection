@@ -16,33 +16,19 @@ import RxTest
 class SimulatorViewModelSpec: QuickSpec {
     
     override func spec() {
-
-        describe("シグナルの内容を更新する") {
-            context("", {
-                let scheduler = TestScheduler(initialClock: 0)
-                
-                let results = scheduler.createObserver(SimulatorViewModelState.self)
-                
-                let viewModel = SimulatorViewModel()
-                viewModel.status.subscribe(results).disposed(by: DisposeBag())
-
-                scheduler.scheduleAt(100) {  }
-                scheduler.scheduleAt(200) { viewModel.updateStatusSignal() }
-                scheduler.start()
-                
-//                expect(results.events).to(equal(expectedEvents))
+        
+        describe("updateStatusSignal") {
+            context("statusを更新する", {
+                it("statusが更新されること", closure: {
+                    // TODO: Write a test. mitsuaki1229
+                })
             })
         }
-        
-        describe("ビーコンの情報を再生成する") {
-            context("", {
-                
-            })
-        }
-        
-        describe("ランダムの数値を返却する") {
-            context("", {
-                
+        describe("regenerateBeacon") {
+            context("ビーコンの情報を再生成する", {
+                it("statusが利用中になること", closure: {
+                    // TODO: Write a test. mitsuaki1229
+                })
             })
         }
     }
