@@ -21,5 +21,18 @@ class SettingViewModelSpec: QuickSpec {
                 })
             })
         }
+        describe("clearCheckedTips") {
+            context("使い方ヒントの読込状態を初期化する", {
+                
+                UserDefaults().set(2, forKey: Const.kCheckedTipsUserDefaultKey)
+                
+                let viewModel = SettingViewModel()
+                viewModel.clearCheckedTips()
+                
+                it("読込状態が初期化されていること", closure: {
+                    expect(UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)) == 0
+                })
+            })
+        }
     }
 }

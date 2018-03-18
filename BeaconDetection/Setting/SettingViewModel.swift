@@ -39,7 +39,8 @@ class SettingViewModel: NSObject {
             SectionSettingListData(header: "", items: [
                 SettinglistData(title: "README"),
                 SettinglistData(title: "LICENSE"),
-                SettinglistData(title: "Version:" + version)
+                SettinglistData(title: "Version:" + version),
+                SettinglistData(title: "Clear Checked Tips")
                 ])
         ]
     }
@@ -52,12 +53,13 @@ class SettingViewModel: NSObject {
                 ?? UITableViewCell(style: .default, reuseIdentifier: "Cell")
             cell.textLabel?.text = item.title
             
-            if DescriptionFileType(rawValue: ip.row) == DescriptionFileType.none {
-                cell.selectionStyle = .none
-                cell.accessoryType = .none
-            } else {
+            if DescriptionFileType(rawValue: ip.row) == .readme ||
+                DescriptionFileType(rawValue: ip.row) == .license {
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
+            } else {
+                cell.selectionStyle = .none
+                cell.accessoryType = .none
             }
             
             return cell
@@ -66,5 +68,9 @@ class SettingViewModel: NSObject {
         dataSource.titleForHeaderInSection = {ds, index in
             ds.sectionModels[index].header
         }
+    }
+    
+    func clearCheckedTips() {
+        UserDefaults().set(0, forKey: Const.kCheckedTipsUserDefaultKey)
     }
 }

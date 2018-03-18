@@ -6,6 +6,7 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
+import AMPopTip
 import RxCocoa
 import RxSwift
 import UIKit
@@ -27,6 +28,18 @@ class DetectionViewController: UIViewController {
         addDoneButtonOnKeyboard()
         
         viewModel.updateProximityUUIDToDefault()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setUpPopTip()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        removePopTips(view: view)
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -132,6 +145,61 @@ class DetectionViewController: UIViewController {
         let view = self.view as! DetectionView
         view.majorInputTextField.inputAccessoryView = numberPadToolbar
         view.minorInputTextField.inputAccessoryView = numberPadToolbar
+    }
+    
+    private func setUpPopTip() {
+        let checkedTips = UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)
+        popTipChain(nextTips: (checkedTips + 1))
+    }
+    
+    private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {
+        
+        guard nextTips >= 1,
+            nextTips < 8 else { return }
+        
+        let view = self.view as! DetectionView
+        popTipDisplayPosition(tips: nextTips) { (direction, frame) in
+            pt.show(text: ("CheckedTips" + nextTips.description).localized, direction: direction, maxWidth: 200, in: view, from: frame)
+        }
+        
+        let ptNext = PopTip()
+        pt.dismissHandler = { [unowned self] _ in
+            UserDefaults().set(nextTips, forKey: Const.kCheckedTipsUserDefaultKey)
+            self.popTipChain(pt: ptNext, nextTips: (nextTips + 1), completion: {
+                if let completion = completion {
+                    completion()
+                }
+            })
+        }
+    }
+    
+    private func popTipDisplayPosition(tips: Int, position: (_ direction: PopTipDirection, _ frame: CGRect) -> Void) {
+        let view = self.view as! DetectionView
+        switch tips {
+        case 1:
+            position(.down, view.proximityUUIDInputTextField.frame)
+        case 2:
+            position(.down, view.proximityUUIDInputTextField.frame)
+        case 3:
+            position(.left, view.majorInputTextField.frame)
+        case 4:
+            position(.down, view.statusLabel.frame)
+        case 5:
+            position(.down, view.statusLabel.frame)
+        case 6:
+            position(.none, view.detectionInfoTableView.frame)
+        case 7:
+            position(.none, view.frame)
+        default:
+            assert(false, "Implementation error")
+        }
+    }
+    
+    private func removePopTips(view: UIView) {
+        for subview in view.subviews {
+            guard let subview = subview as? PopTip else { continue }
+            subview.removeFromSuperview()
+        }
     }
 }
 

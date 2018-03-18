@@ -23,7 +23,7 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "Description"
+        navigationItem.title = "Setting"
         
         let view = self.view as! SettingView
         view.listTableView.rx.setDelegate(self)
@@ -34,6 +34,15 @@ class SettingViewController: UIViewController {
                 return (ip, self?.viewModel.dataSource[ip])
             }
             .subscribe(onNext: { [weak self] ip, _ in
+                
+                if ip.row == 3 {
+                    self?.viewModel.clearCheckedTips()
+                    let alert = UIAlertController(title: "Info", message: "Clear Checked Tips.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self?.rootViewController().present(alert, animated: false, completion: nil)
+                    return
+                }
+                
                 guard let type = DescriptionFileType(rawValue: ip.row),
                     type != .none else { return }
                 let descriptionViewController = DescriptionViewController(type: type)
