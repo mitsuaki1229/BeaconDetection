@@ -29,6 +29,15 @@ class DetectionViewController: UIViewController {
         viewModel.updateProximityUUIDToDefault()
     }
     
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        guard event?.type == UIEventType.motion && event?.subtype == UIEventSubtype.motionShake else { return }
+        viewModel.clearSections()
+    }
+    
     private func setupNavigationbar() {
         
         navigationController?.navigationBar.isTranslucent = false
@@ -41,9 +50,7 @@ class DetectionViewController: UIViewController {
             .bind(to: rangingButton.rx.image)
             .disposed(by: disposeBag)
         
-        rangingButton
-            .rx
-            .tap
+        rangingButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
                 self.viewModel.changeRanging()
             }).disposed(by: disposeBag)
@@ -88,9 +95,7 @@ class DetectionViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.sections.asObservable()
-            .bind(to: view
-                .detectionInfoTableView
-                .rx
+            .bind(to: view.detectionInfoTableView.rx
                 .items(dataSource: viewModel.dataSource))
             .disposed(by: disposeBag)
         
@@ -108,9 +113,7 @@ class DetectionViewController: UIViewController {
         doneButton.title = "done"
         doneButton.style = .done
         
-        doneButton
-            .rx
-            .tap
+        doneButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
                 self.view.endEditing(true)
                 self.viewModel.reSettingBeaconManager()

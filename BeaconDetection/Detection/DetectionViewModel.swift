@@ -88,6 +88,10 @@ class DetectionViewModel: NSObject {
         inputMinorVar.value = int16RangeRestriction(text: text)
     }
     
+    func clearSections() {
+        sectionsVar.value = [SectionDetectionInfoListData(header: "Info", items: [])]
+    }
+    
     func changeRanging() {
         
         if isRanging {
@@ -105,7 +109,7 @@ class DetectionViewModel: NSObject {
     
     private func startRanging() {
         
-        guard isMonitoringCapable() else {
+        if !isMonitoringCapable() {
             statusVar.value = "Disabled monitoring"
             return
         }
