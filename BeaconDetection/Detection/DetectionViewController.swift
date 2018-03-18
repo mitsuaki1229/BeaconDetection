@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
 class DetectionViewController: UIViewController {
     
@@ -22,6 +22,24 @@ class DetectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationbar()
+        setupViews()
+        addDoneButtonOnKeyboard()
+        
+        viewModel.updateProximityUUIDToDefault()
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        guard event?.type == UIEventType.motion && event?.subtype == UIEventSubtype.motionShake else { return }
+        viewModel.clearSections()
+    }
+    
+    private func setupNavigationbar() {
+        
         navigationController?.navigationBar.isTranslucent = false
         title = "Detection"
         
@@ -32,44 +50,33 @@ class DetectionViewController: UIViewController {
             .bind(to: rangingButton.rx.image)
             .disposed(by: disposeBag)
         
-        rangingButton
-            .rx
-            .tap
+        rangingButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
-                
                 self.viewModel.changeRanging()
             }).disposed(by: disposeBag)
         
         navigationItem.rightBarButtonItem = rangingButton
-        
-        addDoneButtonOnKeyboard()
+    }
+    
+    private func setupViews() {
         
         let view = self.view as! DetectionView
         
-        viewModel
-            .status
-            .bind(to: view.statusLabel.rx.text)
-            .addDisposableTo(disposeBag)
+        viewModel.status.bind(to: view.statusLabel.rx.text).addDisposableTo(disposeBag)
         
-        view.proximityUUIDInputTextField
-            .rx
-            .text
+        view.proximityUUIDInputTextField.rx.text
             .subscribe(onNext: { [unowned self] text in
-                self.viewModel.updateProximityUUID(text: text!)
+                self.viewModel.updateProximityUUID(uuidText: text!)
             })
             .disposed(by: disposeBag)
         
-        view.majorInputTextField
-            .rx
-            .text
+        view.majorInputTextField.rx.text
             .subscribe(onNext: { [unowned self] text in
                 self.viewModel.updateInputMajor(text: text!)
             })
             .disposed(by: disposeBag)
         
-        view.minorInputTextField
-            .rx
-            .text
+        view.minorInputTextField.rx.text
             .subscribe(onNext: { [unowned self] text in
                 self.viewModel.updateInputMinor(text: text!)
             })
@@ -79,7 +86,7 @@ class DetectionViewController: UIViewController {
             .bind(to: view.proximityUUIDInputTextField.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.InputMajor
+        viewModel.inputMajor
             .bind(to: view.majorInputTextField.rx.text)
             .disposed(by: disposeBag)
         
@@ -88,23 +95,15 @@ class DetectionViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.sections.asObservable()
-            .bind(to: view
-                .detectionInfoTableView
-                .rx
+            .bind(to: view.detectionInfoTableView.rx
                 .items(dataSource: viewModel.dataSource))
             .disposed(by: disposeBag)
         
         view.detectionInfoTableView
             .register(DetectionInfoTableViewCell.self, forCellReuseIdentifier: "DetectionInfoTableViewCell")
         
-        view.detectionInfoTableView
-            .rx
+        view.detectionInfoTableView.rx
             .setDelegate(self).addDisposableTo(disposeBag)
-        
-        // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
-        if let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") {
-            viewModel.updateProximityUUID(text: uuidString)
-        }
     }
     
     private func addDoneButtonOnKeyboard() {
@@ -114,9 +113,7 @@ class DetectionViewController: UIViewController {
         doneButton.title = "done"
         doneButton.style = .done
         
-        doneButton
-            .rx
-            .tap
+        doneButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
                 self.view.endEditing(true)
                 self.viewModel.reSettingBeaconManager()

@@ -6,18 +6,18 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
 class SimulatorViewController: UIViewController {
     
     private let viewModel = SimulatorViewModel()
     private let disposeBag = DisposeBag()
     
-    private var contentCenter = { (view: SimulatorView) ->  CGPoint in
-        let x:CGFloat = (view.backgroundScrollView.contentSize.width - view.frame.width)/2
-        return CGPoint.init(x: x, y: 0)
+    private var contentCenter = {(view: SimulatorView) -> CGPoint in
+        let x: CGFloat = (view.backgroundScrollView.contentSize.width - view.frame.width) / 2
+        return CGPoint(x: x, y: 0)
     }
     
     override func loadView() {
@@ -27,34 +27,8 @@ class SimulatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = "Simulator"
-        
-        let regenerateButton = UIBarButtonItem()
-        regenerateButton.image = UIImage(named: "RegenerateButtonIcon")
-        
-        regenerateButton
-            .rx
-            .tap
-            .subscribe(onNext: { [unowned self] _ in
-                self.viewModel.regenerateBeacon()
-            }).disposed(by: disposeBag)
-        
-        navigationItem.rightBarButtonItem = regenerateButton
-        
-        let view = self.view as! SimulatorView
-        
-        viewModel.proximityUUID.subscribe(onNext: { u in
-            view.uuidLabel.text = u.uuidString
-        }).disposed(by: disposeBag)
-        
-        viewModel.major.subscribe(onNext: { n in
-            view.majorLabel.text = n.stringValue
-        }).disposed(by: disposeBag)
-        
-        viewModel.minor.subscribe(onNext: { n in
-            view.minorLabel.text = n.stringValue
-        }).disposed(by: disposeBag)
+        setupNavigationbar()
+        setupViews()
         
         viewModel.status.subscribe(onNext: { [unowned self] status in
             
@@ -67,27 +41,19 @@ class SimulatorViewController: UIViewController {
                 
                 let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                
-                self.rootViewController().present(
-                    alert,
-                    animated: false,
-                    completion: nil)
+                self.rootViewController().present(alert, animated: false, completion: nil)
                 
                 self.switchAnimation(animatie: false)
             }
         }).disposed(by: disposeBag)
         
-        NotificationCenter
-            .default
-            .rx
+        NotificationCenter.default.rx
             .notification(.UIApplicationDidBecomeActive)
             .subscribe(onNext: { [unowned self] _ in
                 self.viewModel.updateStatusSignal()
             }).disposed(by: disposeBag)
         
-        NotificationCenter
-            .default
-            .rx
+        NotificationCenter.default.rx
             .notification(.UIApplicationDidEnterBackground)
             .subscribe(onNext: { [unowned self] _ in
                 self.switchAnimation(animatie: false)
@@ -115,14 +81,44 @@ class SimulatorViewController: UIViewController {
     
     // MARK: Tools
     
+    private func setupNavigationbar() {
+        
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = "Simulator"
+        
+        let regenerateButton = UIBarButtonItem()
+        regenerateButton.image = #imageLiteral(resourceName: "RegenerateButtonIcon")
+        
+        regenerateButton.rx.tap
+            .subscribe(onNext: { [unowned self] _ in
+                self.viewModel.regenerateBeacon()
+            }).disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem = regenerateButton
+    }
+    
+    private func setupViews() {
+        
+        let view = self.view as! SimulatorView
+        
+        viewModel.proximityUUID.subscribe(onNext: {
+            view.uuidLabel.text = $0.uuidString
+        }).disposed(by: disposeBag)
+        viewModel.major.subscribe(onNext: {
+            view.majorLabel.text = $0.stringValue
+        }).disposed(by: disposeBag)
+        viewModel.minor.subscribe(onNext: {
+            view.minorLabel.text = $0.stringValue
+        }).disposed(by: disposeBag)
+    }
+    
     private func switchAnimation(animatie: Bool) {
         
-        if !animatie {
-            let view = self.view as! SimulatorView
-            view.backgroundImageView.layer.removeAllAnimations()
-            view.backgroundImageView.alpha = 1.0
-            return
-        }
+        let view = self.view as! SimulatorView
+        view.backgroundImageView.layer.removeAllAnimations()
+        view.backgroundImageView.alpha = 1.0
+        
+        guard animatie else { return }
         
         UIView.animate(withDuration: 1.0,
                        delay: 0.0,

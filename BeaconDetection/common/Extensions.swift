@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
 extension UIViewController {
     

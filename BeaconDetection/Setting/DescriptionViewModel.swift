@@ -8,7 +8,7 @@
 
 import MMMarkdown
 
-enum DescriptionFileType : Int {
+enum DescriptionFileType: Int {
     case readme = 0
     case license
     case none
@@ -26,7 +26,7 @@ class DescriptionViewModel: NSObject {
         
         let fileName = type == .license ? "LICENSE" : "README"
         
-        guard let mdFilePath:String = Bundle.main.path(forResource: fileName, ofType: "md") else {
+        guard let mdFilePath: String = Bundle.main.path(forResource: fileName, ofType: "md") else {
             return ""
         }
         
@@ -34,7 +34,7 @@ class DescriptionViewModel: NSObject {
         var html = ""
         
         do {
-            md = try String.init(contentsOfFile: mdFilePath)
+            md = try String(contentsOfFile: mdFilePath)
         } catch {
             print("md:Error")
         }

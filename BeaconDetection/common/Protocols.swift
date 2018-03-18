@@ -8,5 +8,7 @@
 
 protocol CustomView {
     
+    func addSubviews()
+    func addOptionalParameters()
     func installConstraints()
 }

@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class DetectionView: UIView, CustomView {
     
@@ -19,9 +19,7 @@ class DetectionView: UIView, CustomView {
     let minorInputTextField = UITextField()
     
     private var tabBarHeight: CGFloat {
-        
-        let tabBarController: UITabBarController = UITabBarController()
-        return tabBarController.tabBar.frame.size.height
+        return UITabBarController().tabBar.frame.size.height
     }
     
     override init(frame: CGRect) {
@@ -29,12 +27,28 @@ class DetectionView: UIView, CustomView {
         
         backgroundColor = .white
         
+        addSubviews()
+        addOptionalParameters()
+        installConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addSubviews() {
+        
         addSubview(statusLabel)
         addSubview(proximityUUIDInputTextField)
-        proximityUUIDInputTextField.placeholder = "proximityUUID"
         addSubview(majorInputTextField)
-        majorInputTextField.placeholder = "major"
         addSubview(minorInputTextField)
+        addSubview(detectionInfoTableView)
+    }
+    
+    func addOptionalParameters() {
+        
+        proximityUUIDInputTextField.placeholder = "proximityUUID"
+        majorInputTextField.placeholder = "major"
         minorInputTextField.placeholder = "minor"
         
         setInputTextFieldOption(textField: proximityUUIDInputTextField)
@@ -44,15 +58,8 @@ class DetectionView: UIView, CustomView {
         setInputTextFieldOption(textField: minorInputTextField)
         minorInputTextField.keyboardType = .numberPad
         
-        addSubview(detectionInfoTableView)
         detectionInfoTableView.layer.borderWidth = 1.0
         detectionInfoTableView.layer.borderColor = UIColor.black.cgColor
-        
-        installConstraints()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func installConstraints() {
@@ -87,7 +94,7 @@ class DetectionView: UIView, CustomView {
         }
     }
     
-    private func setInputTextFieldOption(textField :UITextField) {
+    private func setInputTextFieldOption(textField: UITextField) {
         textField.layer.borderWidth = 1.0
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 5.0

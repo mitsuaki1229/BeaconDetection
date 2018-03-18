@@ -18,17 +18,22 @@ class DescriptionView: UIView, CustomView {
         
         backgroundColor = .white
         
-        addSubview(displayArea)
-        
+        addSubviews()
+        addOptionalParameters()
         installConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func addSubviews() {
+        addSubview(displayArea)
+    }
+    
+    func addOptionalParameters() {}
     
     func installConstraints() {
-        
         displayArea.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
         }

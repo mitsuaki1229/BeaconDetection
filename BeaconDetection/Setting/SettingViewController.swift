@@ -6,9 +6,9 @@
 //  Copyright © 2017年 Mitsuaki Ihara. All rights reserved.
 //
 
-import UIKit
 import RxCocoa
 import RxSwift
+import UIKit
 
 class SettingViewController: UIViewController {
     
@@ -33,16 +33,9 @@ class SettingViewController: UIViewController {
             .map { [weak self] ip in
                 return (ip, self?.viewModel.dataSource[ip])
             }
-            .subscribe(onNext: { [weak self] ip, ds in
-                
-                guard let type = DescriptionFileType(rawValue: ip.row) else {
-                    return
-                }
-                
-                guard type != .none else {
-                    return
-                }
-                
+            .subscribe(onNext: { [weak self] ip, _ in
+                guard let type = DescriptionFileType(rawValue: ip.row),
+                    type != .none else { return }
                 let descriptionViewController = DescriptionViewController(type: type)
                 self?.navigationController?.pushViewController(descriptionViewController, animated: true)
                 
@@ -57,7 +50,7 @@ class SettingViewController: UIViewController {
     }
 }
 
-extension SettingViewController : UITableViewDelegate {
+extension SettingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44

@@ -5,9 +5,10 @@ Beacon experience.
 
 ## Requirement
 
-* Xcode 9.0
 * Swift 4
-* Carthage 0.25.0
+* [Xcode 9.2](https://developer.apple.com/download/)
+* [Carthage 0.28.0](https://github.com/Carthage/Carthage)
+* [Swiftlint 0.25.0](https://github.com/realm/SwiftLint)
 
 ## Install
 

@@ -17,19 +17,24 @@ class SettingView: UIView, CustomView {
         
         backgroundColor = .white
         
-        addSubview(listTableView)
-        
+        addSubviews()
+        addOptionalParameters()
         installConstraints()
     }
-    
-    func installConstraints() {
-        
-        listTableView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
-        }
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addSubviews() {
+        addSubview(listTableView)
+    }
+    
+    func addOptionalParameters() {}
+    
+    func installConstraints() {
+        listTableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }

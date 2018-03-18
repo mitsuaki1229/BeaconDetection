@@ -1,15 +1,15 @@
-name: Nimble, nameSpecified: , owner: Quick, version: v7.0.1
+name: MMMarkdown, nameSpecified: , owner: mdiep, version: 0.5.5
 
-name: Quick, nameSpecified: , owner: Quick, version: v1.1.0
+name: Nimble, nameSpecified: , owner: Quick, version: v7.0.3
 
-name: RxSwift, nameSpecified: , owner: ReactiveX, version: 3.6.1
+name: Quick, nameSpecified: , owner: Quick, version: v1.2.0
 
 name: RxDataSources, nameSpecified: , owner: RxSwiftCommunity, version: 1.0.4
 
-name: SnapKit, nameSpecified: , owner: SnapKit, version: 4.0.0
+name: RxSwift, nameSpecified: , owner: ReactiveX, version: 3.6.1
 
-name: MMMarkdown, nameSpecified: , owner: mdiep, version: 0.5.5
+name: SnapKit, nameSpecified: , owner: SnapKit, version: 4.0.0
 
 add-version-numbers: false
 
-LicensePlist Version: 1.4.5
+LicensePlist Version: 1.8.3
