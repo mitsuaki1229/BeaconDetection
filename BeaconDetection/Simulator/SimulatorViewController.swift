@@ -114,12 +114,11 @@ class SimulatorViewController: UIViewController {
     
     private func switchAnimation(animatie: Bool) {
         
-        if !animatie {
-            let view = self.view as! SimulatorView
-            view.backgroundImageView.layer.removeAllAnimations()
-            view.backgroundImageView.alpha = 1.0
-            return
-        }
+        let view = self.view as! SimulatorView
+        view.backgroundImageView.layer.removeAllAnimations()
+        view.backgroundImageView.alpha = 1.0
+        
+        guard animatie else { return }
         
         UIView.animate(withDuration: 1.0,
                        delay: 0.0,
