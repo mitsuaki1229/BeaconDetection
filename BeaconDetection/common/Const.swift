@@ -12,4 +12,5 @@ struct Const {
     static let kDefaultRegionIdentifier = "BeaconDetection"
     static let kDetectionInfosMaxNum = 100
     static let kCheckedTipsUserDefaultKey = "CheckedTips"
+    static let kProximityUUIDStringUserDefaultKey = "ProximityUUIDString"
 }
