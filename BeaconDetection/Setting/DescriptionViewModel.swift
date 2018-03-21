@@ -51,6 +51,7 @@ class DescriptionViewModel: NSObject {
     }
     
     func getTitle() -> String {
+        guard type != .none else { return "" }
         return type == .license ? "LICENSE" : "README"
     }
 }

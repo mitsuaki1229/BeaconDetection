@@ -32,9 +32,19 @@ class DescriptionViewModelSpec: QuickSpec {
             })
         }
         describe("getTitle") {
-            context("タイトルを取得する", {
-                it("typeに対応したタイトルが取得出来ること", closure: {
-                    // TODO: Write a test. mitsuaki1229
+            context("type:readmeにてタイトルを取得する", {
+                it("対応したタイトルが取得出来ること", closure: {
+                    expect(DescriptionViewModel(type: .readme).getTitle()) == "README"
+                })
+            })
+            context("type:licenseにてタイトルを取得する", {
+                it("対応したタイトルが取得出来ること", closure: {
+                    expect(DescriptionViewModel(type: .license).getTitle()) == "LICENSE"
+                })
+            })
+            context("type:noneにてタイトルを取得する", {
+                it("対応したタイトルが取得出来ること", closure: {
+                    expect(DescriptionViewModel(type: .none).getTitle()) == ""
                 })
             })
         }

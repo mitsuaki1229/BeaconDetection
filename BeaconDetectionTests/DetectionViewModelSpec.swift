@@ -30,7 +30,7 @@ class DetectionViewModelSpec: QuickSpec {
                 }
                 
                 it("デフォルトのUUID Stringが設定されていること", closure: {
-                    // FXIME: いまの作りだとAppDelegateにて最初に更新されているIDに依存しているため、作り方を変えないと下記が安定して更新できない
+                    // FIXME: 下記テストが通るようにアプリ修正を実施する
                     expect(UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)) == Const.kDefaultProximityUUIDString
                 })
             })
