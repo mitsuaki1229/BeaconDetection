@@ -14,6 +14,12 @@ struct DetectionInfoListData {
     var beacon: CLBeacon
 }
 
+extension DetectionInfoListData: Equatable {
+    static func == (lhs: DetectionInfoListData, rhs: DetectionInfoListData) -> Bool {
+        return lhs.beacon == rhs.beacon
+    }
+}
+
 struct SectionDetectionInfoListData {
     var header: String
     var items: [Item]
@@ -26,6 +32,12 @@ extension SectionDetectionInfoListData: SectionModelType {
     init(original: SectionDetectionInfoListData, items: [Item]) {
         self = original
         self.items = items
+    }
+}
+
+extension SectionDetectionInfoListData: Equatable {
+    static func == (lhs: SectionDetectionInfoListData, rhs: SectionDetectionInfoListData) -> Bool {
+        return lhs.header == rhs.header && lhs.items == rhs.items
     }
 }
 
@@ -56,7 +68,7 @@ class DetectionViewModel: NSObject {
     override init() {
         super.init()
         
-        if let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") {
+        if let uuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey) {
             inputProximityUUIDVar.value = uuidString
         }
         
@@ -67,7 +79,7 @@ class DetectionViewModel: NSObject {
     // MARK: - Tools
     
     func updateProximityUUIDToDefault() {
-        guard let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString") else { return }
+        guard let uuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey) else { return }
         // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
         updateProximityUUID(uuidText: uuidString)
     }
@@ -77,7 +89,7 @@ class DetectionViewModel: NSObject {
         inputProximityUUIDVar.value = uuidText
         
         guard UUID(uuidString: uuidText) != nil else { return }
-        UserDefaults.standard.set(uuidText, forKey: "kProximityUUIDString")
+        UserDefaults.standard.set(uuidText, forKey: Const.kProximityUUIDStringUserDefaultKey)
     }
     
     func updateInputMajor(text: String) {

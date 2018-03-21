@@ -59,7 +59,7 @@ class SimulatorViewModel: NSObject {
     
     private func startAdvertising() {
         
-        guard let uuidString = UserDefaults.standard.string(forKey: "kProximityUUIDString"),
+        guard let uuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey),
             let uuid = UUID(uuidString: uuidString) else { return }
         
         proximityUUIDVar.value = uuid

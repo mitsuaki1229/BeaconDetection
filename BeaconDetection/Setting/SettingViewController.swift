@@ -52,8 +52,7 @@ class SettingViewController: UIViewController {
         
         Observable.just(viewModel.sections)
             .bind(to: view
-                .listTableView
-                .rx
+                .listTableView.rx
                 .items(dataSource: viewModel.dataSource))
             .disposed(by: disposeBag)
     }

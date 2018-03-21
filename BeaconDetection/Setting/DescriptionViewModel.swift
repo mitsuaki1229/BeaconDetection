@@ -24,6 +24,8 @@ class DescriptionViewModel: NSObject {
     
     func getHtml() -> String {
         
+        guard type != .none else { return "" }
+        
         let fileName = type == .license ? "LICENSE" : "README"
         
         guard let mdFilePath: String = Bundle.main.path(forResource: fileName, ofType: "md") else {
@@ -49,6 +51,7 @@ class DescriptionViewModel: NSObject {
     }
     
     func getTitle() -> String {
+        guard type != .none else { return "" }
         return type == .license ? "LICENSE" : "README"
     }
 }
