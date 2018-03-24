@@ -27,7 +27,7 @@ class DetectionViewController: UIViewController {
         setupViews()
         addDoneButtonOnKeyboard()
         
-        viewModel.updateProximityUUIDToDefault()
+        viewModel.updateProximityUUIDToUserDefault()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -136,20 +136,18 @@ class DetectionViewController: UIViewController {
         items.append(flexSpace)
         items.append(doneButton)
         
-        let numberPadToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        numberPadToolbar.barStyle = .default
-        
+        let numberPadToolbar: UIToolbar = UIToolbar()
         numberPadToolbar.items = items
         numberPadToolbar.sizeToFit()
         
         let view = self.view as! DetectionView
+        view.proximityUUIDInputTextField.inputAccessoryView = numberPadToolbar
         view.majorInputTextField.inputAccessoryView = numberPadToolbar
         view.minorInputTextField.inputAccessoryView = numberPadToolbar
     }
     
     private func setUpPopTip() {
-        let checkedTips = UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)
-        popTipChain(nextTips: (checkedTips + 1))
+        popTipChain(nextTips: CommonModel().nextTips())
     }
     
     private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {

@@ -117,8 +117,7 @@ class SimulatorViewController: UIViewController {
     }
     
     private func setUpPopTip() {
-        let checkedTips = UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)
-        popTipChain(nextTips: (checkedTips + 1))
+        popTipChain(nextTips: CommonModel().nextTips())
     }
     
     private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {

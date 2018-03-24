@@ -33,6 +33,8 @@
 		2C87A17C205DF9EF00379FD4 /* DetectionViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87A17B205DF9EF00379FD4 /* DetectionViewModelSpec.swift */; };
 		2C87A17E205E21BC00379FD4 /* AMPopTip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C87A17D205E21BC00379FD4 /* AMPopTip.framework */; };
 		2C87A184205E90CC00379FD4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C87A186205E90CC00379FD4 /* Localizable.strings */; };
+		2C94CEAE2063FA7800F13ECC /* CommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94CEAD2063FA7800F13ECC /* CommonModel.swift */; };
+		2C94CEB02063FAF500F13ECC /* CommonModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94CEAF2063FAF500F13ECC /* CommonModelSpec.swift */; };
 		2CA179BF1F7F0D960086BADF /* SimulatorViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA179BE1F7F0D960086BADF /* SimulatorViewModelSpec.swift */; };
 		2CB89EE91BEE567C002A4EC7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB89EE81BEE567C002A4EC7 /* Const.swift */; };
 		2CCCF0881F6FFEE000B5B560 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */; };
@@ -94,6 +96,8 @@
 		2C87A17D205E21BC00379FD4 /* AMPopTip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMPopTip.framework; path = Carthage/Build/iOS/AMPopTip.framework; sourceTree = "<group>"; };
 		2C87A185205E90CC00379FD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2C87A187205E90E300379FD4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2C94CEAD2063FA7800F13ECC /* CommonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModel.swift; sourceTree = "<group>"; };
+		2C94CEAF2063FAF500F13ECC /* CommonModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModelSpec.swift; sourceTree = "<group>"; };
 		2CA179BE1F7F0D960086BADF /* SimulatorViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorViewModelSpec.swift; sourceTree = "<group>"; };
 		2CB89EE51BEE4F7C002A4EC7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2CB89EE81BEE567C002A4EC7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 				2CCCF0871F6FFEE000B5B560 /* TabBarController.swift */,
 				2C33D1A51F7232B60007B141 /* Extensions.swift */,
 				2C6EAB701F72460200283471 /* Protocols.swift */,
+				2C94CEAD2063FA7800F13ECC /* CommonModel.swift */,
 			);
 			name = Common;
 			path = common;
@@ -263,6 +268,7 @@
 				2C87A179205DF97700379FD4 /* SettingViewModelSpec.swift */,
 				2C87A177205DF94900379FD4 /* DescriptionViewModelSpec.swift */,
 				2C87A17B205DF9EF00379FD4 /* DetectionViewModelSpec.swift */,
+				2C94CEAF2063FAF500F13ECC /* CommonModelSpec.swift */,
 			);
 			path = BeaconDetectionTests;
 			sourceTree = "<group>";
@@ -488,6 +494,7 @@
 				2C3F008B1F2D48480086076D /* SettingViewModel.swift in Sources */,
 				2C33D1A61F7232B60007B141 /* Extensions.swift in Sources */,
 				2C6EAB711F72460200283471 /* Protocols.swift in Sources */,
+				2C94CEAE2063FA7800F13ECC /* CommonModel.swift in Sources */,
 				2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */,
 				2CCCF0881F6FFEE000B5B560 /* TabBarController.swift in Sources */,
 				2CCCF08E1F706ECB00B5B560 /* DetectionView.swift in Sources */,
@@ -501,6 +508,7 @@
 			files = (
 				2C87A178205DF94900379FD4 /* DescriptionViewModelSpec.swift in Sources */,
 				2C87A17C205DF9EF00379FD4 /* DetectionViewModelSpec.swift in Sources */,
+				2C94CEB02063FAF500F13ECC /* CommonModelSpec.swift in Sources */,
 				2CA179BF1F7F0D960086BADF /* SimulatorViewModelSpec.swift in Sources */,
 				2C87A17A205DF97700379FD4 /* SettingViewModelSpec.swift in Sources */,
 			);

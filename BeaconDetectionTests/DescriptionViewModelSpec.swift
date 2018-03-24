@@ -43,7 +43,7 @@ class DescriptionViewModelSpec: QuickSpec {
                 })
             })
             context("type:noneにてタイトルを取得する", {
-                it("対応したタイトルが取得出来ること", closure: {
+                it("タイトルが取得出来ないこと", closure: {
                     expect(DescriptionViewModel(type: .none).getTitle()) == ""
                 })
             })
