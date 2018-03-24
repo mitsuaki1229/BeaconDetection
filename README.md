@@ -14,7 +14,7 @@ Beacon experience.
 
 ```
 $ cd BeaconDetection/
-$ carthage update --platform iOS
+$ carthage bootstrap --platform iOS
 ```
 
 ## Usage
