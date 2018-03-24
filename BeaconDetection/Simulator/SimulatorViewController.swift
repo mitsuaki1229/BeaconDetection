@@ -40,7 +40,7 @@ class SimulatorViewController: UIViewController {
                 self.switchAnimation(animatie: true)
             case .peripheralError:
                 
-                let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error".localized, message: "Message001".localized, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.rootViewController().present(alert, animated: false, completion: nil)
                 
