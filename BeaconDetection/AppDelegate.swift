@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setProximityUUIDDefault() {
-        guard UserDefaults.standard.string(forKey: "kProximityUUIDString") == nil else { return }
-        UserDefaults.standard.set(Const.kDefaultProximityUUIDString, forKey: "kProximityUUIDString")
+        guard UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey) == nil else { return }
+        UserDefaults.standard.set(Const.kDefaultProximityUUIDString, forKey: Const.kProximityUUIDStringUserDefaultKey)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

@@ -67,6 +67,7 @@ class DetectionViewModel: NSObject {
     
     override init() {
         super.init()
+        
         updateProximityUUIDToUserDefault()
         settingDetectionInfoTable()
         settingBeaconManager()
