@@ -153,7 +153,7 @@ class DetectionViewController: UIViewController {
     private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {
         
         guard nextTips >= 1,
-            nextTips < 8 else { return }
+            nextTips < 9 else { return }
         
         let view = self.view as! DetectionView
         popTipDisplayPosition(tips: nextTips) { (direction, frame) in
@@ -174,19 +174,15 @@ class DetectionViewController: UIViewController {
     private func popTipDisplayPosition(tips: Int, position: (_ direction: PopTipDirection, _ frame: CGRect) -> Void) {
         let view = self.view as! DetectionView
         switch tips {
-        case 1:
-            position(.down, view.proximityUUIDInputTextField.frame)
-        case 2:
+        case 1, 2:
             position(.down, view.proximityUUIDInputTextField.frame)
         case 3:
             position(.left, view.majorInputTextField.frame)
-        case 4:
-            position(.down, view.statusLabel.frame)
-        case 5:
+        case 4, 5:
             position(.down, view.statusLabel.frame)
         case 6:
             position(.none, view.detectionInfoTableView.frame)
-        case 7:
+        case 7, 8:
             position(.none, view.frame)
         default:
             assert(false, "Implementation error")

@@ -122,8 +122,8 @@ class SimulatorViewController: UIViewController {
     
     private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {
         
-        guard nextTips >= 8,
-            nextTips < 10 else { return }
+        guard nextTips >= 9,
+            nextTips < 11 else { return }
         
         let view = self.view as! SimulatorView
         pt.show(text: ("CheckedTips" + nextTips.description).localized, direction: .none, maxWidth: 200, in: view, from: view.frame)
