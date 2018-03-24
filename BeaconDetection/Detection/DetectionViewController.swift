@@ -27,7 +27,7 @@ class DetectionViewController: UIViewController {
         setupViews()
         addDoneButtonOnKeyboard()
         
-        viewModel.updateProximityUUIDToDefault()
+        viewModel.updateProximityUUIDToUserDefault()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -136,26 +136,24 @@ class DetectionViewController: UIViewController {
         items.append(flexSpace)
         items.append(doneButton)
         
-        let numberPadToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        numberPadToolbar.barStyle = .default
-        
+        let numberPadToolbar: UIToolbar = UIToolbar()
         numberPadToolbar.items = items
         numberPadToolbar.sizeToFit()
         
         let view = self.view as! DetectionView
+        view.proximityUUIDInputTextField.inputAccessoryView = numberPadToolbar
         view.majorInputTextField.inputAccessoryView = numberPadToolbar
         view.minorInputTextField.inputAccessoryView = numberPadToolbar
     }
     
     private func setUpPopTip() {
-        let checkedTips = UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)
-        popTipChain(nextTips: (checkedTips + 1))
+        popTipChain(nextTips: CommonModel().nextTips())
     }
     
     private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {
         
         guard nextTips >= 1,
-            nextTips < 8 else { return }
+            nextTips < 9 else { return }
         
         let view = self.view as! DetectionView
         popTipDisplayPosition(tips: nextTips) { (direction, frame) in
@@ -176,19 +174,15 @@ class DetectionViewController: UIViewController {
     private func popTipDisplayPosition(tips: Int, position: (_ direction: PopTipDirection, _ frame: CGRect) -> Void) {
         let view = self.view as! DetectionView
         switch tips {
-        case 1:
-            position(.down, view.proximityUUIDInputTextField.frame)
-        case 2:
+        case 1, 2:
             position(.down, view.proximityUUIDInputTextField.frame)
         case 3:
             position(.left, view.majorInputTextField.frame)
-        case 4:
-            position(.down, view.statusLabel.frame)
-        case 5:
+        case 4, 5:
             position(.down, view.statusLabel.frame)
         case 6:
             position(.none, view.detectionInfoTableView.frame)
-        case 7:
+        case 7, 8:
             position(.none, view.frame)
         default:
             assert(false, "Implementation error")

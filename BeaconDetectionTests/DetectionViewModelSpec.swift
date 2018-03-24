@@ -17,21 +17,41 @@ class DetectionViewModelSpec: QuickSpec {
     
     override func spec() {
         describe("updateProximityUUIDToDefault") {
-            context("未設定の場合デフォルトのUUID Stringを設定する", {
+            context("inputのUUIDにUserDefaultのUUID Stringを設定する", {
                 
                 let tmpUuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)
+                let assetUUIDString = "D864C04A-46DC-46CA-AD26-8734FA780336"
+                var mockObserver: TestableObserver<String>?
                 
                 beforeEach {
-                    DetectionViewModel().updateProximityUUIDToDefault()
+                    
+                    UserDefaults.standard.set(assetUUIDString, forKey: Const.kProximityUUIDStringUserDefaultKey)
+                    
+                    let scheduler = TestScheduler(initialClock: 0)
+                    mockObserver = scheduler.createObserver(String.self)
+                    let viewModel = DetectionViewModel()
+                    let disposeBag = DisposeBag()
+                    
+                    scheduler.scheduleAt(100, action: {
+                        viewModel.inputProximityUUID.subscribe(mockObserver!).disposed(by: disposeBag)
+                    })
+                    
+                    scheduler.scheduleAt(200, action: {
+                        viewModel.updateProximityUUIDToUserDefault()
+                    })
+                    
+                    scheduler.start()
                 }
                 
                 afterEach {
                     UserDefaults.standard.set(tmpUuidString, forKey: Const.kProximityUUIDStringUserDefaultKey)
                 }
                 
-                it("デフォルトのUUID Stringが設定されていること", closure: {
-                    // FIXME: 下記テストが通るようにアプリ修正を実施する
-                    expect(UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)) == Const.kDefaultProximityUUIDString
+                it("UserDefaultに保持しているUUID Stringがinputに設定されていること", closure: {
+                    XCTAssertEqual(mockObserver!.events, [
+                        next(100, assetUUIDString),
+                        next(200, assetUUIDString)
+                        ])
                 })
             })
         }

@@ -12,6 +12,10 @@
 "CheckedTips4" = "検知中の状態です";
 "CheckedTips5" = "Beacon検知の利用可否や距離感を表示します";
 "CheckedTips6" = "検知したBeaconの一覧です";
-"CheckedTips7" = "ナビゲーションバーのボタンは検知の一時停止/再開を実施します";
-"CheckedTips8" = "動作しているビーコンのシミュレーターです";
-"CheckedTips9" = "ナビゲーションバーのボタンはシミュレーションしているBeaconをmajorとminorをランダムで再生成します";
+"CheckedTips7" = "端末をシェイクするとクリアされます";
+"CheckedTips8" = "ナビゲーションバーのボタンは検知の一時停止/再開を実施します";
+"CheckedTips9" = "動作しているビーコンのシミュレーターです";
+"CheckedTips10" = "ナビゲーションバーのボタンはシミュレーションしているBeaconをmajorとminorをランダムで再生成します";
+
+"Error"="Error";
+"Message001"="シミュレーターが利用できません。端末のBluetoothが利用できるか確認して下さい";

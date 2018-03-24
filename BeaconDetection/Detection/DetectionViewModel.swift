@@ -68,20 +68,16 @@ class DetectionViewModel: NSObject {
     override init() {
         super.init()
         
-        if let uuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey) {
-            inputProximityUUIDVar.value = uuidString
-        }
-        
+        updateProximityUUIDToUserDefault()
         settingDetectionInfoTable()
         settingBeaconManager()
     }
     
     // MARK: - Tools
     
-    func updateProximityUUIDToDefault() {
+    func updateProximityUUIDToUserDefault() {
         guard let uuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey) else { return }
-        // !!!: Re Setting, because since it is overwritten by the setting timing of the initial value.
-        updateProximityUUID(uuidText: uuidString)
+        inputProximityUUIDVar.value = uuidString
     }
     
     func updateProximityUUID(uuidText: String) {

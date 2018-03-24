@@ -17,7 +17,7 @@ class DescriptionViewModelSpec: QuickSpec {
         describe("getHtml") {
             context("type:readmeにてHTML文字列を取得する", {
                 it("対応したHTML文字列が取得出来ること", closure: {
-                    expect(DescriptionViewModel(type: .readme).getHtml()) == "<h1>BeaconDetection</h1>\n<p>Beacon experience.</p>\n<h2>Requirement</h2>\n<ul>\n<li>Swift 4</li>\n<li><a href=\"https://developer.apple.com/download/\">Xcode 9.2</a></li>\n<li><a href=\"https://github.com/Carthage/Carthage\">Carthage 0.28.0</a></li>\n<li><a href=\"https://github.com/realm/SwiftLint\">Swiftlint 0.25.0</a></li>\n</ul>\n<h2>Install</h2>\n<p><code>\n$ cd BeaconDetection/\n$ carthage update --platform iOS\n</code></p>\n<h2>Usage</h2>\n<ul>\n<li>DetectionView</li>\n<li>Search and display Beacons info.</li>\n<li>Simulator</li>\n<li>Instration App is become Beacon.</li>\n</ul>\n<h2>Licence</h2>\n<p>This software is released under the MIT License, see LICENSE.md.</p>\n<h2>Author</h2>\n<p><a href=\"https://github.com/mitsuaki1229\">mitsuaki1229</a></p>\n"
+                    expect(DescriptionViewModel(type: .readme).getHtml()) == "<h1>BeaconDetection</h1>\n<p>Beacon experience.</p>\n<h2>Requirement</h2>\n<ul>\n<li>Swift 4</li>\n<li><a href=\"https://developer.apple.com/download/\">Xcode 9.2</a></li>\n<li><a href=\"https://github.com/Carthage/Carthage\">Carthage 0.28.0</a></li>\n<li><a href=\"https://github.com/realm/SwiftLint\">Swiftlint 0.25.0</a></li>\n</ul>\n<h2>Install</h2>\n<p><code>\n$ cd BeaconDetection/\n$ carthage bootstrap --platform iOS\n</code></p>\n<h2>Usage</h2>\n<ul>\n<li>DetectionView</li>\n<li>Search and display Beacons info.</li>\n<li>Simulator</li>\n<li>Instration App is become Beacon.</li>\n</ul>\n<h2>Licence</h2>\n<p>This software is released under the MIT License, see LICENSE.md.</p>\n<h2>Author</h2>\n<p><a href=\"https://github.com/mitsuaki1229\">mitsuaki1229</a></p>\n"
                 })
             })
             context("type:licenseにてHTML文字列を取得する", {
@@ -43,7 +43,7 @@ class DescriptionViewModelSpec: QuickSpec {
                 })
             })
             context("type:noneにてタイトルを取得する", {
-                it("対応したタイトルが取得出来ること", closure: {
+                it("タイトルが取得出来ないこと", closure: {
                     expect(DescriptionViewModel(type: .none).getTitle()) == ""
                 })
             })

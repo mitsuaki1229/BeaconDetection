@@ -40,7 +40,7 @@ class SimulatorViewController: UIViewController {
                 self.switchAnimation(animatie: true)
             case .peripheralError:
                 
-                let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error".localized, message: "Message001".localized, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.rootViewController().present(alert, animated: false, completion: nil)
                 
@@ -117,14 +117,13 @@ class SimulatorViewController: UIViewController {
     }
     
     private func setUpPopTip() {
-        let checkedTips = UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)
-        popTipChain(nextTips: (checkedTips + 1))
+        popTipChain(nextTips: CommonModel().nextTips())
     }
     
     private func popTipChain(pt: PopTip = PopTip(), nextTips: Int, completion: (() -> Void)? = nil) {
         
-        guard nextTips >= 8,
-            nextTips < 10 else { return }
+        guard nextTips >= 9,
+            nextTips < 11 else { return }
         
         let view = self.view as! SimulatorView
         pt.show(text: ("CheckedTips" + nextTips.description).localized, direction: .none, maxWidth: 200, in: view, from: view.frame)
