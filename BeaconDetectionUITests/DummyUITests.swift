@@ -16,7 +16,4 @@ class DummyUITests: XCTestCase {
         continueAfterFailure = false
         XCUIApplication().launch()
     }
-    
-    func testExample() {
-    }
 }

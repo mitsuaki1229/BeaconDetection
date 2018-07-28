@@ -17,11 +17,10 @@ class CommonModelSpec: QuickSpec {
         describe("nextTips") {
             context("次に取得するポップチップの番号を取得する", {
                 
-                var tmpCheckedTips = 0
+                var tmpCheckedTips: Int?
                 
                 beforeEach {
                     tmpCheckedTips = UserDefaults().integer(forKey: Const.kCheckedTipsUserDefaultKey)
-                    UserDefaults().set(1, forKey: Const.kCheckedTipsUserDefaultKey)
                 }
                 
                 afterEach {
@@ -29,6 +28,7 @@ class CommonModelSpec: QuickSpec {
                 }
                 
                 it("番号が取得出来ること", closure: {
+                    UserDefaults().set(1, forKey: Const.kCheckedTipsUserDefaultKey)
                     expect(CommonModel().nextTips()) == 2
                 })
             })

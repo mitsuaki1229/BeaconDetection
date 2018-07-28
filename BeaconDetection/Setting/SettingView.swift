@@ -18,7 +18,6 @@ class SettingView: UIView, CustomView {
         backgroundColor = .white
         
         addSubviews()
-        addOptionalParameters()
         installConstraints()
     }
 
@@ -29,8 +28,6 @@ class SettingView: UIView, CustomView {
     func addSubviews() {
         addSubview(listTableView)
     }
-    
-    func addOptionalParameters() {}
     
     func installConstraints() {
         listTableView.snp.makeConstraints { make in

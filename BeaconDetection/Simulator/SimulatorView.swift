@@ -14,20 +14,66 @@ class SimulatorView: UIView, CustomView {
     let backgroundScrollView = UIScrollView()
     private let contentView = UIView()
     
-    private let uuidItemNameLabel = UILabel()
-    private let majorItemNameLabel = UILabel()
-    private let minorItemNameLabel = UILabel()
+    private let uuidItemNameLabel = { () -> UILabel in
+        let label = UILabel()
+        label.text = "UUID:"
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
     
-    private let itemNameStackView = UIStackView()
+    private let majorItemNameLabel = { () -> UILabel in
+        let label = UILabel()
+        label.text = "major:"
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
     
-    let uuidLabel = UILabel()
+    private let minorItemNameLabel = { () -> UILabel in
+        let label = UILabel()
+        label.text = "minor:"
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    
+    private let itemNameStackView = { () -> UIStackView in
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fillEqually
+        stackView.spacing = 2
+        return stackView
+    }()
+    
+    let uuidLabel = { () -> UILabel in
+        let label = UILabel()
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 2
+        return label
+    }()
+    
     let majorLabel = UILabel()
     let minorLabel = UILabel()
     
-    let backgroundImageView = UIImageView()
-    private let simulatorTerminalImageView = UIImageView()
+    let backgroundImageView = { () -> UIImageView in
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "SimulatorBackground")
+        return imageView
+    }()
     
-    private let itemStackView = UIStackView()
+    private let simulatorTerminalImageView = { () -> UIImageView in
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "SimulatorTerminal")
+        return imageView
+    }()
+    
+    private let itemStackView = { () -> UIStackView in
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fillEqually
+        stackView.spacing = 2
+        return stackView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +81,6 @@ class SimulatorView: UIView, CustomView {
         backgroundColor = UIColor.white
         
         addSubviews()
-        addOptionalParameters()
         installConstraints()
     }
     
@@ -60,34 +105,6 @@ class SimulatorView: UIView, CustomView {
         itemStackView.addArrangedSubview(uuidLabel)
         itemStackView.addArrangedSubview(majorLabel)
         itemStackView.addArrangedSubview(minorLabel)
-    }
-    
-    func addOptionalParameters() {
-        
-        simulatorTerminalImageView.image = #imageLiteral(resourceName: "SimulatorTerminal")
-        
-        backgroundImageView.image = #imageLiteral(resourceName: "SimulatorBackground")
-        itemNameStackView.axis = .vertical
-        itemNameStackView.alignment = .leading
-        itemNameStackView.distribution = .fillEqually
-        itemNameStackView.spacing = 2
-        
-        uuidItemNameLabel.text = "UUID:"
-        uuidItemNameLabel.adjustsFontSizeToFitWidth = true
-        
-        majorItemNameLabel.text = "major:"
-        majorItemNameLabel.adjustsFontSizeToFitWidth = true
-        
-        minorItemNameLabel.text = "minor:"
-        minorItemNameLabel.adjustsFontSizeToFitWidth = true
-        
-        itemStackView.axis = .vertical
-        itemStackView.alignment = .leading
-        itemStackView.distribution = .fillEqually
-        itemStackView.spacing = 2
-        
-        uuidLabel.lineBreakMode = .byWordWrapping
-        uuidLabel.numberOfLines = 2
     }
     
     func installConstraints() {

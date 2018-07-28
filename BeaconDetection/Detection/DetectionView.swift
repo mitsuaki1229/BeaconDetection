@@ -11,12 +11,34 @@ import UIKit
 
 class DetectionView: UIView, CustomView {
     
-    let proximityUUIDInputTextField = UITextField()
-    let majorInputTextField = UITextField()
-    let minorInputTextField = UITextField()
+    let proximityUUIDInputTextField = { () -> UITextField in
+        let textField = UITextField()
+        textField.roundBorder(placeholderText: "proximityUUID")
+        textField.keyboardType = .asciiCapable
+        return textField
+    }()
+    
+    let majorInputTextField = { () -> UITextField in
+        let textField = UITextField()
+        textField.roundBorder(placeholderText: "major")
+        textField.keyboardType = .numberPad
+        return textField
+    }()
+    
+    let minorInputTextField = { () -> UITextField in
+        let textField = UITextField()
+        textField.roundBorder(placeholderText: "minor")
+        textField.keyboardType = .numberPad
+        return textField
+    }()
     
     let statusLabel = UILabel()
-    let detectionInfoTableView = UITableView()
+    let detectionInfoTableView = { () -> UITableView in
+        let tableView = UITableView()
+        tableView.layer.borderWidth = 1.0
+        tableView.layer.borderColor = UIColor.black.cgColor
+        return tableView
+    }()
     
     private var tabBarHeight: CGFloat {
         return UITabBarController().tabBar.frame.size.height
@@ -28,7 +50,6 @@ class DetectionView: UIView, CustomView {
         backgroundColor = .white
         
         addSubviews()
-        addOptionalParameters()
         installConstraints()
     }
     
@@ -43,22 +64,6 @@ class DetectionView: UIView, CustomView {
         addSubview(minorInputTextField)
         addSubview(statusLabel)
         addSubview(detectionInfoTableView)
-    }
-    
-    func addOptionalParameters() {
-        
-        proximityUUIDInputTextField.placeholder = "proximityUUID"
-        setInputTextFieldOption(textField: proximityUUIDInputTextField)
-        proximityUUIDInputTextField.keyboardType = .asciiCapable
-        majorInputTextField.placeholder = "major"
-        setInputTextFieldOption(textField: majorInputTextField)
-        majorInputTextField.keyboardType = .numberPad
-        minorInputTextField.placeholder = "minor"
-        setInputTextFieldOption(textField: minorInputTextField)
-        minorInputTextField.keyboardType = .numberPad
-        
-        detectionInfoTableView.layer.borderWidth = 1.0
-        detectionInfoTableView.layer.borderColor = UIColor.black.cgColor
     }
     
     func installConstraints() {
@@ -91,12 +96,5 @@ class DetectionView: UIView, CustomView {
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview().offset(-tabBarHeight)
         }
-    }
-    
-    private func setInputTextFieldOption(textField: UITextField) {
-        textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.layer.cornerRadius = 5.0
-        textField.keyboardType = .asciiCapable
     }
 }

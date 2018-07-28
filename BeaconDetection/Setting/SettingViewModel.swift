@@ -27,6 +27,13 @@ extension SectionSettingListData: SectionModelType {
     }
 }
 
+enum SettinglistType: Int {
+    case readme = 0
+    case license = 1
+    case version = 2
+    case clearTips = 3
+}
+
 class SettingViewModel: NSObject {
     
     let dataSource = RxTableViewSectionedReloadDataSource<SectionSettingListData>()
@@ -53,11 +60,14 @@ class SettingViewModel: NSObject {
                 ?? UITableViewCell(style: .default, reuseIdentifier: "Cell")
             cell.textLabel?.text = item.title
             
-            if DescriptionFileType(rawValue: ip.row) == .readme ||
-                DescriptionFileType(rawValue: ip.row) == .license {
+            switch SettinglistType(rawValue: ip.row)! {
+            case .readme, .license:
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
-            } else {
+            case .clearTips:
+                cell.selectionStyle = .default
+                cell.accessoryType = .none
+            case .version:
                 cell.selectionStyle = .none
                 cell.accessoryType = .none
             }
