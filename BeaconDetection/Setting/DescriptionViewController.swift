@@ -37,7 +37,7 @@ class DescriptionViewController: UIViewController {
     
     private func loadDisplayArea() {
         guard let viewModel = viewModel,
-            let view = view as! DescriptionView! else { return }
+            let view = view as! DescriptionView? else { return }
         view.displayArea.loadHTMLString(viewModel.getHtml(), baseURL: nil)
     }
 }

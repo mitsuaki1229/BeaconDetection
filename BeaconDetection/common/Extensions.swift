@@ -24,6 +24,17 @@ extension String {
     }
 }
 
+extension UITextField {
+    
+    func roundBorder(placeholderText: String = "") {
+        
+        placeholder = placeholderText
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.black.cgColor
+        layer.cornerRadius = 5.0
+    }
+}
+
 extension Reactive where Base: UIBarButtonItem {
     
     var image: UIBindingObserver<Base, UIImage> {

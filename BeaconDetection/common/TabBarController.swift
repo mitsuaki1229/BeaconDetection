@@ -29,23 +29,23 @@ class TabBarController: UITabBarController {
         
         var viewControllers: [UIViewController] = []
         
-        let detectionViewController = DetectionViewController()
-        detectionViewController.tabBarItem = UITabBarItem(title: "Detection",
-                                                          image: #imageLiteral(resourceName: "DetectionItemIcon"), tag: 1)
-        let detectionNavigationController = UINavigationController(rootViewController: detectionViewController)
-        viewControllers.append(detectionNavigationController)
+        viewControllers.append({ () -> UINavigationController in
+            let vc = DetectionViewController()
+            vc.tabBarItem = UITabBarItem(title: "Detection", image: #imageLiteral(resourceName: "DetectionItemIcon"), tag: 1)
+            return UINavigationController(rootViewController: vc)
+            }())
         
-        let simulatorViewController = SimulatorViewController()
-        simulatorViewController.tabBarItem = UITabBarItem(title: "Simulator",
-                                                          image: #imageLiteral(resourceName: "SimulatorItemIcon"), tag: 2)
-        let simulatorViewNavigationController = UINavigationController(rootViewController: simulatorViewController)
-        viewControllers.append(simulatorViewNavigationController)
+        viewControllers.append({ () -> UINavigationController in
+            let vc = SimulatorViewController()
+            vc.tabBarItem = UITabBarItem(title: "Simulator", image: #imageLiteral(resourceName: "SimulatorItemIcon"), tag: 2)
+            return UINavigationController(rootViewController: vc)
+            }())
         
-        let settingViewController = SettingViewController()
-        settingViewController.tabBarItem = UITabBarItem(title: "Setting",
-                                                          image: #imageLiteral(resourceName: "SettingItemIcon"), tag: 3)
-        let settingNavigationController = UINavigationController(rootViewController: settingViewController)
-        viewControllers.append(settingNavigationController)
+        viewControllers.append({ () -> UINavigationController in
+            let vc = SettingViewController()
+            vc.tabBarItem = UITabBarItem(title: "Setting", image: #imageLiteral(resourceName: "SettingItemIcon"), tag: 3)
+            return UINavigationController(rootViewController: vc)
+            }())
         
         self.viewControllers = viewControllers
     }

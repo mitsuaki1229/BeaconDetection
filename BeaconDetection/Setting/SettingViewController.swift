@@ -35,7 +35,9 @@ class SettingViewController: UIViewController {
             }
             .subscribe(onNext: { [weak self] ip, _ in
                 
-                if ip.row == 3 {
+                view.listTableView.deselectRow(at: ip, animated: true)
+                
+                if ip.row == SettinglistType.clearTips.rawValue {
                     self?.viewModel.clearCheckedTips()
                     let alert = UIAlertController(title: "Info", message: "Clear Checked Tips.", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -62,6 +64,10 @@ extension SettingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -19,13 +19,22 @@ class DetectionViewModelSpec: QuickSpec {
         describe("updateProximityUUIDToDefault") {
             context("inputのUUIDにUserDefaultのUUID Stringを設定する", {
                 
-                let tmpUuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)
-                let assetUUIDString = "D864C04A-46DC-46CA-AD26-8734FA780336"
-                var mockObserver: TestableObserver<String>?
+                var tmpUuid: String?
                 
                 beforeEach {
+                    tmpUuid = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)
+                }
+                
+                afterEach {
+                    UserDefaults.standard.set(tmpUuid, forKey: Const.kProximityUUIDStringUserDefaultKey)
+                }
+                
+                it("UserDefaultに保持しているUUID Stringがinputに設定されていること", closure: {
                     
+                    let assetUUIDString = "D864C04A-46DC-46CA-AD26-8734FA780336"
                     UserDefaults.standard.set(assetUUIDString, forKey: Const.kProximityUUIDStringUserDefaultKey)
+                    
+                    var mockObserver: TestableObserver<String>?
                     
                     let scheduler = TestScheduler(initialClock: 0)
                     mockObserver = scheduler.createObserver(String.self)
@@ -41,13 +50,7 @@ class DetectionViewModelSpec: QuickSpec {
                     })
                     
                     scheduler.start()
-                }
-                
-                afterEach {
-                    UserDefaults.standard.set(tmpUuidString, forKey: Const.kProximityUUIDStringUserDefaultKey)
-                }
-                
-                it("UserDefaultに保持しているUUID Stringがinputに設定されていること", closure: {
+                    
                     XCTAssertEqual(mockObserver!.events, [
                         next(100, assetUUIDString),
                         next(200, assetUUIDString)
@@ -58,11 +61,11 @@ class DetectionViewModelSpec: QuickSpec {
         describe("updateProximityUUID") {
             context("UUID Stringを更新する", {
                 
-                let tmpUuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)
-                let assertUuidString = NSUUID().uuidString
+                var tmpUuidString: String?
                 
                 beforeEach {
-                    DetectionViewModel().updateProximityUUID(uuidText: assertUuidString)
+                    tmpUuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)
+
                 }
                 
                 afterEach {
@@ -70,31 +73,34 @@ class DetectionViewModelSpec: QuickSpec {
                 }
                 
                 it("UUID Stringが更新されていること", closure: {
+                    
+                    let assertUuidString = NSUUID().uuidString
+                    DetectionViewModel().updateProximityUUID(uuidText: assertUuidString)
                     expect(UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)) == assertUuidString
                 })
             })
         }
         describe("updateInputMajor") {
             context("majorを更新する", {
-                
-                let scheduler = TestScheduler(initialClock: 0)
-                let mockObserver = scheduler.createObserver(String.self)
-                let viewModel = DetectionViewModel()
-                let disposeBag = DisposeBag()
-                
-                scheduler.scheduleAt(100, action: {
-                    viewModel.inputMajor.subscribe(mockObserver).disposed(by: disposeBag)
-                })
-                
-                let assertText = "1"
-                
-                scheduler.scheduleAt(200, action: {
-                    viewModel.updateInputMajor(text: assertText)
-                })
-                
-                scheduler.start()
-                
                 it("majorが更新されていること", closure: {
+                    
+                    let scheduler = TestScheduler(initialClock: 0)
+                    let mockObserver = scheduler.createObserver(String.self)
+                    let viewModel = DetectionViewModel()
+                    let disposeBag = DisposeBag()
+                    
+                    scheduler.scheduleAt(100, action: {
+                        viewModel.inputMajor.subscribe(mockObserver).disposed(by: disposeBag)
+                    })
+                    
+                    let assertText = "1"
+                    
+                    scheduler.scheduleAt(200, action: {
+                        viewModel.updateInputMajor(text: assertText)
+                    })
+                    
+                    scheduler.start()
+                    
                     XCTAssertEqual(mockObserver.events, [
                         next(100, ""),
                         next(200, assertText)
@@ -104,25 +110,25 @@ class DetectionViewModelSpec: QuickSpec {
         }
         describe("updateInputMinor") {
             context("minorを更新する", {
-                
-                let scheduler = TestScheduler(initialClock: 0)
-                let mockObserver = scheduler.createObserver(String.self)
-                let viewModel = DetectionViewModel()
-                let disposeBag = DisposeBag()
-                
-                scheduler.scheduleAt(100, action: {
-                    viewModel.inputMinor.subscribe(mockObserver).disposed(by: disposeBag)
-                })
-                
-                let assertText = "2"
-                
-                scheduler.scheduleAt(200, action: {
-                    viewModel.updateInputMinor(text: assertText)
-                })
-                
-                scheduler.start()
-                
                 it("minorが更新されていること", closure: {
+                    
+                    let scheduler = TestScheduler(initialClock: 0)
+                    let mockObserver = scheduler.createObserver(String.self)
+                    let viewModel = DetectionViewModel()
+                    let disposeBag = DisposeBag()
+                    
+                    scheduler.scheduleAt(100, action: {
+                        viewModel.inputMinor.subscribe(mockObserver).disposed(by: disposeBag)
+                    })
+                    
+                    let assertText = "2"
+                    
+                    scheduler.scheduleAt(200, action: {
+                        viewModel.updateInputMinor(text: assertText)
+                    })
+                    
+                    scheduler.start()
+                    
                     XCTAssertEqual(mockObserver.events, [
                         next(100, ""),
                         next(200, assertText)
@@ -132,23 +138,22 @@ class DetectionViewModelSpec: QuickSpec {
         }
         describe("clearSections") {
             context("テーブルの一覧を初期化する", {
-                
-                let scheduler = TestScheduler(initialClock: 0)
-                let mockObserver = scheduler.createObserver([SectionDetectionInfoListData].self)
-                let viewModel = DetectionViewModel()
-                let disposeBag = DisposeBag()
-                
-                scheduler.scheduleAt(100, action: {
-                    viewModel.sections.subscribe(mockObserver).disposed(by: disposeBag)
-                })
-                
-                scheduler.scheduleAt(200, action: {
-                    viewModel.clearSections()
-                })
-                
-                scheduler.start()
-                
                 it("一覧が初期化されていること", closure: {
+                    
+                    let scheduler = TestScheduler(initialClock: 0)
+                    let mockObserver = scheduler.createObserver([SectionDetectionInfoListData].self)
+                    let viewModel = DetectionViewModel()
+                    let disposeBag = DisposeBag()
+                    
+                    scheduler.scheduleAt(100, action: {
+                        viewModel.sections.subscribe(mockObserver).disposed(by: disposeBag)
+                    })
+                    
+                    scheduler.scheduleAt(200, action: {
+                        viewModel.clearSections()
+                    })
+                    
+                    scheduler.start()
                     
                     var assertSections = [[SectionDetectionInfoListData]]()
                     
@@ -163,25 +168,24 @@ class DetectionViewModelSpec: QuickSpec {
         }
         describe("changeRanging") {
             context("Beaconの検索範囲を変更する", {
-                
-                let scheduler = TestScheduler(initialClock: 0)
-                let viewModel = DetectionViewModel()
-                let mockObserver = scheduler.createObserver(UIImage.self)
-                let mockStatusObserver = scheduler.createObserver(String.self)
-                let disposeBag = DisposeBag()
-                
-                scheduler.scheduleAt(100, action: {
-                    viewModel.rangingButtonIcon.subscribe(mockObserver).disposed(by: disposeBag)
-                    viewModel.status.subscribe(mockStatusObserver).disposed(by: disposeBag)
-                })
-                
-                scheduler.scheduleAt(200, action: {
-                    viewModel.changeRanging()
-                })
-                
-                scheduler.start()
-                
                 it("Beaconの検索範囲が変更されていること", closure: {
+                    
+                    let scheduler = TestScheduler(initialClock: 0)
+                    let viewModel = DetectionViewModel()
+                    let mockObserver = scheduler.createObserver(UIImage.self)
+                    let mockStatusObserver = scheduler.createObserver(String.self)
+                    let disposeBag = DisposeBag()
+                    
+                    scheduler.scheduleAt(100, action: {
+                        viewModel.rangingButtonIcon.subscribe(mockObserver).disposed(by: disposeBag)
+                        viewModel.status.subscribe(mockStatusObserver).disposed(by: disposeBag)
+                    })
+                    
+                    scheduler.scheduleAt(200, action: {
+                        viewModel.changeRanging()
+                    })
+                    
+                    scheduler.start()
                     
                     var assertEvents = [next(100, #imageLiteral(resourceName: "RangingButtonIconStart"))]
                     
@@ -198,25 +202,24 @@ class DetectionViewModelSpec: QuickSpec {
         }
         describe("reSettingBeaconManager") {
             context("Beaconマネージャーを再設定する", {
-                
-                let scheduler = TestScheduler(initialClock: 0)
-                let viewModel = DetectionViewModel()
-                let mockObserver = scheduler.createObserver(UIImage.self)
-                let mockStatusObserver = scheduler.createObserver(String.self)
-                let disposeBag = DisposeBag()
-                
-                scheduler.scheduleAt(100, action: {
-                    viewModel.rangingButtonIcon.subscribe(mockObserver).disposed(by: disposeBag)
-                    viewModel.status.subscribe(mockStatusObserver).disposed(by: disposeBag)
-                })
-                
-                scheduler.scheduleAt(200, action: {
-                    viewModel.changeRanging()
-                })
-                
-                scheduler.start()
-                
                 it("Beaconマネージャーが再設定されていること", closure: {
+                    
+                    let scheduler = TestScheduler(initialClock: 0)
+                    let viewModel = DetectionViewModel()
+                    let mockObserver = scheduler.createObserver(UIImage.self)
+                    let mockStatusObserver = scheduler.createObserver(String.self)
+                    let disposeBag = DisposeBag()
+                    
+                    scheduler.scheduleAt(100, action: {
+                        viewModel.rangingButtonIcon.subscribe(mockObserver).disposed(by: disposeBag)
+                        viewModel.status.subscribe(mockStatusObserver).disposed(by: disposeBag)
+                    })
+                    
+                    scheduler.scheduleAt(200, action: {
+                        viewModel.changeRanging()
+                    })
+                    
+                    scheduler.start()
                     
                     var assertEvents = [next(100, #imageLiteral(resourceName: "RangingButtonIconStart"))]
                     
