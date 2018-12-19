@@ -49,16 +49,16 @@ class SimulatorViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         NotificationCenter.default.rx
-            .notification(.UIApplicationDidBecomeActive)
-            .subscribe(onNext: { [unowned self] _ in
+            .notification(UIApplication.didBecomeActiveNotification)
+            .subscribe { [unowned self] _ in
                 self.viewModel.updateStatusSignal()
-            }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         NotificationCenter.default.rx
-            .notification(.UIApplicationDidEnterBackground)
-            .subscribe(onNext: { [unowned self] _ in
+            .notification(UIApplication.didEnterBackgroundNotification)
+            .subscribe { [unowned self] _ in
                 self.switchAnimation(animatie: false)
-            }).disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

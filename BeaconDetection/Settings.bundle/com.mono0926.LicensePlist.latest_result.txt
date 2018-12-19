@@ -1,16 +1,16 @@
-name: AMPopTip, nameSpecified: , owner: andreamazz, version: 3.2.1
+name: AMPopTip, nameSpecified: , owner: andreamazz, version: 3.5.0
 
 name: MMMarkdown, nameSpecified: , owner: mdiep, version: 0.5.5
 
-name: Nimble, nameSpecified: , owner: Quick, version: v7.0.3
+name: Nimble, nameSpecified: , owner: Quick, version: v7.3.1
 
-name: Quick, nameSpecified: , owner: Quick, version: v1.2.0
+name: Quick, nameSpecified: , owner: Quick, version: v1.3.2
 
 name: RxDataSources, nameSpecified: , owner: RxSwiftCommunity, version: 1.0.4
 
 name: RxSwift, nameSpecified: , owner: ReactiveX, version: 3.6.1
 
-name: SnapKit, nameSpecified: , owner: SnapKit, version: 4.0.0
+name: SnapKit, nameSpecified: , owner: SnapKit, version: 4.2.0
 
 add-version-numbers: false
 
