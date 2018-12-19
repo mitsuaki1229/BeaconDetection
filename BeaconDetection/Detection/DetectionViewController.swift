@@ -46,8 +46,8 @@ class DetectionViewController: UIViewController {
         return true
     }
     
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        guard event?.type == UIEventType.motion && event?.subtype == UIEventSubtype.motionShake else { return }
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        guard event?.type == UIEvent.EventType.motion && event?.subtype == UIEvent.EventSubtype.motionShake else { return }
         viewModel.clearSections()
     }
     
