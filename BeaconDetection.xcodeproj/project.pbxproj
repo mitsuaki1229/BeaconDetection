@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1F35FB255307D80028A08B /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F35FA255307D80028A08B /* RxRelay.framework */; };
 		2C1F7F071F30A56E001A9B2C /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F031F30A56E001A9B2C /* RxCocoa.framework */; };
 		2C1F7F081F30A56E001A9B2C /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F041F30A56E001A9B2C /* RxSwift.framework */; };
 		2C1F7F0D1F30B1A2001A9B2C /* SimulatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0C1F30B1A2001A9B2C /* SimulatorViewModel.swift */; };
@@ -43,6 +44,8 @@
 		2CCCF08E1F706ECB00B5B560 /* DetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF08D1F706ECB00B5B560 /* DetectionView.swift */; };
 		2CDDF20D1F35474100101FD7 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CDDF20C1F35474100101FD7 /* RxDataSources.framework */; };
 		2CE891551F4B04D80046EC73 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
+		2CEBC62B2453432400E338A4 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEBC62A2453432400E338A4 /* Differentiator.framework */; };
+		2CEBC62C2453432400E338A4 /* Differentiator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEBC62A2453432400E338A4 /* Differentiator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3B1F3F43A500230368 /* DescriptionView.swift */; };
 		2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */; };
 		2CF00F401F3F43D100230368 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */; };
@@ -68,7 +71,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2CEBC62D2453432400E338A4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2CEBC62C2453432400E338A4 /* Differentiator.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2C1F35FA255307D80028A08B /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		2C1F7F031F30A56E001A9B2C /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		2C1F7F041F30A56E001A9B2C /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
@@ -106,6 +124,7 @@
 		2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionViewModel.swift; sourceTree = "<group>"; };
 		2CCCF08D1F706ECB00B5B560 /* DetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionView.swift; sourceTree = "<group>"; };
 		2CDDF20C1F35474100101FD7 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		2CEBC62A2453432400E338A4 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		2CF00F3B1F3F43A500230368 /* DescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewModel.swift; sourceTree = "<group>"; };
 		2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +144,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C1F35FB255307D80028A08B /* RxRelay.framework in Frameworks */,
+				2CEBC62B2453432400E338A4 /* Differentiator.framework in Frameworks */,
 				2C87A17E205E21BC00379FD4 /* AMPopTip.framework in Frameworks */,
 				2C3F00851F2C58C40086076D /* SnapKit.framework in Frameworks */,
 				2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */,
@@ -158,6 +179,8 @@
 		08E2F86F4D9CD7C0F52361CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C1F35FA255307D80028A08B /* RxRelay.framework */,
+				2CEBC62A2453432400E338A4 /* Differentiator.framework */,
 				2C87A17D205E21BC00379FD4 /* AMPopTip.framework */,
 				2C7B486B1F52F7F9008616CD /* Nimble.framework */,
 				2C7B486D1F52F7F9008616CD /* Quick.framework */,
@@ -294,6 +317,7 @@
 				6E7CADBC1BEC95D70046E77B /* Resources */,
 				2CE8E6381F2B77C300DE4004 /* ShellScript */,
 				2C87A174205CF7D300379FD4 /* ShellScript */,
+				2CEBC62D2453432400E338A4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -353,18 +377,19 @@
 				TargetAttributes = {
 					6E7CADBD1BEC95D70046E77B = {
 						CreatedOnToolsVersion = 7.1;
-						LastSwiftMigration = 0830;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = DQZ66G9DV5;
+						LastSwiftMigration = 1140;
+						ProvisioningStyle = Automatic;
 					};
 					6E7CADD11BEC95D70046E77B = {
 						CreatedOnToolsVersion = 7.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1140;
 						ProvisioningStyle = Manual;
 						TestTargetID = 6E7CADBD1BEC95D70046E77B;
 					};
 					6E7CADDC1BEC95D80046E77B = {
 						CreatedOnToolsVersion = 7.1;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1140;
 						ProvisioningStyle = Manual;
 						TestTargetID = 6E7CADBD1BEC95D70046E77B;
 					};
@@ -372,7 +397,7 @@
 			};
 			buildConfigurationList = 6E7CADB91BEC95D70046E77B /* Build configuration list for PBXProject "BeaconDetection" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -451,7 +476,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		2CE8E6381F2B77C300DE4004 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -465,12 +490,14 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MMMarkdown.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AMPopTip.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -668,9 +695,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DQZ66G9DV5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -682,7 +710,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -692,9 +720,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DQZ66G9DV5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -705,7 +734,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mitsuaki1229.BeaconDetection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -729,7 +758,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeaconDetection.app/BeaconDetection";
 			};
 			name = Debug;
@@ -752,7 +781,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeaconDetection.app/BeaconDetection";
 			};
 			name = Release;
@@ -771,7 +800,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = BeaconDetection;
 				USES_XCTRUNNER = YES;
 			};
@@ -790,7 +819,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = BeaconDetection;
 				USES_XCTRUNNER = YES;
 			};

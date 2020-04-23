@@ -5,8 +5,8 @@ Beacon experience.
 
 ## Requirement
 
-* Swift 4.2
-* [Xcode 10.1](https://developer.apple.com/download/)
+* Swift 5
+* [Xcode 11.7](https://developer.apple.com/download/)
 * [Carthage](https://github.com/Carthage/Carthage)
 * [Swiftlint](https://github.com/realm/SwiftLint)
 

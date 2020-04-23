@@ -35,6 +35,8 @@
 	<string>ビーコン測定用にアプリ起動中のみ許可</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>ビーコン測定用に利用します</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>ビーコンで利用します</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

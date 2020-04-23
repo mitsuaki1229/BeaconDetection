@@ -8,6 +8,7 @@
 
 import CoreLocation
 import RxDataSources
+import RxCocoa
 import RxSwift
 
 struct DetectionInfoListData {
@@ -43,13 +44,17 @@ extension SectionDetectionInfoListData: Equatable {
 
 class DetectionViewModel: NSObject {
     
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionDetectionInfoListData>()
-    
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionDetectionInfoListData>(configureCell: {_, tableView, indexPath, _ in
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        return cell
+    })
+
     private let rangingButtonIconVar: Variable<UIImage> = Variable(#imageLiteral(resourceName: "RangingButtonIconStart"))
-    private let statusVar = Variable("")
-    private let inputProximityUUIDVar = Variable("")
-    private let inputMajorVar = Variable("")
-    private let inputMinorVar = Variable("")
+    
+    private let statusVar = BehaviorRelay(value: "")
+    private let inputProximityUUIDVar = BehaviorRelay(value: "")
+    private let inputMajorVar = BehaviorRelay(value: "")
+    private let inputMinorVar = BehaviorRelay(value: "")
     
     var rangingButtonIcon: Observable<UIImage> { return rangingButtonIconVar.asObservable() }
     var status: Observable<String> { return statusVar.asObservable() }
@@ -77,23 +82,23 @@ class DetectionViewModel: NSObject {
     
     func updateProximityUUIDToUserDefault() {
         guard let uuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey) else { return }
-        inputProximityUUIDVar.value = uuidString
+        inputProximityUUIDVar.accept(uuidString)
     }
     
     func updateProximityUUID(uuidText: String) {
-        
-        inputProximityUUIDVar.value = uuidText
+
+        inputProximityUUIDVar.accept(uuidText)
         
         guard UUID(uuidString: uuidText) != nil else { return }
         UserDefaults.standard.set(uuidText, forKey: Const.kProximityUUIDStringUserDefaultKey)
     }
     
     func updateInputMajor(text: String) {
-        inputMajorVar.value = int16RangeRestriction(text: text)
+        inputMajorVar.accept(int16RangeRestriction(text: text))
     }
     
     func updateInputMinor(text: String) {
-        inputMinorVar.value = int16RangeRestriction(text: text)
+        inputMinorVar.accept(int16RangeRestriction(text: text))
     }
     
     func clearSections() {
@@ -118,7 +123,7 @@ class DetectionViewModel: NSObject {
     private func startRanging() {
         
         if !isMonitoringCapable() {
-            statusVar.value = "Disabled monitoring"
+            statusVar.accept("Disabled monitoring")
             return
         }
         
@@ -201,29 +206,31 @@ class DetectionViewModel: NSObject {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             manager?.requestAlwaysAuthorization()
-            statusVar.value = "Not determined"
+            statusVar.accept("Not determined")
             return false
         case .restricted:
-            statusVar.value = "Restricted"
+            statusVar.accept("Restricted")
             return false
         case .denied:
-            statusVar.value = "Denied"
+            statusVar.accept("Denied")
             return false
         case .authorizedAlways:
-            statusVar.value = "Always"
+            statusVar.accept("Always")
             return true
         case .authorizedWhenInUse:
-            statusVar.value = "When in use"
+            statusVar.accept("When in use")
             return true
+        @unknown default:
+            fatalError()
         }
     }
-    
+
     private func isMonitoringCapable() -> Bool {
         return CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self)
     }
     
     private func convertProximityStatusToText(proximity: CLProximity) -> String {
-        
+
         switch proximity {
         case .unknown:
             return "Unknown"
@@ -233,6 +240,8 @@ class DetectionViewModel: NSObject {
             return "Near:50cm~6m"
         case .far:
             return "Far:6m~20m"
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -261,43 +270,43 @@ class DetectionViewModel: NSObject {
 extension DetectionViewModel: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        statusVar.value = "Start monitoring"
+        statusVar.accept("Start monitoring")
         
         manager.requestState(for: region)
     }
     
     func locationManager(_ manager: CLLocationManager, didStopMonitoringForRegion region: CLRegion) {
-        statusVar.value = "Stop monitoring"
+        statusVar.accept("Stop monitoring")
     }
     
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         
         switch state {
         case .inside:
-            statusVar.value = "Inside region"
+            statusVar.accept("Inside region")
             startRanging()
         case .outside:
-            statusVar.value = "Outside region"
+            statusVar.accept("Outside region")
         default:
-            statusVar.value = "Unknown"
+            statusVar.accept("Unknown")
         }
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         guard region?.isKind(of: CLBeaconRegion.self) != nil else { return }
-        statusVar.value = "Fail"
+        statusVar.accept("Fail")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        statusVar.value = "Fail error code:" + String(error._code)
+        statusVar.accept("Fail error code:" + String(error._code))
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        statusVar.value = "Enter region"
+        statusVar.accept("Enter region")
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        statusVar.value = "Exit region"
+        statusVar.accept("Exit region")
     }
     
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
@@ -305,7 +314,7 @@ extension DetectionViewModel: CLLocationManagerDelegate {
         for beacon in beacons {
             
             sectionsVar.value[0].items.insert(DetectionInfoListData(beacon: beacon), at: 0)
-            statusVar.value = convertProximityStatusToText(proximity: beacon.proximity)
+            statusVar.accept(convertProximityStatusToText(proximity: beacon.proximity))
             
             guard sectionsVar.value[0].items.count > Const.kDetectionInfosMaxNum else { continue }
             sectionsVar.value[0].items.removeLast()

@@ -37,8 +37,8 @@ extension UITextField {
 
 extension Reactive where Base: UIBarButtonItem {
     
-    var image: UIBindingObserver<Base, UIImage> {
-        return UIBindingObserver(UIElement: base) { UIElement, value in
+    var image: Binder<UIImage> {
+        return Binder(base) { UIElement, value in
             UIElement.image = value
         }
     }

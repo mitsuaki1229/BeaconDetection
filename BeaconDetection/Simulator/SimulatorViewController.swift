@@ -106,7 +106,7 @@ class SimulatorViewController: UIViewController {
         let view = self.view as! SimulatorView
         
         viewModel.proximityUUID.subscribe(onNext: {
-            view.uuidLabel.text = $0.uuidString
+            view.uuidLabel.text = $0?.uuidString
         }).disposed(by: disposeBag)
         viewModel.major.subscribe(onNext: {
             view.majorLabel.text = $0.stringValue
