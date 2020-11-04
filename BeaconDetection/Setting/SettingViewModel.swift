@@ -35,9 +35,13 @@ enum SettinglistType: Int {
 }
 
 class SettingViewModel: NSObject {
-    
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionSettingListData>()
-    
+
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionSettingListData>(configureCell: {dataSource, tableView, indexPath, item in
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        return cell
+        
+    })
+
     var sections: [SectionSettingListData] {
         
         let version: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String

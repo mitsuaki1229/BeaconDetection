@@ -75,7 +75,7 @@ class DetectionViewController: UIViewController {
         
         let view = self.view as! DetectionView
         
-        viewModel.status.bind(to: view.statusLabel.rx.text).addDisposableTo(disposeBag)
+        viewModel.status.bind(to: view.statusLabel.rx.text).disposed(by: disposeBag)
         
         view.proximityUUIDInputTextField.rx.text
             .subscribe(onNext: { [unowned self] text in
@@ -116,7 +116,7 @@ class DetectionViewController: UIViewController {
             .register(DetectionInfoTableViewCell.self, forCellReuseIdentifier: "DetectionInfoTableViewCell")
         
         view.detectionInfoTableView.rx
-            .setDelegate(self).addDisposableTo(disposeBag)
+            .setDelegate(self).disposed(by: disposeBag)
     }
     
     private func addDoneButtonOnKeyboard() {

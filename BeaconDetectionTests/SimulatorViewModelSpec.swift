@@ -37,8 +37,8 @@ class SimulatorViewModelSpec: QuickSpec {
                     scheduler.start()
                     
                     XCTAssertEqual(mockObserver.events, [
-                        next(100, .other),
-                        next(200, .other)
+                        Recorded.next(100, .other),
+                        Recorded.next(200, .other)
                         ])
                 })
             })
@@ -76,8 +76,8 @@ class SimulatorViewModelSpec: QuickSpec {
                     scheduler.start()
                     
                     XCTAssertEqual(mockObserver.events, [
-                        next(100, .other),
-                        next(200, .normal)
+                        Recorded.next(100, .other),
+                        Recorded.next(200, .normal)
                         ])
                 })
             })
