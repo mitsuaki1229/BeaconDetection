@@ -14,7 +14,7 @@ Beacon experience.
 
 ```
 $ cd BeaconDetection/
-$ carthage bootstrap --platform iOS
+$ carthage bootstrap --platform iOS --use-xcframeworks
 ```
 
 ## Usage

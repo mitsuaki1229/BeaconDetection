@@ -1,5 +1,5 @@
 github "SnapKit/SnapKit" ~> 5.0.0
 github "ReactiveX/RxSwift" ~> 5.0
 github "RxSwiftCommunity/RxDataSources" ~> 4.0
-github "mdiep/MMMarkdown"
-github "andreamazz/AMPopTip"
+github "mdiep/MMMarkdown" ~> 0.5.5
+github "andreamazz/AMPopTip" ~> 4.10.0
