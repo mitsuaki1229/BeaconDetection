@@ -225,7 +225,7 @@ class DetectionViewModel: NSObject {
         }
     }
 
-    private func isMonitoringCapable() -> Bool {
+    func isMonitoringCapable() -> Bool {
         return CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self)
     }
     
