@@ -48,8 +48,8 @@ class DetectionViewModel: NSObject {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         return cell
     })
-
-    private let rangingButtonIconVar: Variable<UIImage> = Variable(#imageLiteral(resourceName: "RangingButtonIconStart"))
+    
+    private let rangingButtonIconVar: BehaviorRelay<UIImage> = BehaviorRelay(value: #imageLiteral(resourceName: "RangingButtonIconStart"))
     
     private let statusVar = BehaviorRelay(value: "")
     private let inputProximityUUIDVar = BehaviorRelay(value: "")
@@ -86,7 +86,7 @@ class DetectionViewModel: NSObject {
     }
     
     func updateProximityUUID(uuidText: String) {
-
+        
         inputProximityUUIDVar.accept(uuidText)
         
         guard UUID(uuidString: uuidText) != nil else { return }
@@ -128,8 +128,8 @@ class DetectionViewModel: NSObject {
         }
         
         guard let beaconRegion = beaconRegion,
-            authorizationStatusCheck() else { return }
-        rangingButtonIconVar.value = #imageLiteral(resourceName: "RangingButtonIconPause")
+              authorizationStatusCheck() else { return }
+        rangingButtonIconVar.accept(#imageLiteral(resourceName: "RangingButtonIconPause"))
         isRanging = true
         guard let manager = manager else { return }
         manager.startRangingBeacons(in: beaconRegion)
@@ -137,7 +137,7 @@ class DetectionViewModel: NSObject {
     
     private func stopRanging() {
         guard let beaconRegion = beaconRegion else { return }
-        rangingButtonIconVar.value = #imageLiteral(resourceName: "RangingButtonIconStart")
+        rangingButtonIconVar.accept(#imageLiteral(resourceName: "RangingButtonIconStart"))
         isRanging = false
         guard let manager = manager else { return }
         manager.stopRangingBeacons(in: beaconRegion)
@@ -147,7 +147,7 @@ class DetectionViewModel: NSObject {
         
         dataSource.configureCell = { [unowned self] _, tv, _, item in
             let cell = tv.dequeueReusableCell(withIdentifier: "DetectionInfoTableViewCell") as? DetectionInfoTableViewCell
-                ?? DetectionInfoTableViewCell(style: .default, reuseIdentifier: "DetectionInfoTableViewCell")
+            ?? DetectionInfoTableViewCell(style: .default, reuseIdentifier: "DetectionInfoTableViewCell")
             
             cell.uuidLabel.text = item.beacon.proximityUUID.uuidString
             cell.majorLabel.text = item.beacon.major.stringValue
@@ -170,11 +170,11 @@ class DetectionViewModel: NSObject {
         manager = CLLocationManager()
         beaconRegion = toUseBeaconRegion()
         guard let manager = manager,
-            authorizationStatusCheck(),
-            let beaconRegion = beaconRegion else { return }
+              authorizationStatusCheck(),
+              let beaconRegion = beaconRegion else { return }
         manager.delegate = self
         manager.startMonitoring(for: beaconRegion)
-        rangingButtonIconVar.value = #imageLiteral(resourceName: "RangingButtonIconPause")
+        rangingButtonIconVar.accept(#imageLiteral(resourceName: "RangingButtonIconPause"))
     }
     
     private func toUseBeaconRegion() -> CLBeaconRegion! {
@@ -224,13 +224,13 @@ class DetectionViewModel: NSObject {
             fatalError("not supported status")
         }
     }
-
+    
     func isMonitoringCapable() -> Bool {
         return CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self)
     }
     
     private func convertProximityStatusToText(proximity: CLProximity) -> String {
-
+        
         switch proximity {
         case .unknown:
             return "Unknown"
