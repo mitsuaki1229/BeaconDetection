@@ -7,8 +7,8 @@
 //
 
 import CoreLocation
-import RxDataSources
 import RxCocoa
+import RxDataSources
 import RxSwift
 
 struct DetectionInfoListData {
@@ -145,7 +145,7 @@ class DetectionViewModel: NSObject {
     
     private func settingDetectionInfoTable() {
         
-        dataSource.configureCell = { [unowned self] ds, tv, ip, item in
+        dataSource.configureCell = { [unowned self] _, tv, _, item in
             let cell = tv.dequeueReusableCell(withIdentifier: "DetectionInfoTableViewCell") as? DetectionInfoTableViewCell
                 ?? DetectionInfoTableViewCell(style: .default, reuseIdentifier: "DetectionInfoTableViewCell")
             
@@ -221,7 +221,7 @@ class DetectionViewModel: NSObject {
             statusVar.accept("When in use")
             return true
         @unknown default:
-            fatalError()
+            fatalError("not supported status")
         }
     }
 
@@ -241,7 +241,7 @@ class DetectionViewModel: NSObject {
         case .far:
             return "Far:6m~20m"
         @unknown default:
-            fatalError()
+            fatalError("not supported proximity")
         }
     }
     
