@@ -16,7 +16,10 @@ class DescriptionView: UIView, CustomView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .white
+        if #available(iOS 13.0, *), UITraitCollection.current.userInterfaceStyle == .dark {
+        } else {
+            backgroundColor = .white
+        }
         
         addSubviews()
         installConstraints()

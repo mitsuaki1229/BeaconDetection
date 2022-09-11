@@ -3,36 +3,45 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C1F35FB255307D80028A08B /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F35FA255307D80028A08B /* RxRelay.framework */; };
-		2C1F7F071F30A56E001A9B2C /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F031F30A56E001A9B2C /* RxCocoa.framework */; };
-		2C1F7F081F30A56E001A9B2C /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F041F30A56E001A9B2C /* RxSwift.framework */; };
 		2C1F7F0D1F30B1A2001A9B2C /* SimulatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0C1F30B1A2001A9B2C /* SimulatorViewModel.swift */; };
 		2C1F7F0F1F30B1C0001A9B2C /* SimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F0E1F30B1C0001A9B2C /* SimulatorView.swift */; };
 		2C1F7F111F30B212001A9B2C /* SimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1F7F101F30B212001A9B2C /* SimulatorViewController.swift */; };
 		2C21D5A31F75C9C3000E481C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C21D5A21F75C9C3000E481C /* Settings.bundle */; };
 		2C33D1A61F7232B60007B141 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C33D1A51F7232B60007B141 /* Extensions.swift */; };
-		2C3F00851F2C58C40086076D /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C659E931F2B906400E90CCE /* SnapKit.framework */; };
 		2C3F00891F2D482C0086076D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F00881F2D482C0086076D /* SettingView.swift */; };
 		2C3F008B1F2D48480086076D /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F008A1F2D48480086076D /* SettingViewModel.swift */; };
 		2C3F008D1F2D48550086076D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3F008C1F2D48550086076D /* SettingViewController.swift */; };
 		2C4D4AA71F486D620050CB14 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2CB89EE51BEE4F7C002A4EC7 /* README.md */; };
 		2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */; };
+		2C6AFF8C28CCCB9400C03C5F /* AMPopTip.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF8928CCC9D100C03C5F /* AMPopTip.xcframework */; };
+		2C6AFF8D28CCCB9400C03C5F /* AMPopTip.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF8928CCC9D100C03C5F /* AMPopTip.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C6AFF8F28CCCB9D00C03C5F /* Differentiator.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF8E28CCCB9D00C03C5F /* Differentiator.xcframework */; };
+		2C6AFF9028CCCB9D00C03C5F /* Differentiator.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF8E28CCCB9D00C03C5F /* Differentiator.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C6AFF9228CCCBC300C03C5F /* RxCocoa.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9128CCCBC300C03C5F /* RxCocoa.xcframework */; };
+		2C6AFF9328CCCBC300C03C5F /* RxCocoa.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9128CCCBC300C03C5F /* RxCocoa.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C6AFF9528CCCBCC00C03C5F /* RxDataSources.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9428CCCBCC00C03C5F /* RxDataSources.xcframework */; };
+		2C6AFF9628CCCBCC00C03C5F /* RxDataSources.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9428CCCBCC00C03C5F /* RxDataSources.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C6AFF9928CCCBD800C03C5F /* RxRelay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9728CCCBD800C03C5F /* RxRelay.xcframework */; };
+		2C6AFF9A28CCCBD800C03C5F /* RxRelay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9728CCCBD800C03C5F /* RxRelay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C6AFF9B28CCCBD800C03C5F /* RxSwift.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9828CCCBD800C03C5F /* RxSwift.xcframework */; };
+		2C6AFF9C28CCCBD800C03C5F /* RxSwift.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9828CCCBD800C03C5F /* RxSwift.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C6AFF9E28CCCBE100C03C5F /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9D28CCCBE100C03C5F /* SnapKit.xcframework */; };
+		2C6AFF9F28CCCBE100C03C5F /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFF9D28CCCBE100C03C5F /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2C6AFFA128CCD52C00C03C5F /* Nimble.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFFA028CCD52C00C03C5F /* Nimble.xcframework */; };
+		2C6AFFA328CCD53400C03C5F /* Quick.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFFA228CCD53400C03C5F /* Quick.xcframework */; };
+		2C6AFFA528CCD53A00C03C5F /* RxBlocking.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFFA428CCD53A00C03C5F /* RxBlocking.xcframework */; };
+		2C6AFFA728CCD54000C03C5F /* RxTest.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6AFFA628CCD54000C03C5F /* RxTest.xcframework */; };
 		2C6EAB711F72460200283471 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EAB701F72460200283471 /* Protocols.swift */; };
-		2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F021F30A56E001A9B2C /* RxBlocking.framework */; };
-		2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1F7F051F30A56E001A9B2C /* RxTest.framework */; };
-		2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486B1F52F7F9008616CD /* Nimble.framework */; };
-		2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7B486D1F52F7F9008616CD /* Quick.framework */; };
 		2C7D3E611F70B500005E893F /* DetectionInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D3E601F70B500005E893F /* DetectionInfoTableViewCell.swift */; };
 		2C837AE3206224C400ADC848 /* DummyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C837AE2206224C400ADC848 /* DummyUITests.swift */; };
 		2C87A176205D3FDE00379FD4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C87A175205D3FDE00379FD4 /* Default-568h@2x.png */; };
 		2C87A178205DF94900379FD4 /* DescriptionViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87A177205DF94900379FD4 /* DescriptionViewModelSpec.swift */; };
 		2C87A17A205DF97700379FD4 /* SettingViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87A179205DF97700379FD4 /* SettingViewModelSpec.swift */; };
 		2C87A17C205DF9EF00379FD4 /* DetectionViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87A17B205DF9EF00379FD4 /* DetectionViewModelSpec.swift */; };
-		2C87A17E205E21BC00379FD4 /* AMPopTip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C87A17D205E21BC00379FD4 /* AMPopTip.framework */; };
 		2C87A184205E90CC00379FD4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C87A186205E90CC00379FD4 /* Localizable.strings */; };
 		2C94CEAE2063FA7800F13ECC /* CommonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94CEAD2063FA7800F13ECC /* CommonModel.swift */; };
 		2C94CEB02063FAF500F13ECC /* CommonModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C94CEAF2063FAF500F13ECC /* CommonModelSpec.swift */; };
@@ -42,10 +51,7 @@
 		2CCCF08A1F706EB500B5B560 /* DetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF0891F706EB500B5B560 /* DetectionViewController.swift */; };
 		2CCCF08C1F706EC000B5B560 /* DetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF08B1F706EC000B5B560 /* DetectionViewModel.swift */; };
 		2CCCF08E1F706ECB00B5B560 /* DetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCCF08D1F706ECB00B5B560 /* DetectionView.swift */; };
-		2CDDF20D1F35474100101FD7 /* RxDataSources.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CDDF20C1F35474100101FD7 /* RxDataSources.framework */; };
 		2CE891551F4B04D80046EC73 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C4D4AAA1F4B04130050CB14 /* LICENSE.md */; };
-		2CEBC62B2453432400E338A4 /* Differentiator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEBC62A2453432400E338A4 /* Differentiator.framework */; };
-		2CEBC62C2453432400E338A4 /* Differentiator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEBC62A2453432400E338A4 /* Differentiator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2CF00F3C1F3F43A500230368 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3B1F3F43A500230368 /* DescriptionView.swift */; };
 		2CF00F3E1F3F43BE00230368 /* DescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3D1F3F43BE00230368 /* DescriptionViewModel.swift */; };
 		2CF00F401F3F43D100230368 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF00F3F1F3F43D100230368 /* DescriptionViewController.swift */; };
@@ -78,7 +84,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2CEBC62C2453432400E338A4 /* Differentiator.framework in Embed Frameworks */,
+				2C6AFF9628CCCBCC00C03C5F /* RxDataSources.xcframework in Embed Frameworks */,
+				2C6AFF9F28CCCBE100C03C5F /* SnapKit.xcframework in Embed Frameworks */,
+				2C6AFF9028CCCB9D00C03C5F /* Differentiator.xcframework in Embed Frameworks */,
+				2C6AFF8D28CCCB9400C03C5F /* AMPopTip.xcframework in Embed Frameworks */,
+				2C6AFF9C28CCCBD800C03C5F /* RxSwift.xcframework in Embed Frameworks */,
+				2C6AFF9A28CCCBD800C03C5F /* RxRelay.xcframework in Embed Frameworks */,
+				2C6AFF9328CCCBC300C03C5F /* RxCocoa.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +114,17 @@
 		2C4D4AA81F486F690050CB14 /* MMMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMMarkdown.framework; path = Carthage/Build/iOS/MMMarkdown.framework; sourceTree = "<group>"; };
 		2C4D4AAA1F4B04130050CB14 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		2C659E931F2B906400E90CCE /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		2C6AFF8928CCC9D100C03C5F /* AMPopTip.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AMPopTip.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/AMPopTip.xcframework; sourceTree = "<group>"; };
+		2C6AFF8E28CCCB9D00C03C5F /* Differentiator.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Differentiator.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/Differentiator.xcframework; sourceTree = "<group>"; };
+		2C6AFF9128CCCBC300C03C5F /* RxCocoa.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxCocoa.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/RxCocoa.xcframework; sourceTree = "<group>"; };
+		2C6AFF9428CCCBCC00C03C5F /* RxDataSources.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxDataSources.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/RxDataSources.xcframework; sourceTree = "<group>"; };
+		2C6AFF9728CCCBD800C03C5F /* RxRelay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxRelay.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/RxRelay.xcframework; sourceTree = "<group>"; };
+		2C6AFF9828CCCBD800C03C5F /* RxSwift.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxSwift.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/RxSwift.xcframework; sourceTree = "<group>"; };
+		2C6AFF9D28CCCBE100C03C5F /* SnapKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SnapKit.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/SnapKit.xcframework; sourceTree = "<group>"; };
+		2C6AFFA028CCD52C00C03C5F /* Nimble.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Nimble.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/Nimble.xcframework; sourceTree = "<group>"; };
+		2C6AFFA228CCD53400C03C5F /* Quick.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Quick.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/Quick.xcframework; sourceTree = "<group>"; };
+		2C6AFFA428CCD53A00C03C5F /* RxBlocking.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxBlocking.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/RxBlocking.xcframework; sourceTree = "<group>"; };
+		2C6AFFA628CCD54000C03C5F /* RxTest.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RxTest.xcframework; path = ../bk_20220910_BeaconDetection/Carthage/Build/RxTest.xcframework; sourceTree = "<group>"; };
 		2C6EAB701F72460200283471 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		2C7B486B1F52F7F9008616CD /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		2C7B486D1F52F7F9008616CD /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -144,14 +167,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C1F35FB255307D80028A08B /* RxRelay.framework in Frameworks */,
-				2CEBC62B2453432400E338A4 /* Differentiator.framework in Frameworks */,
-				2C87A17E205E21BC00379FD4 /* AMPopTip.framework in Frameworks */,
-				2C3F00851F2C58C40086076D /* SnapKit.framework in Frameworks */,
+				2C6AFF8C28CCCB9400C03C5F /* AMPopTip.xcframework in Frameworks */,
+				2C6AFF9928CCCBD800C03C5F /* RxRelay.xcframework in Frameworks */,
+				2C6AFF8F28CCCB9D00C03C5F /* Differentiator.xcframework in Frameworks */,
+				2C6AFF9E28CCCBE100C03C5F /* SnapKit.xcframework in Frameworks */,
+				2C6AFF9B28CCCBD800C03C5F /* RxSwift.xcframework in Frameworks */,
 				2C4D4AA91F486F690050CB14 /* MMMarkdown.framework in Frameworks */,
-				2CDDF20D1F35474100101FD7 /* RxDataSources.framework in Frameworks */,
-				2C1F7F071F30A56E001A9B2C /* RxCocoa.framework in Frameworks */,
-				2C1F7F081F30A56E001A9B2C /* RxSwift.framework in Frameworks */,
+				2C6AFF9528CCCBCC00C03C5F /* RxDataSources.xcframework in Frameworks */,
+				2C6AFF9228CCCBC300C03C5F /* RxCocoa.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,10 +182,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C7B486E1F52F7F9008616CD /* Nimble.framework in Frameworks */,
-				2C7B48701F52F7F9008616CD /* Quick.framework in Frameworks */,
-				2C7B48691F52F7F9008616CD /* RxBlocking.framework in Frameworks */,
-				2C7B486A1F52F7F9008616CD /* RxTest.framework in Frameworks */,
+				2C6AFFA128CCD52C00C03C5F /* Nimble.xcframework in Frameworks */,
+				2C6AFFA328CCD53400C03C5F /* Quick.xcframework in Frameworks */,
+				2C6AFFA528CCD53A00C03C5F /* RxBlocking.xcframework in Frameworks */,
+				2C6AFFA728CCD54000C03C5F /* RxTest.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +202,17 @@
 		08E2F86F4D9CD7C0F52361CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C6AFFA628CCD54000C03C5F /* RxTest.xcframework */,
+				2C6AFFA428CCD53A00C03C5F /* RxBlocking.xcframework */,
+				2C6AFFA228CCD53400C03C5F /* Quick.xcframework */,
+				2C6AFFA028CCD52C00C03C5F /* Nimble.xcframework */,
+				2C6AFF9D28CCCBE100C03C5F /* SnapKit.xcframework */,
+				2C6AFF9728CCCBD800C03C5F /* RxRelay.xcframework */,
+				2C6AFF9828CCCBD800C03C5F /* RxSwift.xcframework */,
+				2C6AFF9428CCCBCC00C03C5F /* RxDataSources.xcframework */,
+				2C6AFF9128CCCBC300C03C5F /* RxCocoa.xcframework */,
+				2C6AFF8E28CCCB9D00C03C5F /* Differentiator.xcframework */,
+				2C6AFF8928CCC9D100C03C5F /* AMPopTip.xcframework */,
 				2C1F35FA255307D80028A08B /* RxRelay.framework */,
 				2CEBC62A2453432400E338A4 /* Differentiator.framework */,
 				2C87A17D205E21BC00379FD4 /* AMPopTip.framework */,
@@ -335,7 +369,6 @@
 				6E7CADCE1BEC95D70046E77B /* Sources */,
 				6E7CADCF1BEC95D70046E77B /* Frameworks */,
 				6E7CADD01BEC95D70046E77B /* Resources */,
-				2C7B48681F52F424008616CD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -377,20 +410,17 @@
 				TargetAttributes = {
 					6E7CADBD1BEC95D70046E77B = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = DQZ66G9DV5;
 						LastSwiftMigration = 1140;
 						ProvisioningStyle = Automatic;
 					};
 					6E7CADD11BEC95D70046E77B = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 1140;
-						ProvisioningStyle = Manual;
 						TestTargetID = 6E7CADBD1BEC95D70046E77B;
 					};
 					6E7CADDC1BEC95D80046E77B = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 1140;
-						ProvisioningStyle = Manual;
 						TestTargetID = 6E7CADBD1BEC95D70046E77B;
 					};
 				};
@@ -448,23 +478,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2C7B48681F52F424008616CD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
 		2C87A174205CF7D300379FD4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,14 +497,7 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MMMarkdown.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/AMPopTip.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 			);
 			outputPaths = (
 			);
@@ -632,7 +638,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -682,10 +688,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -698,14 +705,17 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DQZ66G9DV5;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = BeaconDetection/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mitsuaki1229.BeaconDetection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -723,14 +733,17 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DQZ66G9DV5;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = BeaconDetection/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mitsuaki1229.BeaconDetection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -744,8 +757,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -753,10 +767,15 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = BeaconDetectionTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeaconDetection.app/BeaconDetection";
@@ -768,8 +787,9 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -777,10 +797,15 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = BeaconDetectionTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeaconDetection.app/BeaconDetection";
 			};
@@ -790,14 +815,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BeaconDetectionUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
@@ -810,14 +842,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BeaconDetectionUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gmail-mitsuaki1229.BeaconDetectionUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = BeaconDetection;

@@ -54,7 +54,7 @@ class DetectionViewModelSpec: QuickSpec {
                     XCTAssertEqual(mockObserver!.events, [
                         Recorded.next(100, assetUUIDString),
                         Recorded.next(200, assetUUIDString)
-                        ])
+                    ])
                 })
             })
         }
@@ -65,7 +65,7 @@ class DetectionViewModelSpec: QuickSpec {
                 
                 beforeEach {
                     tmpUuidString = UserDefaults.standard.string(forKey: Const.kProximityUUIDStringUserDefaultKey)
-
+                    
                 }
                 
                 afterEach {
@@ -104,7 +104,7 @@ class DetectionViewModelSpec: QuickSpec {
                     XCTAssertEqual(mockObserver.events, [
                         Recorded.next(100, ""),
                         Recorded.next(200, assertText)
-                        ])
+                    ])
                 })
             })
         }
@@ -132,7 +132,7 @@ class DetectionViewModelSpec: QuickSpec {
                     XCTAssertEqual(mockObserver.events, [
                         Recorded.next(100, ""),
                         Recorded.next(200, assertText)
-                        ])
+                    ])
                 })
             })
         }
@@ -187,11 +187,12 @@ class DetectionViewModelSpec: QuickSpec {
                     
                     scheduler.start()
                     
-                    var assertEvents = [Recorded.next(100, #imageLiteral(resourceName: "RangingButtonIconStart"))]
+                    var assertEvents = [Recorded.next(100, #imageLiteral(resourceName: "RangingButtonIconPause"))]
                     
-                    if (mockStatusObserver.events.first(where: { return $0.value.element != "" })?.value.element?.isEmpty)! {
+                    // FIXME isMonitoringCapable to private.
+                    if viewModel.isMonitoringCapable() {
                         assertEvents = [
-                            Recorded.next(100, #imageLiteral(resourceName: "RangingButtonIconStart")),
+                            Recorded.next(100, #imageLiteral(resourceName: "RangingButtonIconPause")),
                             Recorded.next(200, #imageLiteral(resourceName: "RangingButtonIconPause"))
                         ]
                     }
@@ -216,19 +217,16 @@ class DetectionViewModelSpec: QuickSpec {
                     })
                     
                     scheduler.scheduleAt(200, action: {
-                        viewModel.changeRanging()
+                        viewModel.reSettingBeaconManager()
                     })
                     
                     scheduler.start()
                     
-                    var assertEvents = [Recorded.next(100, #imageLiteral(resourceName: "RangingButtonIconStart"))]
-                    
-                    if (mockStatusObserver.events.first(where: { return $0.value.element != "" })?.value.element?.isEmpty)! {
-                        assertEvents = [
-                            Recorded.next(100, #imageLiteral(resourceName: "RangingButtonIconStart")),
-                            Recorded.next(200, #imageLiteral(resourceName: "RangingButtonIconPause"))
-                        ]
-                    }
+                    let assertEvents = [
+                        Recorded.next(100, #imageLiteral(resourceName: "RangingButtonIconPause")),
+                        Recorded.next(200, #imageLiteral(resourceName: "RangingButtonIconStart")),
+                        Recorded.next(200, #imageLiteral(resourceName: "RangingButtonIconPause"))
+                    ]
                     
                     XCTAssertEqual(mockObserver.events, assertEvents)
                 })
