@@ -1,7 +1,6 @@
 disabled_rules:
 - force_cast
 - function_body_length
-- line_length
 - trailing_whitespace
 - identifier_name
 
@@ -24,7 +23,6 @@ opt_in_rules:
 - redundant_nil_coalescing
 - sorted_imports
 - switch_case_on_newline
-- valid_docs
 
 excluded:
 - Carthage/

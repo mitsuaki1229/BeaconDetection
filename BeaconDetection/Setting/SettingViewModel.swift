@@ -36,7 +36,7 @@ enum SettinglistType: Int {
 
 class SettingViewModel: NSObject {
 
-    let dataSource = RxTableViewSectionedReloadDataSource<SectionSettingListData>(configureCell: {dataSource, tableView, indexPath, item in
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionSettingListData>(configureCell: {_, tableView, indexPath, _ in
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         return cell
         
@@ -59,7 +59,7 @@ class SettingViewModel: NSObject {
     override init() {
         super.init()
         
-        dataSource.configureCell = {ds, tv, ip, item in
+        dataSource.configureCell = {_, tv, ip, item in
             let cell = tv.dequeueReusableCell(withIdentifier: "Cell")
                 ?? UITableViewCell(style: .default, reuseIdentifier: "Cell")
             cell.textLabel?.text = item.title
