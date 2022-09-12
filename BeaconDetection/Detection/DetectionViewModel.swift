@@ -65,7 +65,7 @@ class DetectionViewModel: NSObject {
     private var manager: CLLocationManager?
     private var beaconRegion: CLBeaconRegion?
     
-    private let sectionsVar = Variable<[SectionDetectionInfoListData]>([SectionDetectionInfoListData(header: "Info", items: [])])
+    private let sectionsVar = BehaviorRelay<[SectionDetectionInfoListData]>(value: [SectionDetectionInfoListData(header: "Info", items: [])])
     var sections: Observable<[SectionDetectionInfoListData]> { return sectionsVar.asObservable() }
     
     private var isRanging = false
@@ -102,7 +102,7 @@ class DetectionViewModel: NSObject {
     }
     
     func clearSections() {
-        sectionsVar.value = [SectionDetectionInfoListData(header: "Info", items: [])]
+        sectionsVar.accept([SectionDetectionInfoListData(header: "Info", items: [])])
     }
     
     func changeRanging() {
@@ -313,11 +313,16 @@ extension DetectionViewModel: CLLocationManagerDelegate {
         
         for beacon in beacons {
             
-            sectionsVar.value[0].items.insert(DetectionInfoListData(beacon: beacon), at: 0)
+            var values = sectionsVar.value
+            values[0].items.insert(DetectionInfoListData(beacon: beacon), at: 0)
+            sectionsVar.accept(values)
+            
             statusVar.accept(convertProximityStatusToText(proximity: beacon.proximity))
             
-            guard sectionsVar.value[0].items.count > Const.kDetectionInfosMaxNum else { continue }
-            sectionsVar.value[0].items.removeLast()
+            guard values[0].items.count > Const.kDetectionInfosMaxNum else { continue }
+            
+            values[0].items.removeLast()
+            sectionsVar.accept(values)
         }
     }
 }
